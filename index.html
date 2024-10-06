@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Clowney's Clubhouse</title>
+  <title>Home</title>
   <style>
     body, html {
       margin: 0;
@@ -31,10 +31,10 @@
       text-align: center;
     }
     h1 {
-      font-size: 3em;
-      margin: 10px 0;
+      font-size: 3em; /* Made smaller */
+      margin: 2px 0; /* Further reduced margin for heading */
     }
-    .footer, .games-link {
+    .footer {
       position: fixed;
       bottom: 20px;
       right: 20px;
@@ -45,12 +45,26 @@
       font-size: 14px;
       box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
       cursor: pointer;
-      text-decoration: none;
+      text-decoration: none; /* Ensures no underline */
     }
+    .games-box {
+      background-color: rgba(255, 255, 255, 0.1);
+      color: white;
+      padding: 20px; /* Increased padding for a bigger box */
+      border-radius: 5px;
+      font-size: 18px; /* Increased font size */
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+      margin: 20px 0; /* Increased spacing around the games box */
+      cursor: pointer;
+      width: 200px; /* Set a fixed width for the box */
+      text-align: center; /* Center text in the box */
+    }
+    /* Image styles */
     .header-image {
-      width: 250px;
-      height: auto;
-      margin-bottom: 10px;
+      width: 250px; /* Adjusted size */
+      height: auto; /* Maintains aspect ratio */
+      margin-bottom: 5px; /* Reduced spacing below the header image */
+      margin-top: 10px; /* Adjust this value to move the image up */
     }
   </style>
 </head>
@@ -58,47 +72,68 @@
   <canvas id="spaceCanvas"></canvas>
 
   <div class="content-container">
-    <img src="https://cdn.solo.to/user/a/67021c295f69d8_62643304.jpg" alt="Header Image" class="header-image">
-    <h1>Clowney's Clubhouse</h1>
+    <!-- Insert header image here -->
+    <img src="https://cdn.solo.to/user/a/67021c295f69d8_62643304.jpg" alt="Header Image" class="header-image" id="headerImage">
+    
+    <h1 id="heading">Clowney's Clubhouse</h1>
 
-    <!-- Link to the games page -->
-    <div class="games-link" onclick="window.location.href='/g'">
+    <!-- "Games" box that redirects when clicked -->
+    <div class="games-box" id="gamesBox" onclick="window.location.href='https://clowneys-clubhouse.pages.dev/g'">
       Games
     </div>
+
+    <!-- "Made by Clowney!" box with a clickable link -->
+    <a href="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSXTbKcgySGHuKrHY5bAlxCXqUESoLAmREu5uWf0pm3416n3lwP" target="_blank" class="footer">
+      Made by Clowney!
+    </a>
   </div>
 
   <script>
-    // Space background code
+    // Space-themed background
     const canvas = document.getElementById('spaceCanvas');
     const ctx = canvas.getContext('2d');
 
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
+    const starCount = 200;
     const stars = [];
 
+    function Star(x, y, size, opacity, velocity) {
+      this.x = x;
+      this.y = y;
+      this.size = size;
+      this.opacity = opacity;
+      this.velocity = velocity;
+    }
+
     function createStars() {
-      for (let i = 0; i < 200; i++) {
-        stars.push({
-          x: Math.random() * canvas.width,
-          y: Math.random() * canvas.height,
-          size: Math.random() * 2,
-          opacity: Math.random(),
-          velocity: Math.random() * 0.5 + 0.1,
-        });
+      for (let i = 0; i < starCount; i++) {
+        const x = Math.random() * canvas.width;
+        const y = Math.random() * canvas.height;
+        const size = Math.random() * 2;
+        const opacity = Math.random();
+        const velocity = Math.random() * 0.5 + 0.1;
+        stars.push(new Star(x, y, size, opacity, velocity));
       }
     }
 
-    function drawStars() {
+    function drawStars(mouseX, mouseY) {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       stars.forEach(star => {
         ctx.beginPath();
         ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
         ctx.fillStyle = `rgba(255, 255, 255, ${star.opacity})`;
         ctx.fill();
+        
+        const dx = (canvas.width / 2 - mouseX) * star.velocity;
+        const dy = (canvas.height / 2 - mouseY) * star.velocity;
+        star.x += dx * 0.01;
+        star.y += dy * 0.01;
 
-        star.x += (canvas.width / 2 - window.innerWidth / 2) * star.velocity * 0.01;
-        star.y += (canvas.height / 2 - window.innerHeight / 2) * star.velocity * 0.01;
+        star.opacity += (Math.random() * 0.05 - 0.025);
+        if (star.opacity < 0) star.opacity = 0;
+        if (star.opacity > 1) star.opacity = 1;
 
         if (star.x > canvas.width) star.x = 0;
         if (star.x < 0) star.x = canvas.width;
@@ -107,8 +142,11 @@
       });
     }
 
+    let mouseX = canvas.width / 2;
+    let mouseY = canvas.height / 2;
+
     function animate() {
-      drawStars();
+      drawStars(mouseX, mouseY);
       requestAnimationFrame(animate);
     }
 
@@ -118,6 +156,28 @@
     window.addEventListener('resize', () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
+      stars.length = 0;
+      createStars();
+    });
+
+    window.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    });
+
+    // Hide elements on specific URL
+    const currentURL = window.location.href;
+    if (currentURL.includes('/g')) {
+      document.getElementById('headerImage').style.display = 'none';
+      document.getElementById('heading').style.display = 'none';
+      document.getElementById('gamesBox').style.display = 'none';
+    }
+
+    // Confirmation before closing the window
+    window.addEventListener('beforeunload', (event) => {
+      event.preventDefault();
+      event.returnValue = 'Do you really want to close this?'; // Legacy method for older browsers
+      return 'Do you really want to close this?'; // Modern browsers may show a default message
     });
   </script>
 </body>
