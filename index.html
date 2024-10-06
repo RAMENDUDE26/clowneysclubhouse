@@ -47,7 +47,11 @@
       cursor: pointer;
       text-decoration: none; /* Ensures no underline */
     }
-    .games-box {
+    .box-container {
+      display: flex;
+      gap: 20px; /* Space between the two boxes */
+    }
+    .games-box, .emulator-box {
       background-color: rgba(255, 255, 255, 0.1);
       color: white;
       padding: 20px; /* Increased padding for a bigger box */
@@ -77,9 +81,17 @@
     
     <h1 id="heading">Clowney's Clubhouse</h1>
 
-    <!-- "Games" box that redirects when clicked -->
-    <div class="games-box" id="gamesBox" onclick="window.location.href='https://clowneys-clubhouse.pages.dev/g'">
-      Games
+    <!-- Box container that holds both boxes -->
+    <div class="box-container">
+      <!-- "Games" box that redirects when clicked -->
+      <div class="games-box" id="gamesBox" onclick="window.location.href='https://clowneys-clubhouse.pages.dev/g'">
+        Games
+      </div>
+      
+      <!-- "Google Emulator" box that redirects when clicked -->
+      <div class="emulator-box" id="emulatorBox" onclick="window.location.href='https://example.com/google-emulator'">
+        Google Emulator
+      </div>
     </div>
 
     <!-- "Made by Clowney!" box with a clickable link -->
@@ -171,6 +183,7 @@
       document.getElementById('headerImage').style.display = 'none';
       document.getElementById('heading').style.display = 'none';
       document.getElementById('gamesBox').style.display = 'none';
+      document.getElementById('emulatorBox').style.display = 'none';
     }
 
     // Confirmation before closing the window
