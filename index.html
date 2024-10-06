@@ -90,7 +90,7 @@
       </div>
       
       <!-- "Clowney's Search Engine" box that redirects when clicked -->
-      <div class="search-engine-box" id="searchEngineBox" onclick="window.location.href='https://example.com/clowneys-search-engine'">
+      <div class="search-engine-box" id="searchEngineBox" onclick="window.location.href='https://clowneys-clubhouse.pages.dev/p'">
         Clowney's Search Engine
       </div>
     </div>
@@ -181,6 +181,11 @@
     // Hide elements on specific URL
     const currentURL = window.location.href;
     if (currentURL.includes('/g')) {
+      document.getElementById('headerImage').style.display = 'none';
+      document.getElementById('heading').style.display = 'none';
+      document.getElementById('gamesBox').style.display = 'none';
+      document.getElementById('searchEngineBox').style.display = 'none';
+    } else if (currentURL.includes('/p')) {
       document.getElementById('headerImage').style.display = 'none';
       document.getElementById('heading').style.display = 'none';
       document.getElementById('gamesBox').style.display = 'none';
