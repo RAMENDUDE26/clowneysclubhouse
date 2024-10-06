@@ -91,6 +91,9 @@
       height: auto; /* Maintain aspect ratio */
       border-radius: 5px; /* Round edges of the image */
     }
+    .placeholder-text {
+      margin-top: 10px; /* Add space between image and text */
+    }
     iframe {
       position: absolute;
       top: 0;
@@ -126,15 +129,15 @@
     <div class="placeholder-container" id="placeholderContainer" style="display: none;">
       <div class="placeholder-box" onclick="window.location.href='https://example1.com'">
         <img src="https://via.placeholder.com/180" alt="Placeholder Image 1" class="placeholder-image">
-        <span>Placeholder 1</span> <!-- Text below the image -->
+        <span class="placeholder-text">Placeholder 1</span> <!-- Text below the image -->
       </div>
       <div class="placeholder-box" onclick="window.location.href='https://example2.com'">
         <img src="https://via.placeholder.com/180" alt="Placeholder Image 2" class="placeholder-image">
-        <span>Placeholder 2</span> <!-- Text below the image -->
+        <span class="placeholder-text">Placeholder 2</span> <!-- Text below the image -->
       </div>
       <div class="placeholder-box" onclick="window.location.href='https://example3.com'">
         <img src="https://via.placeholder.com/180" alt="Placeholder Image 3" class="placeholder-image">
-        <span>Placeholder 3</span> <!-- Text below the image -->
+        <span class="placeholder-text">Placeholder 3</span> <!-- Text below the image -->
       </div>
     </div>
     
