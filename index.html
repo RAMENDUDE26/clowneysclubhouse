@@ -138,7 +138,7 @@
     </div>
 
     <!-- Placeholder boxes section -->
-    <div class="placeholder-container" id="placeholderContainer">
+    <div class="placeholder-container" id="placeholderContainer" style="display: none;">
       <div class="placeholder-box">
         <img src="https://via.placeholder.com/150" alt="Placeholder Image 1" class="placeholder-image">
         <div>Link 1</div>
@@ -239,7 +239,7 @@
       mouseY = e.clientY;
     });
 
-    // Hide elements on specific URL
+    // Hide elements and manage placeholders based on URL
     const currentURL = window.location.href;
     if (currentURL.includes('/g')) {
       document.getElementById('headerImage').style.display = 'none';
@@ -247,12 +247,9 @@
       document.getElementById('gamesBox').style.display = 'none';
       document.getElementById('searchEngineBox').style.display = 'none';
       document.getElementById('aboutBlankBox').style.display = 'none'; // Hide about:blank box on '/g'
-    } else if (currentURL.includes('/p')) {
-      document.getElementById('headerImage').style.display = 'none';
-      document.getElementById('heading').style.display = 'none';
-      document.getElementById('gamesBox').style.display = 'none';
-      document.getElementById('searchEngineBox').style.display = 'none';
-      document.getElementById('aboutBlankBox').style.display = 'none'; // Hide about:blank box on '/p'
+      document.getElementById('placeholderContainer').style.display = 'flex'; // Show placeholders
+    } else if (currentURL.includes('clowneys-clubhouse.pages.dev')) {
+      document.getElementById('placeholderContainer').style.display = 'none'; // Hide placeholders on main page
     }
 
     // Confirmation before closing the window
