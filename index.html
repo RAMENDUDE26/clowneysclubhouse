@@ -32,7 +32,7 @@
     }
     h1 {
       font-size: 3em; /* Made smaller */
-      margin: 5px 0; /* Reduced margin for heading */
+      margin: 2px 0; /* Further reduced margin for heading */
     }
     .footer {
       position: fixed;
@@ -47,12 +47,22 @@
       cursor: pointer;
       text-decoration: none; /* Ensures no underline */
     }
+    .games-box {
+      background-color: rgba(255, 255, 255, 0.1);
+      color: white;
+      padding: 10px;
+      border-radius: 5px;
+      font-size: 14px;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+      margin: 10px 0; /* Spacing around the games box */
+      cursor: pointer;
+    }
     /* Image styles */
     .header-image {
       width: 250px; /* Adjusted size */
       height: auto; /* Maintains aspect ratio */
       margin-bottom: 5px; /* Reduced spacing below the header image */
-      margin-top: 20px; /* Adjust this value to move the image up */
+      margin-top: 10px; /* Adjust this value to move the image up */
     }
   </style>
 </head>
@@ -64,6 +74,11 @@
     <img src="https://cdn.solo.to/user/a/67021c295f69d8_62643304.jpg" alt="Header Image" class="header-image">
     
     <h1>Clowney's Clubhouse</h1>
+
+    <!-- "Games" box -->
+    <div class="games-box" onclick="alert('Games will be available soon!')">
+      Games
+    </div>
 
     <!-- "Made by Clowney!" box with a clickable link -->
     <a href="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSXTbKcgySGHuKrHY5bAlxCXqUESoLAmREu5uWf0pm3416n3lwP" target="_blank" class="footer">
