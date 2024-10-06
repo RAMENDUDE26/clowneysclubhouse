@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>New Tab</title>
+  <link rel="stylesheet" href="styles.css"> <!-- External CSS file -->
   <style>
     body, html {
       margin: 0;
@@ -31,8 +32,8 @@
       text-align: center;
     }
     h1 {
-      font-size: 3em; /* Made smaller */
-      margin: 2px 0; /* Further reduced margin for heading */
+      font-size: 3em; 
+      margin: 2px 0; 
     }
     .footer {
       position: fixed;
@@ -45,31 +46,42 @@
       font-size: 14px;
       box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
       cursor: pointer;
-      text-decoration: none; /* Ensures no underline */
+      text-decoration: none; 
     }
     .box-container {
       display: flex;
-      gap: 20px; /* Space between the two boxes */
+      gap: 20px; 
     }
     .games-box, .search-engine-box {
       background-color: rgba(255, 255, 255, 0.1);
       color: white;
-      padding: 20px; /* Increased padding for a bigger box */
+      padding: 20px; 
       border-radius: 5px;
-      font-size: 18px; /* Increased font size */
+      font-size: 18px; 
       box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
-      margin: 20px 0; /* Increased spacing around the games box */
+      margin: 20px 0; 
       cursor: pointer;
-      width: 200px; /* Set a fixed width for the box */
-      text-align: center; /* Center text in the box */
-      white-space: nowrap; /* Prevents text from wrapping to a new line */
+      width: 200px; 
+      text-align: center; 
+      white-space: nowrap; 
     }
-    /* Image styles */
     .header-image {
-      width: 250px; /* Adjusted size */
-      height: auto; /* Maintains aspect ratio */
-      margin-bottom: 5px; /* Reduced spacing below the header image */
-      margin-top: 10px; /* Adjust this value to move the image up */
+      width: 250px; 
+      height: auto; 
+      margin-bottom: 5px; 
+      margin-top: 10px; 
+    }
+    .about-blank-box {
+      position: absolute; /* Position the box in the top left corner */
+      top: 20px; /* Space from the top */
+      left: 20px; /* Space from the left */
+      background-color: rgba(255, 255, 255, 0.1);
+      color: white;
+      padding: 10px; /* Padding inside the box */
+      border-radius: 5px;
+      font-size: 14px; /* Font size for the text */
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+      cursor: default; /* Indicates it’s not clickable */
     }
   </style>
 </head>
@@ -77,127 +89,28 @@
   <canvas id="spaceCanvas"></canvas>
 
   <div class="content-container">
-    <!-- Insert header image here -->
     <img src="https://cdn.solo.to/user/a/67021c295f69d8_62643304.jpg" alt="Header Image" class="header-image" id="headerImage">
-    
     <h1 id="heading">Clowney's Clubhouse</h1>
+    
+    <!-- "about:blank" box that doesn't redirect -->
+    <div class="about-blank-box" id="aboutBlankBox">
+      about:blank
+    </div>
 
-    <!-- Box container that holds both boxes -->
     <div class="box-container">
-      <!-- "Games" box that redirects when clicked -->
       <div class="games-box" id="gamesBox" onclick="window.location.href='https://clowneys-clubhouse.pages.dev/g'">
         Games
       </div>
-      
-      <!-- "Clowney's Search Engine" box that redirects when clicked -->
       <div class="search-engine-box" id="searchEngineBox" onclick="window.location.href='https://clowneys-clubhouse.pages.dev/p'">
         Clowney's Search Engine
       </div>
     </div>
-
-    <!-- "Made by Clowney!" box with a clickable link -->
+    
     <a href="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSXTbKcgySGHuKrHY5bAlxCXqUESoLAmREu5uWf0pm3416n3lwP" target="_blank" class="footer">
       Made by Clowney!
     </a>
   </div>
 
-  <script>
-    // Space-themed background
-    const canvas = document.getElementById('spaceCanvas');
-    const ctx = canvas.getContext('2d');
-
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-
-    const starCount = 200;
-    const stars = [];
-
-    function Star(x, y, size, opacity, velocity) {
-      this.x = x;
-      this.y = y;
-      this.size = size;
-      this.opacity = opacity;
-      this.velocity = velocity;
-    }
-
-    function createStars() {
-      for (let i = 0; i < starCount; i++) {
-        const x = Math.random() * canvas.width;
-        const y = Math.random() * canvas.height;
-        const size = Math.random() * 2;
-        const opacity = Math.random();
-        const velocity = Math.random() * 0.5 + 0.1;
-        stars.push(new Star(x, y, size, opacity, velocity));
-      }
-    }
-
-    function drawStars(mouseX, mouseY) {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      stars.forEach(star => {
-        ctx.beginPath();
-        ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255, 255, 255, ${star.opacity})`;
-        ctx.fill();
-        
-        const dx = (canvas.width / 2 - mouseX) * star.velocity;
-        const dy = (canvas.height / 2 - mouseY) * star.velocity;
-        star.x += dx * 0.01;
-        star.y += dy * 0.01;
-
-        star.opacity += (Math.random() * 0.05 - 0.025);
-        if (star.opacity < 0) star.opacity = 0;
-        if (star.opacity > 1) star.opacity = 1;
-
-        if (star.x > canvas.width) star.x = 0;
-        if (star.x < 0) star.x = canvas.width;
-        if (star.y > canvas.height) star.y = 0;
-        if (star.y < 0) star.y = canvas.height;
-      });
-    }
-
-    let mouseX = canvas.width / 2;
-    let mouseY = canvas.height / 2;
-
-    function animate() {
-      drawStars(mouseX, mouseY);
-      requestAnimationFrame(animate);
-    }
-
-    createStars();
-    animate();
-
-    window.addEventListener('resize', () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      stars.length = 0;
-      createStars();
-    });
-
-    window.addEventListener('mousemove', (e) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-    });
-
-    // Hide elements on specific URL
-    const currentURL = window.location.href;
-    if (currentURL.includes('/g')) {
-      document.getElementById('headerImage').style.display = 'none';
-      document.getElementById('heading').style.display = 'none';
-      document.getElementById('gamesBox').style.display = 'none';
-      document.getElementById('searchEngineBox').style.display = 'none';
-    } else if (currentURL.includes('/p')) {
-      document.getElementById('headerImage').style.display = 'none';
-      document.getElementById('heading').style.display = 'none';
-      document.getElementById('gamesBox').style.display = 'none';
-      document.getElementById('searchEngineBox').style.display = 'none';
-    }
-
-    // Confirmation before closing the window
-    window.addEventListener('beforeunload', (event) => {
-      event.preventDefault();
-      event.returnValue = 'Do you really want to close this?'; // Legacy method for older browsers
-      return 'Do you really want to close this?'; // Modern browsers may show a default message
-    });
-  </script>
+  <script src="script.js"></script> <!-- External JS file -->
 </body>
 </html>
