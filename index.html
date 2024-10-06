@@ -50,12 +50,14 @@
     .games-box {
       background-color: rgba(255, 255, 255, 0.1);
       color: white;
-      padding: 10px;
+      padding: 20px; /* Increased padding for a bigger box */
       border-radius: 5px;
-      font-size: 14px;
+      font-size: 18px; /* Increased font size */
       box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
-      margin: 10px 0; /* Spacing around the games box */
+      margin: 20px 0; /* Increased spacing around the games box */
       cursor: pointer;
+      width: 200px; /* Set a fixed width for the box */
+      text-align: center; /* Center text in the box */
     }
     /* Image styles */
     .header-image {
@@ -161,6 +163,13 @@
     window.addEventListener('mousemove', (e) => {
       mouseX = e.clientX;
       mouseY = e.clientY;
+    });
+
+    // Confirmation before closing the window
+    window.addEventListener('beforeunload', (event) => {
+      event.preventDefault();
+      event.returnValue = 'Do you really want to close this?'; // Legacy method for older browsers
+      return 'Do you really want to close this?'; // Modern browsers may show a default message
     });
   </script>
 </body>
