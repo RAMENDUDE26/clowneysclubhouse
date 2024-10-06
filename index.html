@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>New Tab</title>
+  <title>Home</title>
   <style>
     body, html {
       margin: 0;
@@ -19,7 +19,7 @@
       top: 0;
       left: 0;
     }
-    .content-container {
+    .proxy-container {
       position: relative;
       z-index: 1;
       display: flex;
@@ -31,83 +31,48 @@
       text-align: center;
     }
     h1 {
-      font-size: 3em; 
-      margin: 2px 0; 
+      font-size: 4em;
+      margin-bottom: 20px;
     }
-    .footer {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background-color: rgba(255, 255, 255, 0.1);
-      color: white;
+    .proxy-form {
+      margin-top: 20px;
+    }
+    .proxy-form input[type="text"] {
       padding: 10px;
+      font-size: 18px;
+      border: none;
       border-radius: 5px;
-      font-size: 14px;
-      box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
-      cursor: pointer;
-      text-decoration: none; 
+      width: 400px;
     }
-    .box-container {
-      display: flex;
-      gap: 20px; 
-    }
-    .games-box, .search-engine-box {
-      background-color: rgba(255, 255, 255, 0.1);
+    .proxy-form button {
+      padding: 10px 20px;
+      font-size: 18px;
+      border: none;
+      background-color: #44f;
       color: white;
-      padding: 20px; 
       border-radius: 5px;
-      font-size: 18px; 
-      box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
-      margin: 20px 0; 
+      margin-left: 10px;
       cursor: pointer;
-      width: 200px; 
-      text-align: center; 
-      white-space: nowrap; 
     }
-    .header-image {
-      width: 250px; 
-      height: auto; 
-      margin-bottom: 5px; 
-      margin-top: 10px; 
-    }
-    .about-blank-box {
-      position: absolute; /* Position the box in the top left corner */
-      top: 20px; /* Space from the top */
-      left: 20px; /* Space from the left */
-      background-color: rgba(255, 255, 255, 0.1);
-      color: white;
-      padding: 10px; /* Padding inside the box */
-      border-radius: 5px;
-      font-size: 14px; /* Font size for the text */
-      box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
-      cursor: default; /* Indicates it’s not clickable */
+    iframe {
+      width: 80%;
+      height: 60vh;
+      border: none;
+      margin-top: 20px;
+      display: none;
     }
   </style>
 </head>
 <body>
   <canvas id="spaceCanvas"></canvas>
 
-  <div class="content-container">
-    <img src="https://cdn.solo.to/user/a/67021c295f69d8_62643304.jpg" alt="Header Image" class="header-image" id="headerImage">
-    <h1 id="heading">Clowney's Clubhouse</h1>
-    
-    <!-- "about:blank" box that doesn't redirect -->
-    <div class="about-blank-box" id="aboutBlankBox">
-      about:blank
-    </div>
-
-    <div class="box-container">
-      <div class="games-box" id="gamesBox" onclick="window.location.href='https://clowneys-clubhouse.pages.dev/g'">
-        Games
-      </div>
-      <div class="search-engine-box" id="searchEngineBox" onclick="window.location.href='https://clowneys-clubhouse.pages.dev/p'">
-        Clowney's Search Engine
-      </div>
-    </div>
-    
-    <a href="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSXTbKcgySGHuKrHY5bAlxCXqUESoLAmREu5uWf0pm3416n3lwP" target="_blank" class="footer">
-      Made by Clowney!
-    </a>
+  <div class="proxy-container">
+    <h1>Nebula V.1</h1>
+    <form class="proxy-form" onsubmit="return loadUrl()">
+      <input type="text" id="proxy-url" placeholder="Enter URL" required aria-label="Enter URL">
+      <button type="submit">Go</button>
+    </form>
+    <iframe id="proxy-frame"></iframe>
   </div>
 
   <script>
@@ -145,7 +110,7 @@
       stars.forEach(star => {
         ctx.beginPath();
         ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
-        ctx.fillStyle = rgba(255, 255, 255, ${star.opacity});
+        ctx.fillStyle = `rgba(255, 255, 255, ${star.opacity})`;
         ctx.fill();
         
         const dx = (canvas.width / 2 - mouseX) * star.velocity;
@@ -187,28 +152,29 @@
       mouseY = e.clientY;
     });
 
-    // Hide elements on specific URL
-    const currentURL = window.location.href;
-    if (currentURL.includes('/g')) {
-      document.getElementById('headerImage').style.display = 'none';
-      document.getElementById('heading').style.display = 'none';
-      document.getElementById('gamesBox').style.display = 'none';
-      document.getElementById('searchEngineBox').style.display = 'none';
-      document.getElementById('aboutBlankBox').style.display = 'none'; // Hide about:blank box on '/g'
-    } else if (currentURL.includes('/p')) {
-      document.getElementById('headerImage').style.display = 'none';
-      document.getElementById('heading').style.display = 'none';
-      document.getElementById('gamesBox').style.display = 'none';
-      document.getElementById('searchEngineBox').style.display = 'none';
-      document.getElementById('aboutBlankBox').style.display = 'none'; // Hide about:blank box on '/p'
-    }
+    // Proxy Functionality
+    function loadUrl() {
+      const urlInput = document.getElementById('proxy-url').value.trim();
+      const iframe = document.getElementById('proxy-frame');
 
-    // Confirmation before closing the window
-    window.addEventListener('beforeunload', (event) => {
-      event.preventDefault();
-      event.returnValue = 'Do you really want to close this?'; // Legacy method for older browsers
-      return 'Do you really want to close this?'; // Modern browsers may show a default message
-    });
+      // Automatically prepend 'https://' if no protocol is included
+      const url = urlInput.startsWith('http://') || urlInput.startsWith('https://') 
+        ? urlInput 
+        : `https://${urlInput}`;
+
+      // Validate URL format using a regex pattern
+      const urlPattern = /^(http:\/\/|https:\/\/)/;
+
+      if (!urlPattern.test(url)) {
+        alert("Please enter a valid URL.");
+        return false;
+      }
+
+      iframe.style.display = 'block';
+      iframe.src = url;
+
+      return false; // Prevent form from submitting
+    }
   </script>
 </body>
 </html>
