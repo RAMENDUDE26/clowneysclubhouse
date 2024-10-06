@@ -83,13 +83,36 @@
       box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
       cursor: default; /* Indicates it’s not clickable */
     }
-    iframe {
+    .iframe {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
       border: none;
+    }
+    /* Styles for the placeholder boxes */
+    .placeholder-container {
+      display: flex;
+      flex-wrap: wrap; /* Allow wrapping to new lines */
+      justify-content: center; /* Center items horizontally */
+      gap: 20px; /* Space between boxes */
+      margin-top: 20px; /* Space from top */
+    }
+    .placeholder-box {
+      background-color: rgba(255, 255, 255, 0.1);
+      color: white;
+      padding: 20px;
+      border-radius: 5px;
+      width: 200px; /* Width of each box */
+      text-align: center;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+    }
+    .placeholder-image {
+      width: 100%; /* Make image fill the box */
+      height: auto;
+      border-radius: 5px; /* Round edges of images */
+      margin-bottom: 10px; /* Space between image and text */
     }
   </style>
 </head>
@@ -113,7 +136,27 @@
         Clowney's Search Engine
       </div>
     </div>
-    
+
+    <!-- Placeholder boxes section -->
+    <div class="placeholder-container" id="placeholderContainer">
+      <div class="placeholder-box">
+        <img src="https://via.placeholder.com/150" alt="Placeholder Image 1" class="placeholder-image">
+        <div>Link 1</div>
+      </div>
+      <div class="placeholder-box">
+        <img src="https://via.placeholder.com/150" alt="Placeholder Image 2" class="placeholder-image">
+        <div>Link 2</div>
+      </div>
+      <div class="placeholder-box">
+        <img src="https://via.placeholder.com/150" alt="Placeholder Image 3" class="placeholder-image">
+        <div>Link 3</div>
+      </div>
+      <div class="placeholder-box">
+        <img src="https://via.placeholder.com/150" alt="Placeholder Image 4" class="placeholder-image">
+        <div>Link 4</div>
+      </div>
+    </div>
+
     <a href="mailto:clowneysclubhouse@gmail.com" target="_blank" class="footer">
       Made by Clowney!
     </a>
