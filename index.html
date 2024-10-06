@@ -1,33 +1,168 @@
 <!DOCTYPE html>
-<html>
-<head>
- 
-<title>Home</title>
- 
-<body style="background-color: #000000;">
- 
-</head>
-<body>
-
-<h1> align="center">test</h1>
- <img src="img_cclogo.png" alt="cc logo" width="300" height="300">
-
-<p>test2</p>
-
-</head>
-</body>
-</html>
-
-<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive Background</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Proxy with Space Themed Background</title>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      height: 100%;
+      background: black;
+      font-family: Arial, sans-serif;
+    }
+    canvas {
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+    .proxy-container {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: white;
+      text-align: center;
+    }
+    .proxy-form {
+      margin-top: 20px;
+    }
+    .proxy-form input[type="text"] {
+      padding: 10px;
+      font-size: 18px;
+      border: none;
+      border-radius: 5px;
+      width: 300px;
+    }
+    .proxy-form button {
+      padding: 10px 20px;
+      font-size: 18px;
+      border: none;
+      background-color: #44f;
+      color: white;
+      border-radius: 5px;
+      margin-left: 10px;
+      cursor: pointer;
+    }
+    iframe {
+      width: 100%;
+      height: 80vh;
+      border: none;
+      display: none;
+    }
+  </style>
 </head>
 <body>
-    <div id="starfield"></div>
-    <script src="script.js"></script>
+  <canvas id="spaceCanvas"></canvas>
+
+  <div class="proxy-container">
+    <h1>Space Proxy</h1>
+    <p>Enter a URL to view it through the proxy</p>
+    <form class="proxy-form" onsubmit="return loadUrl()">
+      <input type="text" id="proxy-url" placeholder="Enter URL" required>
+      <button type="submit">Go</button>
+    </form>
+    <iframe id="proxy-frame"></iframe>
+  </div>
+
+  <script>
+    // Space-themed background (from previous code)
+    const canvas = document.getElementById('spaceCanvas');
+    const ctx = canvas.getContext('2d');
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const starCount = 200;
+    const stars = [];
+
+    function Star(x, y, size, opacity, velocity) {
+      this.x = x;
+      this.y = y;
+      this.size = size;
+      this.opacity = opacity;
+      this.velocity = velocity;
+    }
+
+    function createStars() {
+      for (let i = 0; i < starCount; i++) {
+        const x = Math.random() * canvas.width;
+        const y = Math.random() * canvas.height;
+        const size = Math.random() * 2;
+        const opacity = Math.random();
+        const velocity = Math.random() * 0.5 + 0.1;
+        stars.push(new Star(x, y, size, opacity, velocity));
+      }
+    }
+
+    function drawStars(mouseX, mouseY) {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      stars.forEach(star => {
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 255, 255, ${star.opacity})`;
+        ctx.fill();
+        
+        const dx = (canvas.width / 2 - mouseX) * star.velocity;
+        const dy = (canvas.height / 2 - mouseY) * star.velocity;
+        star.x += dx * 0.01;
+        star.y += dy * 0.01;
+
+        star.opacity += (Math.random() * 0.05 - 0.025);
+        if (star.opacity < 0) star.opacity = 0;
+        if (star.opacity > 1) star.opacity = 1;
+
+        if (star.x > canvas.width) star.x = 0;
+        if (star.x < 0) star.x = canvas.width;
+        if (star.y > canvas.height) star.y = 0;
+        if (star.y < 0) star.y = canvas.height;
+      });
+    }
+
+    let mouseX = canvas.width / 2;
+    let mouseY = canvas.height / 2;
+
+    function animate() {
+      drawStars(mouseX, mouseY);
+      requestAnimationFrame(animate);
+    }
+
+    createStars();
+    animate();
+
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      stars.length = 0;
+      createStars();
+    });
+
+    window.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    });
+
+    // Proxy Functionality
+    function loadUrl() {
+      const urlInput = document.getElementById('proxy-url').value;
+      const iframe = document.getElementById('proxy-frame');
+
+      if (!urlInput.startsWith('http://') && !urlInput.startsWith('https://')) {
+        alert("Please enter a valid URL starting with http:// or https://");
+        return false;
+      }
+
+      iframe.style.display = 'block';
+      iframe.src = urlInput;
+
+      return false; // Prevent form from submitting
+    }
+  </script>
 </body>
 </html>
