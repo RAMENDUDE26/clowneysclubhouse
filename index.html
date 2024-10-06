@@ -19,7 +19,7 @@
       top: 0;
       left: 0;
     }
-    .proxy-container {
+    .content-container {
       position: relative;
       z-index: 1;
       display: flex;
@@ -34,46 +34,32 @@
       font-size: 4em;
       margin-bottom: 20px;
     }
-    .proxy-form {
-      margin-top: 20px;
-    }
-    .proxy-form input[type="text"] {
-      padding: 10px;
-      font-size: 18px;
-      border: none;
-      border-radius: 5px;
-      width: 400px;
-    }
-    .proxy-form button {
-      padding: 10px 20px;
-      font-size: 18px;
-      border: none;
-      background-color: #44f;
+    .footer {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: rgba(255, 255, 255, 0.1);
       color: white;
+      padding: 10px;
       border-radius: 5px;
-      margin-left: 10px;
+      font-size: 14px;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
       cursor: pointer;
-    }
-    iframe {
-      width: 80%;
-      height: 60vh;
-      border: none;
-      margin-top: 20px;
-      display: none;
+      text-decoration: none; /* Ensures no underline */
     }
   </style>
 </head>
 <body>
   <canvas id="spaceCanvas"></canvas>
 
-  <div class="proxy-container">
+  <div class="content-container">
     <h1>Nebula V.1</h1>
-    <form class="proxy-form" onsubmit="return loadUrl()">
-      <input type="text" id="proxy-url" placeholder="Enter URL" required aria-label="Enter URL">
-      <button type="submit">Go</button>
-    </form>
-    <iframe id="proxy-frame"></iframe>
   </div>
+
+  <!-- "Made by Clowney!" box with a clickable link -->
+  <a href="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSXTbKcgySGHuKrHY5bAlxCXqUESoLAmREu5uWf0pm3416n3lwP" target="_blank" class="footer">
+    Made by Clowney!
+  </a>
 
   <script>
     // Space-themed background
@@ -151,30 +137,6 @@
       mouseX = e.clientX;
       mouseY = e.clientY;
     });
-
-    // Proxy Functionality
-    function loadUrl() {
-      const urlInput = document.getElementById('proxy-url').value.trim();
-      const iframe = document.getElementById('proxy-frame');
-
-      // Automatically prepend 'https://' if no protocol is included
-      const url = urlInput.startsWith('http://') || urlInput.startsWith('https://') 
-        ? urlInput 
-        : `https://${urlInput}`;
-
-      // Validate URL format using a regex pattern
-      const urlPattern = /^(http:\/\/|https:\/\/)/;
-
-      if (!urlPattern.test(url)) {
-        alert("Please enter a valid URL.");
-        return false;
-      }
-
-      iframe.style.display = 'block';
-      iframe.src = url;
-
-      return false; // Prevent form from submitting
-    }
   </script>
 </body>
 </html>
