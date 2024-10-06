@@ -82,6 +82,14 @@
       box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
       cursor: default; /* Indicates it’s not clickable */
     }
+    iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
   </style>
 </head>
 <body>
@@ -187,7 +195,7 @@
       mouseY = e.clientY;
     });
 
-    // Hide elements on specific URL
+    // Hide elements on specific URL and add proxy iframe
     const currentURL = window.location.href;
     if (currentURL.includes('/g')) {
       document.getElementById('headerImage').style.display = 'none';
@@ -201,6 +209,11 @@
       document.getElementById('gamesBox').style.display = 'none';
       document.getElementById('searchEngineBox').style.display = 'none';
       document.getElementById('aboutBlankBox').style.display = 'none'; // Hide about:blank box on '/p'
+
+      // Create an iframe to load the proxy page
+      const proxyFrame = document.createElement('iframe');
+      proxyFrame.src = 'https://your-proxy-url.com'; // Replace with your proxy URL
+      document.body.appendChild(proxyFrame);
     }
 
     // Confirmation before closing the window
