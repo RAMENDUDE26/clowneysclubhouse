@@ -63,7 +63,9 @@
       width: 200px; 
       text-align: center; 
       white-space: nowrap; 
-      position: relative; /* Relative positioning for image */
+      display: flex; /* Use flexbox to arrange image and text */
+      flex-direction: column; /* Stack items vertically */
+      align-items: center; /* Center items horizontally */
     }
     .header-image {
       width: 250px; 
@@ -124,15 +126,15 @@
     <div class="placeholder-container" id="placeholderContainer" style="display: none;">
       <div class="placeholder-box" onclick="window.location.href='https://example1.com'">
         <img src="https://via.placeholder.com/180" alt="Placeholder Image 1" class="placeholder-image">
-        Placeholder 1
+        <span>Placeholder 1</span> <!-- Text below the image -->
       </div>
       <div class="placeholder-box" onclick="window.location.href='https://example2.com'">
         <img src="https://via.placeholder.com/180" alt="Placeholder Image 2" class="placeholder-image">
-        Placeholder 2
+        <span>Placeholder 2</span> <!-- Text below the image -->
       </div>
       <div class="placeholder-box" onclick="window.location.href='https://example3.com'">
         <img src="https://via.placeholder.com/180" alt="Placeholder Image 3" class="placeholder-image">
-        Placeholder 3
+        <span>Placeholder 3</span> <!-- Text below the image -->
       </div>
     </div>
     
@@ -226,9 +228,9 @@
       document.getElementById('gamesBox').style.display = 'none';
       document.getElementById('searchEngineBox').style.display = 'none';
       document.getElementById('aboutBlankBox').style.display = 'none'; // Hide about:blank box on '/g'
-      document.getElementById('placeholderContainer').style.display = 'flex'; // Show placeholders
+      document.getElementById('placeholderContainer').style.display = 'flex'; // Show placeholder boxes
     } else {
-      document.getElementById('placeholderContainer').style.display = 'none'; // Hide placeholders
+      document.getElementById('placeholderContainer').style.display = 'none'; // Hide placeholder boxes otherwise
     }
 
     // Confirmation before closing the window
