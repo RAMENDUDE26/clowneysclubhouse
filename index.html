@@ -71,16 +71,16 @@
       margin-top: 10px; 
     }
     .about-blank-box {
-      position: absolute; /* Position the box in the top left corner */
-      top: 20px; /* Space from the top */
-      left: 20px; /* Space from the left */
+      position: absolute; 
+      top: 20px; 
+      left: 20px; 
       background-color: rgba(255, 255, 255, 0.1);
       color: white;
-      padding: 10px; /* Padding inside the box */
+      padding: 10px; 
       border-radius: 5px;
-      font-size: 14px; /* Font size for the text */
+      font-size: 14px; 
       box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
-      cursor: default; /* Indicates it’s not clickable */
+      cursor: pointer; 
     }
   </style>
 </head>
@@ -91,8 +91,7 @@
     <img src="https://cdn.solo.to/user/a/67021c295f69d8_62643304.jpg" alt="Header Image" class="header-image" id="headerImage">
     <h1 id="heading">Clowney's Clubhouse</h1>
     
-    <!-- "about:blank" box that doesn't redirect -->
-    <div class="about-blank-box" id="aboutBlankBox">
+    <div class="about-blank-box" id="aboutBlankBox" onclick="openAboutBlank()">
       about:blank
     </div>
 
@@ -187,27 +186,85 @@
       mouseY = e.clientY;
     });
 
-    // Hide elements on specific URL
-    const currentURL = window.location.href;
-    if (currentURL.includes('/g')) {
-      document.getElementById('headerImage').style.display = 'none';
-      document.getElementById('heading').style.display = 'none';
-      document.getElementById('gamesBox').style.display = 'none';
-      document.getElementById('searchEngineBox').style.display = 'none';
-      document.getElementById('aboutBlankBox').style.display = 'none'; // Hide about:blank box on '/g'
-    } else if (currentURL.includes('/p')) {
-      document.getElementById('headerImage').style.display = 'none';
-      document.getElementById('heading').style.display = 'none';
-      document.getElementById('gamesBox').style.display = 'none';
-      document.getElementById('searchEngineBox').style.display = 'none';
-      document.getElementById('aboutBlankBox').style.display = 'none'; // Hide about:blank box on '/p'
+    // Function to open about:blank and inject Clowney's Clubhouse code
+    function openAboutBlank() {
+      const newTab = window.open('about:blank', '_blank');
+      const doc = newTab.document;
+
+      doc.open();
+      doc.write(`
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>Clowney's Clubhouse</title>
+          <style>
+            body, html {
+              margin: 0;
+              padding: 0;
+              overflow: hidden;
+              height: 100%;
+              background: black;
+              font-family: Arial, sans-serif;
+            }
+            .content-container {
+              position: relative;
+              z-index: 1;
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              align-items: center;
+              height: 100vh;
+              color: white;
+              text-align: center;
+            }
+            h1 {
+              font-size: 3em; 
+              margin: 2px 0; 
+            }
+            .box-container {
+              display: flex;
+              gap: 20px; 
+            }
+            .games-box, .search-engine-box {
+              background-color: rgba(255, 255, 255, 0.1);
+              color: white;
+              padding: 20px; 
+              border-radius: 5px;
+              font-size: 18px; 
+              box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+              margin: 20px 0; 
+              cursor: pointer;
+              width: 200px; 
+              text-align: center; 
+              white-space: nowrap; 
+            }
+          </style>
+        </head>
+        <body>
+          <div class="content-container">
+            <h1>Clowney's Clubhouse</h1>
+            <div class="box-container">
+              <div class="games-box" onclick="window.location.href='https://clowneys-clubhouse.pages.dev/g'">
+                Games
+              </div>
+              <div class="search-engine-box" onclick="window.location.href='https://clowneys-clubhouse.pages.dev/p'">
+                Clowney's Search Engine
+              </div>
+            </div>
+          </div>
+        </body>
+        </html>
+      `);
+      doc.close();
     }
 
     // Confirmation before closing the window
     window.addEventListener('beforeunload', (event) => {
       event.preventDefault();
-      event.returnValue = 'Do you really want to close this?'; // Legacy method for older browsers
-      return 'Do you really want to close this?'; // Modern browsers may show a default message
+      event.returnValue = 'Do you really want to close this?'; 
+      return 'Do you really want to close this?'; 
     });
   </script>
 </body>
