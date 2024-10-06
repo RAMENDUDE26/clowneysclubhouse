@@ -63,6 +63,7 @@
       width: 200px; 
       text-align: center; 
       white-space: nowrap; 
+      position: relative; /* Relative positioning for image */
     }
     .header-image {
       width: 250px; 
@@ -82,6 +83,11 @@
       font-size: 14px; /* Font size for the text */
       box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
       cursor: default; /* Indicates it’s not clickable */
+    }
+    .placeholder-image {
+      width: 100%; /* Make image take full width of the box */
+      height: auto; /* Maintain aspect ratio */
+      border-radius: 5px; /* Round edges of the image */
     }
     iframe {
       position: absolute;
@@ -115,14 +121,17 @@
     </div>
 
     <!-- Placeholder boxes that will be visible only on /g -->
-    <div class="placeholder-container" id="placeholderContainer">
+    <div class="placeholder-container" id="placeholderContainer" style="display: none;">
       <div class="placeholder-box" onclick="window.location.href='https://example1.com'">
+        <img src="https://via.placeholder.com/180" alt="Placeholder Image 1" class="placeholder-image">
         Placeholder 1
       </div>
       <div class="placeholder-box" onclick="window.location.href='https://example2.com'">
+        <img src="https://via.placeholder.com/180" alt="Placeholder Image 2" class="placeholder-image">
         Placeholder 2
       </div>
       <div class="placeholder-box" onclick="window.location.href='https://example3.com'">
+        <img src="https://via.placeholder.com/180" alt="Placeholder Image 3" class="placeholder-image">
         Placeholder 3
       </div>
     </div>
