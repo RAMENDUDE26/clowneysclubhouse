@@ -195,7 +195,7 @@
       mouseY = e.clientY;
     });
 
-    // Hide elements on specific URL and add proxy iframe
+    // Hide elements on specific URL
     const currentURL = window.location.href;
     if (currentURL.includes('/g')) {
       document.getElementById('headerImage').style.display = 'none';
@@ -209,11 +209,6 @@
       document.getElementById('gamesBox').style.display = 'none';
       document.getElementById('searchEngineBox').style.display = 'none';
       document.getElementById('aboutBlankBox').style.display = 'none'; // Hide about:blank box on '/p'
-
-      // Create an iframe to load the proxy page
-      const proxyFrame = document.createElement('iframe');
-      proxyFrame.src = 'https://your-proxy-url.com'; // Replace with your proxy URL
-      document.body.appendChild(proxyFrame);
     }
 
     // Confirmation before closing the window
