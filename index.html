@@ -51,7 +51,7 @@
       display: flex;
       gap: 20px; /* Space between the two boxes */
     }
-    .games-box, .emulator-box {
+    .games-box, .search-engine-box {
       background-color: rgba(255, 255, 255, 0.1);
       color: white;
       padding: 20px; /* Increased padding for a bigger box */
@@ -88,9 +88,9 @@
         Games
       </div>
       
-      <!-- "Google Emulator" box that redirects when clicked -->
-      <div class="emulator-box" id="emulatorBox" onclick="window.location.href='https://example.com/google-emulator'">
-        Google Emulator
+      <!-- "Clowney's Search Engine" box that redirects when clicked -->
+      <div class="search-engine-box" id="searchEngineBox" onclick="window.location.href='https://example.com/clowneys-search-engine'">
+        Clowney's Search Engine
       </div>
     </div>
 
@@ -183,7 +183,7 @@
       document.getElementById('headerImage').style.display = 'none';
       document.getElementById('heading').style.display = 'none';
       document.getElementById('gamesBox').style.display = 'none';
-      document.getElementById('emulatorBox').style.display = 'none';
+      document.getElementById('searchEngineBox').style.display = 'none';
     }
 
     // Confirmation before closing the window
