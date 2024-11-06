@@ -31,8 +31,8 @@
       text-align: center;
     }
     h1 {
-      font-size: 3em; 
-      margin: 10px 0; 
+      font-size: 3em;
+      margin: 2px 0;
     }
     .footer {
       position: fixed;
@@ -45,31 +45,43 @@
       font-size: 14px;
       box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
       cursor: pointer;
-      text-decoration: none; 
+      text-decoration: none;
     }
     .box-container {
       display: flex;
-      gap: 20px; 
+      gap: 20px;
     }
     .games-box, .search-engine-box {
       background-color: rgba(255, 255, 255, 0.1);
       color: white;
-      padding: 20px; 
+      padding: 20px;
       border-radius: 5px;
-      font-size: 18px; 
+      font-size: 18px;
       box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
-      margin: 20px 0; 
+      margin: 20px 0;
       cursor: pointer;
-      width: 200px; 
-      text-align: center; 
-      white-space: nowrap; 
+      width: 200px;
+      text-align: center;
+      white-space: nowrap;
     }
     .header-image {
-      width: 250px; 
-      height: auto; 
-      margin-bottom: 10px; 
-      margin-top: 10px; 
-      border-radius: 15px;
+      width: 250px;
+      height: auto;
+      margin-bottom: 5px;
+      margin-top: 10px;
+      border-radius: 10px; /* Rounded corners for image */
+    }
+    .about-blank-box {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      background-color: rgba(255, 255, 255, 0.1);
+      color: white;
+      padding: 10px;
+      border-radius: 5px;
+      font-size: 14px;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+      cursor: default;
     }
   </style>
 </head>
@@ -79,12 +91,16 @@
   <div class="content-container">
     <img src="https://cdn.solo.to/user/a/67021c295f69d8_62643304.jpg" alt="Header Image" class="header-image" id="headerImage">
     <h1 id="heading">Clowney's Clubhouse</h1>
+    
+    <div class="about-blank-box" id="aboutBlankBox">
+      about:blank
+    </div>
 
     <div class="box-container">
       <div class="games-box" id="gamesBox" onclick="window.location.href='https://clowneys-clubhouse.pages.dev/g'">
         Games
       </div>
-      <div class="search-engine-box" id="searchEngineBox" onclick="window.location.href='https://mail-goog1e.github.io/s'">
+      <div class="search-engine-box" id="searchEngineBox" onclick="window.location.href='https://main.d3lp3f06s6zzoo.amplifyapp.com/search'">
         Clowney's Search Engine
       </div>
     </div>
