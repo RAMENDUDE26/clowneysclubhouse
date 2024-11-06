@@ -69,7 +69,19 @@
       height: auto;
       margin-bottom: 5px;
       margin-top: 10px;
-      border-radius: 10px;
+      border-radius: 10px; /* Rounded corners for image */
+    }
+    .about-blank-box {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      background-color: rgba(255, 255, 255, 0.1);
+      color: white;
+      padding: 10px;
+      border-radius: 5px;
+      font-size: 14px;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+      cursor: default;
     }
   </style>
 </head>
@@ -77,14 +89,18 @@
   <canvas id="spaceCanvas"></canvas>
 
   <div class="content-container">
-    <img src="https://cdn.solo.to/user/a/67021c295f69d8_62643304.jpg" alt="Header Image" class="header-image">
-    <h1>Clowney's Clubhouse</h1>
+    <img src="https://cdn.solo.to/user/a/67021c295f69d8_62643304.jpg" alt="Header Image" class="header-image" id="headerImage">
+    <h1 id="heading">Clowney's Clubhouse</h1>
     
+    <div class="about-blank-box" id="aboutBlankBox">
+      about:blank
+    </div>
+
     <div class="box-container">
-      <div class="games-box" onclick="window.location.href='https://clowneys-clubhouse.pages.dev/g'">
+      <div class="games-box" id="gamesBox" onclick="window.location.href='https://clowneys-clubhouse.pages.dev/g'">
         Games
       </div>
-      <div class="search-engine-box" onclick="openSearchEngine()">
+      <div class="search-engine-box" id="searchEngineBox" onclick="window.location.href='https://main.d3lp3f06s6zzoo.amplifyapp.com/search'">
         Clowney's Search Engine
       </div>
     </div>
@@ -124,153 +140,52 @@
       }
     }
 
-    function drawStars() {
+    function drawStars(mouseX, mouseY) {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       stars.forEach(star => {
         ctx.beginPath();
         ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
         ctx.fillStyle = `rgba(255, 255, 255, ${star.opacity})`;
         ctx.fill();
+        
+        const dx = (canvas.width / 2 - mouseX) * star.velocity;
+        const dy = (canvas.height / 2 - mouseY) * star.velocity;
+        star.x += dx * 0.01;
+        star.y += dy * 0.01;
 
-        star.x += (Math.random() - 0.5) * star.velocity;
-        star.y += (Math.random() - 0.5) * star.velocity;
+        star.opacity += (Math.random() * 0.05 - 0.025);
+        if (star.opacity < 0) star.opacity = 0;
+        if (star.opacity > 1) star.opacity = 1;
 
         if (star.x > canvas.width) star.x = 0;
         if (star.x < 0) star.x = canvas.width;
         if (star.y > canvas.height) star.y = 0;
         if (star.y < 0) star.y = canvas.height;
       });
-      requestAnimationFrame(drawStars);
+    }
+
+    let mouseX = canvas.width / 2;
+    let mouseY = canvas.height / 2;
+
+    function animate() {
+      drawStars(mouseX, mouseY);
+      requestAnimationFrame(animate);
     }
 
     createStars();
-    drawStars();
+    animate();
 
-    // Function to open the search engine in a new tab
-    function openSearchEngine() {
-      const newTab = window.open('about:blank', '_blank');
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      stars.length = 0;
+      createStars();
+    });
 
-      newTab.document.write(`
-        <!DOCTYPE html>
-        <html lang="en">
-        <head>
-          <meta charset="UTF-8">
-          <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <title>Clowney's Search Engine</title>
-          <style>
-            body, html {
-              margin: 0;
-              padding: 0;
-              overflow: hidden;
-              height: 100%;
-              background: black;
-              font-family: Arial, sans-serif;
-            }
-            canvas {
-              display: block;
-              position: absolute;
-              top: 0;
-              left: 0;
-            }
-            .proxy-container {
-              position: relative;
-              z-index: 1;
-              display: flex;
-              flex-direction: column;
-              justify-content: center;
-              align-items: center;
-              height: 100vh;
-              color: white;
-              text-align: center;
-            }
-            h1 {
-              font-size: 4em;
-              margin-bottom: 20px;
-            }
-            .proxy-form {
-              margin-top: 20px;
-            }
-            .proxy-form input[type="text"] {
-              padding: 10px;
-              font-size: 18px;
-              border: none;
-              border-radius: 5px;
-              width: 400px;
-            }
-            .proxy-form button {
-              padding: 10px 20px;
-              font-size: 18px;
-              border: none;
-              background-color: #189bcc;
-              color: white;
-              border-radius: 5px;
-              margin-left: 10px;
-              cursor: pointer;
-            }
-            iframe {
-              position: absolute;
-              top: 0;
-              left: 0;
-              width: 100%;
-              height: 100%;
-              border: none;
-              display: none;
-              z-index: 2;
-            }
-          </style>
-        </head>
-        <body>
-          <canvas id="spaceCanvas"></canvas>
-          <div class="proxy-container">
-            <h1>Clowney's Search Engine</h1>
-            <form class="proxy-form" onsubmit="return loadUrl()">
-              <input type="text" id="proxy-url" placeholder="Enter URL" required>
-              <button type="submit">Go</button>
-            </form>
-          </div>
-          <iframe id="proxy-frame"></iframe>
-          <script>
-            const canvas = document.getElementById('spaceCanvas');
-            const ctx = canvas.getContext('2d');
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            const stars = Array.from({ length: 200 }, () => ({
-              x: Math.random() * canvas.width,
-              y: Math.random() * canvas.height,
-              size: Math.random() * 2,
-              opacity: Math.random(),
-              velocity: Math.random() * 0.5 + 0.1
-            }));
-            function drawStars() {
-              ctx.clearRect(0, 0, canvas.width, canvas.height);
-              stars.forEach(star => {
-                ctx.beginPath();
-                ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
-                ctx.fillStyle = \`rgba(255, 255, 255, \${star.opacity})\`;
-                ctx.fill();
-                star.x += (Math.random() - 0.5) * star.velocity;
-                star.y += (Math.random() - 0.5) * star.velocity;
-                if (star.x > canvas.width) star.x = 0;
-                if (star.x < 0) star.x = canvas.width;
-                if (star.y > canvas.height) star.y = 0;
-                if (star.y < 0) star.y = canvas.height;
-              });
-              requestAnimationFrame(drawStars);
-            }
-            drawStars();
-            function loadUrl() {
-              const url = document.getElementById("proxy-url").value;
-              document.getElementById("proxy-frame").src = url;
-              document.querySelector(".proxy-container").style.display = "none";
-              document.getElementById("proxy-frame").style.display = "block";
-              return false;
-            }
-          </script>
-        </body>
-        </html>
-      `);
-      newTab.document.close();
-    }
+    window.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    });
   </script>
 </body>
 </html>
