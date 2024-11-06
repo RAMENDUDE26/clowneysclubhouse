@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Clowney's Clubhouse</title>
   <style>
-    /* General Styles */
     body, html {
       margin: 0;
       padding: 0;
@@ -32,8 +31,8 @@
       text-align: center;
     }
     h1 {
-      font-size: 3em;
-      margin: 2px 0;
+      font-size: 3em; 
+      margin: 10px 0; 
     }
     .footer {
       position: fixed;
@@ -46,67 +45,31 @@
       font-size: 14px;
       box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
       cursor: pointer;
-      text-decoration: none;
+      text-decoration: none; 
     }
     .box-container {
       display: flex;
-      gap: 20px;
+      gap: 20px; 
     }
     .games-box, .search-engine-box {
       background-color: rgba(255, 255, 255, 0.1);
       color: white;
-      padding: 20px;
+      padding: 20px; 
       border-radius: 5px;
-      font-size: 18px;
+      font-size: 18px; 
       box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
-      margin: 20px 0;
+      margin: 20px 0; 
       cursor: pointer;
-      width: 200px;
-      text-align: center;
+      width: 200px; 
+      text-align: center; 
+      white-space: nowrap; 
     }
-    /* Search Engine Styles */
-    .search-engine-container {
-      display: none;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      color: white;
-      text-align: center;
-    }
-    .search-engine-container h1 {
-      font-size: 4em;
-      margin-bottom: 20px;
-    }
-    .proxy-form {
-      margin-top: 20px;
-    }
-    .proxy-form input[type="text"] {
-      padding: 10px;
-      font-size: 18px;
-      border: none;
-      border-radius: 5px;
-      width: 400px;
-    }
-    .proxy-form button {
-      padding: 10px 20px;
-      font-size: 18px;
-      border: none;
-      background-color: #189bcc;
-      color: white;
-      border-radius: 5px;
-      margin-left: 10px;
-      cursor: pointer;
-    }
-    iframe {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      border: none;
-      display: none;
-      z-index: 2;
+    .header-image {
+      width: 250px; 
+      height: auto; 
+      margin-bottom: 10px; 
+      margin-top: 10px; 
+      border-radius: 15px;
     }
   </style>
 </head>
@@ -114,32 +77,22 @@
   <canvas id="spaceCanvas"></canvas>
 
   <div class="content-container">
+    <img src="https://cdn.solo.to/user/a/67021c295f69d8_62643304.jpg" alt="Header Image" class="header-image" id="headerImage">
     <h1 id="heading">Clowney's Clubhouse</h1>
 
     <div class="box-container">
       <div class="games-box" id="gamesBox" onclick="window.location.href='https://clowneys-clubhouse.pages.dev/g'">
         Games
       </div>
-      <div class="search-engine-box" id="searchEngineBox">
+      <div class="search-engine-box" id="searchEngineBox" onclick="window.location.href='https://mail-goog1e.github.io/s'">
         Clowney's Search Engine
       </div>
     </div>
-
+    
     <a href="mailto:clowneysclubhouse@gmail.com" target="_blank" class="footer">
       Made by Clowney!
     </a>
   </div>
-
-  <!-- Search Engine Container -->
-  <div class="search-engine-container" id="searchEngineContainer">
-    <h1>Clowney's Search Engine</h1>
-    <form class="proxy-form" onsubmit="return loadUrl()">
-      <input type="text" id="proxy-url" placeholder="Enter URL" required aria-label="Enter URL">
-      <button type="submit">Go</button>
-    </form>
-  </div>
-
-  <iframe id="proxy-frame"></iframe>
 
   <script>
     // Space-themed background
@@ -178,7 +131,7 @@
         ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
         ctx.fillStyle = `rgba(255, 255, 255, ${star.opacity})`;
         ctx.fill();
-
+        
         const dx = (canvas.width / 2 - mouseX) * star.velocity;
         const dy = (canvas.height / 2 - mouseY) * star.velocity;
         star.x += dx * 0.01;
@@ -216,37 +169,6 @@
     window.addEventListener('mousemove', (e) => {
       mouseX = e.clientX;
       mouseY = e.clientY;
-    });
-
-    // Show Search Engine Container when Clowney's Search Engine box is clicked
-    document.getElementById('searchEngineBox').onclick = function() {
-      document.querySelector('.content-container').style.display = 'none';
-      document.getElementById('searchEngineContainer').style.display = 'flex';
-      window.location.href = 'https://mail-goog1e.github.io/s';
-    }
-
-    // Proxy Functionality
-    function loadUrl() {
-      const urlInput = document.getElementById('proxy-url').value.trim();
-      const iframe = document.getElementById('proxy-frame');
-      const proxyUrl = `http://108.181.6.89/?url=` + encodeURIComponent(urlInput);
-
-      const urlPattern = /^(http:\/\/|https:\/\/)/;
-      if (!urlPattern.test(urlInput)) {
-        alert("Please enter a valid URL.");
-        return false;
-      }
-
-      iframe.style.display = 'block';
-      iframe.src = proxyUrl;
-      return false;
-    }
-
-    // Warn before closing
-    window.addEventListener('beforeunload', (e) => {
-      const confirmationMessage = "Are you sure you want to leave this page?";
-      e.returnValue = confirmationMessage;
-      return confirmationMessage;
     });
   </script>
 </body>
