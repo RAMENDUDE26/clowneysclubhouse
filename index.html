@@ -3,6 +3,197 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clowney's Clubhouse</title>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      height: 100%;
+      background: black;
+      font-family: Arial, sans-serif;
+    }
+    canvas {
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+    .content-container {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: white;
+      text-align: center;
+    }
+    h1 {
+      font-size: 3em;
+      margin: 2px 0;
+    }
+    .footer {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: rgba(255, 255, 255, 0.1);
+      color: white;
+      padding: 10px;
+      border-radius: 5px;
+      font-size: 14px;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .box-container {
+      display: flex;
+      gap: 20px;
+    }
+    .games-box, .search-engine-box {
+      background-color: rgba(255, 255, 255, 0.1);
+      color: white;
+      padding: 20px;
+      border-radius: 5px;
+      font-size: 18px;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+      margin: 20px 0;
+      cursor: pointer;
+      width: 200px;
+      text-align: center;
+      white-space: nowrap;
+    }
+    .header-image {
+      width: 250px;
+      height: auto;
+      margin-bottom: 5px;
+      margin-top: 10px;
+      border-radius: 10px; /* Rounded corners for image */
+    }
+    .about-blank-box {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      background-color: rgba(255, 255, 255, 0.1);
+      color: white;
+      padding: 10px;
+      border-radius: 5px;
+      font-size: 14px;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+      cursor: default;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="spaceCanvas"></canvas>
+
+  <div class="content-container">
+    <img src="https://cdn.solo.to/user/a/67021c295f69d8_62643304.jpg" alt="Header Image" class="header-image" id="headerImage">
+    <h1 id="heading">Clowney's Clubhouse</h1>
+    
+    <div class="about-blank-box" id="aboutBlankBox">
+      about:blank
+    </div>
+
+    <div class="box-container">
+      <div class="games-box" id="gamesBox" onclick="window.location.href='https://clowneys-clubhouse.pages.dev/g'">
+        Games
+      </div>
+      <div class="search-engine-box" id="searchEngineBox" onclick="window.location.href='https://main.d3lp3f06s6zzoo.amplifyapp.com/search'">
+        Clowney's Search Engine
+      </div>
+    </div>
+    
+    <a href="mailto:clowneysclubhouse@gmail.com" target="_blank" class="footer">
+      Made by Clowney!
+    </a>
+  </div>
+
+  <script>
+    // Space-themed background
+    const canvas = document.getElementById('spaceCanvas');
+    const ctx = canvas.getContext('2d');
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const starCount = 200;
+    const stars = [];
+
+    function Star(x, y, size, opacity, velocity) {
+      this.x = x;
+      this.y = y;
+      this.size = size;
+      this.opacity = opacity;
+      this.velocity = velocity;
+    }
+
+    function createStars() {
+      for (let i = 0; i < starCount; i++) {
+        const x = Math.random() * canvas.width;
+        const y = Math.random() * canvas.height;
+        const size = Math.random() * 2;
+        const opacity = Math.random();
+        const velocity = Math.random() * 0.5 + 0.1;
+        stars.push(new Star(x, y, size, opacity, velocity));
+      }
+    }
+
+    function drawStars(mouseX, mouseY) {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      stars.forEach(star => {
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 255, 255, ${star.opacity})`;
+        ctx.fill();
+        
+        const dx = (canvas.width / 2 - mouseX) * star.velocity;
+        const dy = (canvas.height / 2 - mouseY) * star.velocity;
+        star.x += dx * 0.01;
+        star.y += dy * 0.01;
+
+        star.opacity += (Math.random() * 0.05 - 0.025);
+        if (star.opacity < 0) star.opacity = 0;
+        if (star.opacity > 1) star.opacity = 1;
+
+        if (star.x > canvas.width) star.x = 0;
+        if (star.x < 0) star.x = canvas.width;
+        if (star.y > canvas.height) star.y = 0;
+        if (star.y < 0) star.y = canvas.height;
+      });
+    }
+
+    let mouseX = canvas.width / 2;
+    let mouseY = canvas.height / 2;
+
+    function animate() {
+      drawStars(mouseX, mouseY);
+      requestAnimationFrame(animate);
+    }
+
+    createStars();
+    animate();
+
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      stars.length = 0;
+      createStars();
+    });
+
+    window.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    });
+  </script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Clowney's Search Engine</title>
 </head>
 <body>
