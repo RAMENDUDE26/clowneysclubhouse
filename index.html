@@ -125,7 +125,7 @@
   </div>
 
   <div id="iframeContainer">
-    <iframe id="searchIframe" src=""></iframe>
+    <iframe src="https://325weddk.proll.pro/"></iframe>
   </div>
 
   <script>
@@ -163,7 +163,7 @@
       stars.forEach(star => {
         ctx.beginPath();
         ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255, 255, 255, ${star.opacity})`;
+        ctx.fillStyle = rgba(255, 255, 255, ${star.opacity});
         ctx.fill();
         
         const dx = (canvas.width / 2 - mouseX) * star.velocity;
@@ -205,12 +205,9 @@
       mouseY = e.clientY;
     });
 
-    // Function to open iframe with the new link
+    // Function to open iframe
     function openIframe() {
-      const iframeContainer = document.getElementById('iframeContainer');
-      const iframe = document.getElementById('searchIframe');
-      iframe.src = 'https://main.d3lp3f06s6zzoo.amplifyapp.com/gormgorm';
-      iframeContainer.style.display = 'block';  // Show the iframe container
+      document.getElementById('iframeContainer').style.display = 'block';
     }
   </script>
 </body>
