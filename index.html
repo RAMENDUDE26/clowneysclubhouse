@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>New Tab</title>
+  <title>Clowney's Clubhouse</title>
   <style>
     body, html {
       margin: 0;
@@ -114,7 +114,7 @@
       <div class="games-box" id="gamesBox" onclick="window.location.href='https://main.d3lp3f06s6zzoo.amplifyapp.com/rizzyryan'">
         Games
       </div>
-      <div class="search-engine-box" id="searchEngineBox" onclick="window.location.href='https://main.d3lp3f06s6zzoo.amplifyapp.com/gormgorm' openIframe()">
+      <div class="search-engine-box" id="searchEngineBox" onclick="openIframe()">
         Clowney's Search Engine
       </div>
     </div>
@@ -202,12 +202,13 @@
 
     window.addEventListener('mousemove', (e) => {
       mouseX = e.clientX;
-      mouseY = e.clientY;
+      mouseY = e.clientY);
     });
 
-    // Function to open iframe
+    // Function to open iframe with the new link
     function openIframe() {
       document.getElementById('iframeContainer').style.display = 'block';
+      document.querySelector('#iframeContainer iframe').src = 'https://main.d3lp3f06s6zzoo.amplifyapp.com/gormgorm';
     }
   </script>
 </body>
