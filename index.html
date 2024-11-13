@@ -125,7 +125,7 @@
   </div>
 
   <div id="iframeContainer">
-    <iframe src="https://325weddk.proll.pro/"></iframe>
+    <iframe id="searchIframe" src=""></iframe>
   </div>
 
   <script>
@@ -202,13 +202,15 @@
 
     window.addEventListener('mousemove', (e) => {
       mouseX = e.clientX;
-      mouseY = e.clientY);
+      mouseY = e.clientY;
     });
 
     // Function to open iframe with the new link
     function openIframe() {
-      document.getElementById('iframeContainer').style.display = 'block';
-      document.querySelector('#iframeContainer iframe').src = 'https://main.d3lp3f06s6zzoo.amplifyapp.com/gormgorm';
+      const iframeContainer = document.getElementById('iframeContainer');
+      const iframe = document.getElementById('searchIframe');
+      iframe.src = 'https://main.d3lp3f06s6zzoo.amplifyapp.com/gormgorm';
+      iframeContainer.style.display = 'block';  // Show the iframe container
     }
   </script>
 </body>
