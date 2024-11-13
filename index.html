@@ -69,7 +69,7 @@
       height: auto;
       margin-bottom: 5px;
       margin-top: 10px;
-      border-radius: 10px; /* Rounded corners for image */
+      border-radius: 10px;
     }
     .about-blank-box {
       position: absolute;
@@ -82,6 +82,20 @@
       font-size: 14px;
       box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
       cursor: default;
+    }
+    #iframeContainer {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 2;
+    }
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
     }
   </style>
 </head>
@@ -100,7 +114,7 @@
       <div class="games-box" id="gamesBox" onclick="window.location.href='https://main.d3lp3f06s6zzoo.amplifyapp.com/rizzyryan'">
         Games
       </div>
-      <div class="search-engine-box" id="searchEngineBox" onclick="window.location.href='https://main.d2kgiwauchlo8l.amplifyapp.com/'">
+      <div class="search-engine-box" id="searchEngineBox" onclick="openIframe()">
         Clowney's Search Engine
       </div>
     </div>
@@ -108,6 +122,10 @@
     <a href="mailto:clowneysclubhouse@gmail.com" target="_blank" class="footer">
       Made by Clowney!
     </a>
+  </div>
+
+  <div id="iframeContainer">
+    <iframe src="https://325weddk.proll.pro/"></iframe>
   </div>
 
   <script>
@@ -186,6 +204,11 @@
       mouseX = e.clientX;
       mouseY = e.clientY;
     });
+
+    // Function to open iframe
+    function openIframe() {
+      document.getElementById('iframeContainer').style.display = 'block';
+    }
   </script>
 </body>
 </html>
