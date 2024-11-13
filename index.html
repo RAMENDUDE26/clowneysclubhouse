@@ -83,20 +83,6 @@
       box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
       cursor: default;
     }
-    #iframeContainer {
-      display: none; /* Initially hidden */
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 2;
-    }
-    #iframeContainer iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
   </style>
 </head>
 <body>
@@ -114,7 +100,7 @@
       <div class="games-box" id="gamesBox" onclick="window.location.href='https://main.d3lp3f06s6zzoo.amplifyapp.com/rizzyryan'">
         Games
       </div>
-      <div class="search-engine-box" id="searchEngineBox" onclick="openIframeAndTab()">
+      <div class="search-engine-box" id="searchEngineBox" onclick="openSearchEngine()">
         Clowney's Search Engine
       </div>
     </div>
@@ -124,12 +110,14 @@
     </a>
   </div>
 
-  <!-- Iframe Container -->
-  <div id="iframeContainer">
-    <iframe src="https://325weddk.proll.pro/" id="iframe"></iframe>
-  </div>
-
   <script>
+    function openSearchEngine() {
+      // Set the flag in local storage
+      localStorage.setItem('openIframe', 'true');
+      // Open the new tab with /gormgorm URL
+      window.open('/gormgorm', '_blank');
+    }
+
     // Space-themed background
     const canvas = document.getElementById('spaceCanvas');
     const ctx = canvas.getContext('2d');
@@ -205,12 +193,6 @@
       mouseX = e.clientX;
       mouseY = e.clientY;
     });
-
-    // Open iframe and new tab
-    function openIframeAndTab() {
-      document.getElementById('iframeContainer').style.display = 'block'; // Show iframe container
-      window.open('https://main.d3lp3f06s6zzoo.amplifyapp.com/gormgorm', '_blank'); // Open new tab
-    }
   </script>
 </body>
 </html>
