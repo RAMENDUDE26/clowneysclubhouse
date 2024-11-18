@@ -34,7 +34,10 @@
       font-size: 3em;
       margin: 2px 0;
     }
-    .footer, .button-box {
+    .footer {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
       background: linear-gradient(to bottom, #189BCC, #393939);
       color: white;
       padding: 10px;
@@ -45,13 +48,29 @@
       text-decoration: none;
       transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
-    .button-box:hover {
-      transform: scale(1.05);
+    .footer:hover {
+      transform: scale(1.1);
       box-shadow: 0 0 20px rgba(24, 155, 204, 1);
     }
     .box-container {
       display: flex;
       gap: 20px;
+      margin-top: 20px;
+    }
+    .button-box {
+      background: linear-gradient(to bottom, #189BCC, #393939);
+      color: white;
+      padding: 20px;
+      border-radius: 5px;
+      font-size: 18px;
+      box-shadow: 0 0 10px rgba(24, 155, 204, 0.8);
+      cursor: pointer;
+      text-align: center;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .button-box:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px rgba(24, 155, 204, 1);
     }
     .header-image {
       width: 250px;
