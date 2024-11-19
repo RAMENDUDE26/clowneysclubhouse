@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clowney's Games</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom, #189BCC, #393939);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+    h1 {
+      font-size: 3em;
+      margin-bottom: 20px;
+      text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    }
+    .game-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+      width: 90%;
+    }
+    .game-box {
+      background: #222;
+      color: white;
+      padding: 20px;
+      border-radius: 10px;
+      width: 200px;
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      cursor: pointer;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .game-box:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+    }
+    .footer {
+      margin-top: auto;
+      padding: 10px;
+      background: rgba(0, 0, 0, 0.5);
+      border-radius: 5px;
+      font-size: 14px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <h1>Welcome to Clowney's Games</h1>
+  <div class="game-container">
+    <div class="game-box" onclick="alert('Game 1 coming soon!')">Game 1</div>
+    <div class="game-box" onclick="alert('Game 2 coming soon!')">Game 2</div>
+    <div class="game-box" onclick="alert('Game 3 coming soon!')">Game 3</div>
+  </div>
+  <div class="footer">
+    <p>More games coming soon! Stay tuned.</p>
+  </div>
+</body>
+</html>
