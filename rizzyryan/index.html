@@ -3,71 +3,149 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Clowney's Games</title>
+  <title>Rizzy Ryan Games</title>
   <style>
-    body {
+    body, html {
       margin: 0;
       padding: 0;
+      overflow: hidden;
+      height: 100%;
+      background: black;
       font-family: Arial, sans-serif;
-      background: linear-gradient(to bottom, #189BCC, #393939);
-      color: white;
+    }
+    canvas {
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+    .content-container {
+      position: relative;
+      z-index: 1;
       display: flex;
       flex-direction: column;
-      align-items: center;
       justify-content: center;
+      align-items: center;
       height: 100vh;
-      overflow: hidden;
+      color: white;
+      text-align: center;
     }
     h1 {
       font-size: 3em;
-      margin-bottom: 20px;
-      text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      margin: 2px 0;
     }
-    .game-container {
+    .games-list {
       display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      justify-content: center;
-      width: 90%;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 20px;
     }
-    .game-box {
-      background: #222;
+    .game-button {
+      background: linear-gradient(to bottom, #189BCC, #393939);
       color: white;
-      padding: 20px;
-      border-radius: 10px;
-      width: 200px;
-      height: 200px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      padding: 15px 20px;
+      border-radius: 5px;
+      font-size: 18px;
+      box-shadow: 0 0 10px rgba(24, 155, 204, 0.8);
       cursor: pointer;
       text-align: center;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      text-decoration: none;
     }
-    .game-box:hover {
+    .game-button:hover {
       transform: scale(1.05);
-      box-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
-    }
-    .footer {
-      margin-top: auto;
-      padding: 10px;
-      background: rgba(0, 0, 0, 0.5);
-      border-radius: 5px;
-      font-size: 14px;
-      text-align: center;
+      box-shadow: 0 0 20px rgba(24, 155, 204, 1);
     }
   </style>
 </head>
 <body>
-  <h1>Welcome to Clowney's Games</h1>
-  <div class="game-container">
-    <div class="game-box" onclick="alert('Game 1 coming soon!')">Game 1</div>
-    <div class="game-box" onclick="alert('Game 2 coming soon!')">Game 2</div>
-    <div class="game-box" onclick="alert('Game 3 coming soon!')">Game 3</div>
+  <canvas id="spaceCanvas"></canvas>
+
+  <div class="content-container">
+    <h1>Rizzy Ryan Games</h1>
+    <div class="games-list">
+      <a href="#" class="game-button">Game 1</a>
+      <a href="#" class="game-button">Game 2</a>
+      <a href="#" class="game-button">Game 3</a>
+    </div>
   </div>
-  <div class="footer">
-    <p>More games coming soon! Stay tuned.</p>
-  </div>
+
+  <script>
+    // Space-themed background
+    const canvas = document.getElementById('spaceCanvas');
+    const ctx = canvas.getContext('2d');
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const starCount = 200;
+    const stars = [];
+
+    function Star(x, y, size, opacity, velocity) {
+      this.x = x;
+      this.y = y;
+      this.size = size;
+      this.opacity = opacity;
+      this.velocity = velocity;
+    }
+
+    function createStars() {
+      for (let i = 0; i < starCount; i++) {
+        const x = Math.random() * canvas.width;
+        const y = Math.random() * canvas.height;
+        const size = Math.random() * 2;
+        const opacity = Math.random();
+        const velocity = Math.random() * 0.5 + 0.1;
+        stars.push(new Star(x, y, size, opacity, velocity));
+      }
+    }
+
+    function drawStars(mouseX, mouseY) {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      stars.forEach(star => {
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 255, 255, ${star.opacity})`;
+        ctx.fill();
+
+        const dx = (canvas.width / 2 - mouseX) * star.velocity;
+        const dy = (canvas.height / 2 - mouseY) * star.velocity;
+        star.x += dx * 0.01;
+        star.y += dy * 0.01;
+
+        star.opacity += (Math.random() * 0.05 - 0.025);
+        if (star.opacity < 0) star.opacity = 0;
+        if (star.opacity > 1) star.opacity = 1;
+
+        if (star.x > canvas.width) star.x = 0;
+        if (star.x < 0) star.x = canvas.width;
+        if (star.y > canvas.height) star.y = 0;
+        if (star.y < 0) star.y = canvas.height;
+      });
+    }
+
+    let mouseX = canvas.width / 2;
+    let mouseY = canvas.height / 2;
+
+    function animate() {
+      drawStars(mouseX, mouseY);
+      requestAnimationFrame(animate);
+    }
+
+    createStars();
+    animate();
+
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      stars.length = 0;
+      createStars();
+    });
+
+    window.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    });
+  </script>
 </body>
 </html>
