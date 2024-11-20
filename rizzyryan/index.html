@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rizzy Ryan Games</title>
+  <title>New Tab</title>
   <style>
     body, html {
       margin: 0;
@@ -36,9 +36,9 @@
     }
     .games-list {
       display: flex;
-      flex-wrap: wrap; /* Enables wrapping to the next row */
-      justify-content: center; /* Centers rows horizontally */
-      gap: 20px; /* Adds spacing between game boxes */
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
       margin-top: 20px;
     }
     .game-box {
@@ -110,68 +110,64 @@
   <canvas id="spaceCanvas"></canvas>
 
   <div class="content-container">
-    <h1>Rizzy Ryan Games</h1>
+    <h1>New Tab</h1>
     <div class="games-list">
-      <!-- Game 1 -->
       <div class="game-box" onclick="openIframe('https://studyschool.netlify.app/games/blockblast')">
         <img src="https://via.placeholder.com/200x200" alt="BB" class="game-image">
         <span class="game-title">Block Blast</span>
       </div>
-      <!-- Game 2 -->
       <div class="game-box" onclick="openIframe('https://studyschool.netlify.app/games/retro-bowl')">
         <img src="https://via.placeholder.com/200x200" alt="RB" class="game-image">
         <span class="game-title">Retro Bowl</span>
       </div>
-      <!-- Game 3 -->
       <div class="game-box" onclick="openIframe('https://studyschool.netlify.app/games/case-clicker')">
         <img src="https://via.placeholder.com/200x200" alt="CC" class="game-image">
         <span class="game-title">CSGO Case Clicker</span>
       </div>
-      <!-- Game 4 -->
       <div class="game-box" onclick="openIframe('https://studyschool.netlify.app/games/basketball-random')">
-        <img src="https://via.placeholder.com/200x200" alt="BB" class="game-image">
-        <span class="game-title">Basket Random</span>
-      <!-- Game 5 -->
+        <img src="https://via.placeholder.com/200x200" alt="BR" class="game-image">
+        <span class="game-title">Basketball Random</span>
+      </div>
       <div class="game-box" onclick="openIframe('https://studyschool.netlify.app/games/drivemad')">
         <img src="https://via.placeholder.com/200x200" alt="DM" class="game-image">
         <span class="game-title">Drive Mad</span>
-      <!-- Game 6 -->
+      </div>
       <div class="game-box" onclick="openIframe('https://glcdn.githack.com/3kh0/3kh0-assets/-/raw/main/1v1lol/index.html')">
         <img src="https://via.placeholder.com/200x200" alt="1v1" class="game-image">
         <span class="game-title">1v1.lol</span>
-      <!-- Game 7 -->
+      </div>
       <div class="game-box" onclick="openIframe('https://studyschool.netlify.app/games/pixelgun')">
         <img src="https://via.placeholder.com/200x200" alt="PG" class="game-image">
         <span class="game-title">Pixel Gun</span>
-      <!-- Game 8 -->
+      </div>
       <div class="game-box" onclick="openIframe('https://studyschool.netlify.app/games/slope')">
         <img src="https://via.placeholder.com/200x200" alt="SL" class="game-image">
         <span class="game-title">Slope</span>
-      <!-- Game 9 -->
+      </div>
       <div class="game-box" onclick="openIframe('https://studyschool.netlify.app/games/drifthunters')">
         <img src="https://via.placeholder.com/200x200" alt="DH" class="game-image">
         <span class="game-title">Drift Hunters</span>
-      <!-- Game 10 -->
+      </div>
       <div class="game-box" onclick="openIframe('https://studyschool.netlify.app/games/monkey-mart')">
         <img src="https://via.placeholder.com/200x200" alt="MM" class="game-image">
         <span class="game-title">Monkey Mart</span>
-       <!-- Game 11 -->
+      </div>
       <div class="game-box" onclick="openIframe('https://studyschool.netlify.app/games/getaway-shootout')">
         <img src="https://via.placeholder.com/200x200" alt="GS" class="game-image">
         <span class="game-title">Getaway Shootout</span>
-        <!-- Game 12 -->
+      </div>
       <div class="game-box" onclick="openIframe('https://studyschool.netlify.app/games/rooftopsnipers')">
         <img src="https://via.placeholder.com/200x200" alt="RS" class="game-image">
         <span class="game-title">Rooftop Snipers</span>
-        <!-- Game 13 -->
+      </div>
       <div class="game-box" onclick="openIframe('https://studyschool.netlify.app/games/soccer-random')">
         <img src="https://via.placeholder.com/200x200" alt="SR" class="game-image">
         <span class="game-title">Soccer Random</span>
-         <!-- Game 14 -->
+      </div>
       <div class="game-box" onclick="openIframe('https://studyschool.netlify.app/games/boxingrandom')">
         <img src="https://via.placeholder.com/200x200" alt="BR" class="game-image">
         <span class="game-title">Boxing Random</span>
-          <!-- Game 15 -->
+      </div>
       <div class="game-box" onclick="openIframe('https://studyschool.netlify.app/games/volleyrandom')">
         <img src="https://via.placeholder.com/200x200" alt="VR" class="game-image">
         <span class="game-title">Volley Random</span>
@@ -185,92 +181,15 @@
   </div>
 
   <script>
-    // Space-themed background
-    const canvas = document.getElementById('spaceCanvas');
-    const ctx = canvas.getContext('2d');
-
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-
-    const starCount = 200;
-    const stars = [];
-
-    function Star(x, y, size, opacity, velocity) {
-      this.x = x;
-      this.y = y;
-      this.size = size;
-      this.opacity = opacity;
-      this.velocity = velocity;
-    }
-
-    function createStars() {
-      for (let i = 0; i < starCount; i++) {
-        const x = Math.random() * canvas.width;
-        const y = Math.random() * canvas.height;
-        const size = Math.random() * 2;
-        const opacity = Math.random();
-        const velocity = Math.random() * 0.5 + 0.1;
-        stars.push(new Star(x, y, size, opacity, velocity));
-      }
-    }
-
-    function drawStars(mouseX, mouseY) {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      stars.forEach(star => {
-        ctx.beginPath();
-        ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255, 255, 255, ${star.opacity})`;
-        ctx.fill();
-
-        const dx = (canvas.width / 2 - mouseX) * star.velocity;
-        const dy = (canvas.height / 2 - mouseY) * star.velocity;
-        star.x += dx * 0.01;
-        star.y += dy * 0.01;
-
-        star.opacity += (Math.random() * 0.05 - 0.025);
-        if (star.opacity < 0) star.opacity = 0;
-        if (star.opacity > 1) star.opacity = 1;
-
-        if (star.x > canvas.width) star.x = 0;
-        if (star.x < 0) star.x = canvas.width;
-        if (star.y > canvas.height) star.y = 0;
-        if (star.y < 0) star.y = canvas.height;
-      });
-    }
-
-    let mouseX = canvas.width / 2;
-    let mouseY = canvas.height / 2;
-
-    function animate() {
-      drawStars(mouseX, mouseY);
-      requestAnimationFrame(animate);
-    }
-
-    createStars();
-    animate();
-
-    window.addEventListener('resize', () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      stars.length = 0;
-      createStars();
-    });
-
-    window.addEventListener('mousemove', (e) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-    });
-
-    // Functions to handle iframe
-    function openIframe(link) {
+    const openIframe = link => {
       document.getElementById('iframeContainer').style.display = 'block';
       document.getElementById('gameIframe').src = link;
-    }
+    };
 
-    function closeIframe() {
+    const closeIframe = () => {
       document.getElementById('iframeContainer').style.display = 'none';
       document.getElementById('gameIframe').src = '';
-    }
+    };
   </script>
 </body>
 </html>
