@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>New Tab</title>
+  <title>Rizzy Ryan Games</title>
   <style>
     body, html {
       margin: 0;
@@ -35,34 +35,38 @@
       margin: 2px 0;
     }
     .games-list {
-  display: flex;
-  flex-wrap: wrap; /* Allows wrapping to the next row */
-  justify-content: center; /* Center-aligns the rows */
-  gap: 20px; /* Adds spacing between game boxes */
-}
-
-.game-box {
-  background: linear-gradient(to bottom, #189BCC, #393939);
-  color: white;
-  padding: 20px;
-  border-radius: 10px;
-  width: 200px; /* Fixed width for uniform layout */
-  height: 220px; /* Consistent height */
-  box-shadow: 0 0 10px rgba(24, 155, 204, 0.8);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  text-decoration: none;
-  overflow: hidden;
-}
+      display: flex;
+      flex-wrap: wrap; /* Enables wrapping to the next row */
+      justify-content: center; /* Centers rows horizontally */
+      gap: 20px; /* Adds spacing between game boxes */
+      margin-top: 20px;
+    }
+    .game-box {
+      background: linear-gradient(to bottom, #189BCC, #393939);
+      color: white;
+      padding: 20px;
+      border-radius: 10px;
+      width: 200px;
+      height: 220px;
+      box-shadow: 0 0 10px rgba(24, 155, 204, 0.8);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      text-decoration: none;
+      overflow: hidden;
+    }
+    .game-box:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px rgba(24, 155, 204, 1);
+    }
     .game-image {
-      width: 200px; /* Set to 200px */
-      height: 200px; /* Set to 200px */
+      width: 200px;
+      height: 200px;
       border-radius: 5px;
-      object-fit: cover; /* Crop images to maintain aspect ratio */
+      object-fit: cover;
       margin-bottom: 10px;
     }
     .game-title {
@@ -106,23 +110,27 @@
   <canvas id="spaceCanvas"></canvas>
 
   <div class="content-container">
-    <h1>Clowney's Games</h1>
+    <h1>Rizzy Ryan Games</h1>
     <div class="games-list">
       <!-- Game 1 -->
-      <div class="game-box" onclick="openIframe('https://studyschool.netlify.app/games/blockblast/')">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQrNSAfb9M1SuBs1IFpNBvSSd_rJLGFcZb0_A&s/225x225" alt="BB" class="game-image">
-        <span class="game-title">Block Blast</span>
+      <div class="game-box" onclick="openIframe('https://example.com/game1')">
+        <img src="https://via.placeholder.com/200x200" alt="Game 1" class="game-image">
+        <span class="game-title">Game 1</span>
       </div>
       <!-- Game 2 -->
-      <div class="game-box" onclick="openIframe('https://studyschool.netlify.app/games/basketball-random/')">
-        <img src="https://play-lh.googleusercontent.com/gP8T5Z1O-ngxIloiwcBZzrzyLPYDp0R_1BDNKUDZboIRPVImeyWI8-7aExvB9gAGNKc=w240-h480-rw/200x200" alt="BR" class="game-image">
-        <span class="game-title">Basket Random</span>
+      <div class="game-box" onclick="openIframe('https://example.com/game2')">
+        <img src="https://via.placeholder.com/200x200" alt="Game 2" class="game-image">
+        <span class="game-title">Game 2</span>
       </div>
       <!-- Game 3 -->
-      <div class="game-box" onclick="openIframe('https://studyschool.netlify.app/games/case-clicker/')">
-        <img src="https://play-lh.googleusercontent.com/hpwkNsCWYSmFfwhiM0sBHSRveYvI4vSl0yg8g4sin5QhxjrpDsLOyhB3p2eXbRqrPgc/200x200" alt="CSGO" class="game-image">
-        <span class="game-title">CSGO Case Clicker</span>
-
+      <div class="game-box" onclick="openIframe('https://example.com/game3')">
+        <img src="https://via.placeholder.com/200x200" alt="Game 3" class="game-image">
+        <span class="game-title">Game 3</span>
+      </div>
+      <!-- Game 4 -->
+      <div class="game-box" onclick="openIframe('https://example.com/game4')">
+        <img src="https://via.placeholder.com/200x200" alt="Game 4" class="game-image">
+        <span class="game-title">Game 4</span>
       </div>
     </div>
   </div>
