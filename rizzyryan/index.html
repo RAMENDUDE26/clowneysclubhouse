@@ -4,237 +4,143 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>New Tab</title>
- <style>
-  body, html {
-    margin: 0;
-    padding: 0;
-    overflow: auto; /* Enable scrolling */
-    height: auto; /* Allow the body to adjust based on content height */
-    background: black;
-    font-family: Arial, sans-serif;
-  }
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      overflow-y: auto;
+      height: auto;
+      background: black;
+      font-family: Arial, sans-serif;
+      color: white;
+    }
 
-  /* Hide scrollbars */
-  ::-webkit-scrollbar {
-    display: none;
-  }
+    ::-webkit-scrollbar {
+      display: none;
+    }
 
-  canvas {
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
-  }
+    canvas {
+      display: block;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
 
-  .content-container {
-    position: relative;
-    z-index: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    text-align: center;
-  }
+    .content-container {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+    }
 
-  h1 {
-    font-size: 3em;
-    margin: 2px 0;
-  }
+    h1 {
+      font-size: 3em;
+      margin: 20px 0;
+    }
 
-  .games-list {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-  }
+    .games-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
 
-  .game-box {
-    background: linear-gradient(to bottom, #189BCC, #393939);
-    color: white;
-    padding: 20px;
-    border-radius: 10px;
-    width: 200px;
-    height: 220px;
-    box-shadow: 0 0 10px rgba(24, 155, 204, 0.8);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    cursor: pointer;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    text-decoration: none;
-    overflow: hidden;
-  }
+    .game-box {
+      background: linear-gradient(to bottom, #189BCC, #393939);
+      color: white;
+      padding: 20px;
+      border-radius: 10px;
+      width: 200px;
+      height: 220px;
+      box-shadow: 0 0 10px rgba(24, 155, 204, 0.8);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      text-decoration: none;
+    }
 
-  .game-image {
-    width: 200px;
-    height: 200px;
-    border-radius: 5px;
-    object-fit: cover;
-    margin-bottom: 10px;
-  }
+    .game-image {
+      width: 200px;
+      height: 200px;
+      border-radius: 5px;
+      object-fit: cover;
+      margin-bottom: 10px;
+    }
 
-  .game-title {
-    font-size: 1.2em;
-    text-align: center;
-  }
+    .game-title {
+      font-size: 1.2em;
+      text-align: center;
+    }
 
-  #iframeContainer {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 2;
-  }
+    #iframeContainer {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 2;
+      background: rgba(0, 0, 0, 0.9);
+    }
 
-  iframe {
-    width: 100%;
-    height: 100%;
-    border: none;
-  }
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
 
-  .close-btn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    padding: 5px 10px;
-    font-size: 14px;
-    background: linear-gradient(to bottom, #189BCC, #393939);
-    color: white;
-    border-radius: 3px;
-    cursor: pointer;
-    box-shadow: 0 0 10px rgba(24, 155, 204, 0.8);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-  }
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      padding: 5px 10px;
+      font-size: 14px;
+      background: linear-gradient(to bottom, #189BCC, #393939);
+      color: white;
+      border-radius: 3px;
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(24, 155, 204, 0.8);
+    }
 
-  .close-btn:hover {
-    transform: scale(1.1);
-    box-shadow: 0 0 15px rgba(24, 155, 204, 1);
-  }
-</style>
+    .close-btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 15px rgba(24, 155, 204, 1);
+    }
 
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: black;
+      z-index: 1;
+      display: none;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+  </style>
 </head>
 <body>
   <canvas id="spaceCanvas"></canvas>
 
- <div class="content-container">
+  <div class="content-container">
     <h1>Clowney's Games</h1>
     <div class="games-list">
-      <!-- Game entries -->
       <div class="game-box" onclick="openIframe('https://studyschool.netlify.app/games/blockblast')">
         <img src="https://via.placeholder.com/200x200" alt="BB" class="game-image">
         <span class="game-title">Block Blast</span>
-      </div>
-      <div class="game-box" onclick="openIframe('https://studyschool.netlify.app/games/retro-bowl')">
-        <img src="https://via.placeholder.com/200x200" alt="RB" class="game-image">
-        <span class="game-title">Retro Bowl</span>
-      </div>
-      <div class="game-box" onclick="openIframe('https://studyschool.netlify.app/games/case-clicker')">
-        <img src="https://via.placeholder.com/200x200" alt="CC" class="game-image">
-        <span class="game-title">CSGO Case Clicker</span>
-      </div>
-      <div class="game-box" onclick="openIframe('https://studyschool.netlify.app/games/basketball-random')">
-        <img src="https://via.placeholder.com/200x200" alt="BB" class="game-image">
-        <span class="game-title">Basket Random</span>
-      </div>
-      <div class="game-box" onclick="openIframe('https://studyschool.netlify.app/games/drivemad')">
-        <img src="https://via.placeholder.com/200x200" alt="DM" class="game-image">
-        <span class="game-title">Drive Mad</span>
-      </div>
-      <div class="game-box" onclick="openIframe('https://glcdn.githack.com/3kh0/3kh0-assets/-/raw/main/1v1lol/index.html')">
-        <img src="https://via.placeholder.com/200x200" alt="1v1" class="game-image">
-        <span class="game-title">1v1.lol</span>
-      </div>
-      <div class="game-box" onclick="openIframe('https://studyschool.netlify.app/games/pixelgun')">
-        <img src="https://via.placeholder.com/200x200" alt="PG" class="game-image">
-        <span class="game-title">Pixel Gun</span>
-      </div>
-      <div class="game-box" onclick="openIframe('https://studyschool.netlify.app/games/slope')">
-        <img src="https://via.placeholder.com/200x200" alt="SL" class="game-image">
-        <span class="game-title">Slope</span>
-      </div>
-      <div class="game-box" onclick="openIframe('https://studyschool.netlify.app/games/drifthunters')">
-        <img src="https://via.placeholder.com/200x200" alt="DH" class="game-image">
-        <span class="game-title">Drift Hunters</span>
-      </div>
-      <div class="game-box" onclick="openIframe('https://studyschool.netlify.app/games/monkey-mart')">
-        <img src="https://via.placeholder.com/200x200" alt="MM" class="game-image">
-        <span class="game-title">Monkey Mart</span>
-      </div>
-      <div class="game-box" onclick="openIframe('https://studyschool.netlify.app/games/getaway-shootout')">
-        <img src="https://via.placeholder.com/200x200" alt="GS" class="game-image">
-        <span class="game-title">Getaway Shootout</span>
-      </div>
-      <div class="game-box" onclick="openIframe('https://studyschool.netlify.app/games/rooftopsnipers')">
-        <img src="https://via.placeholder.com/200x200" alt="RS" class="game-image">
-        <span class="game-title">Rooftop Snipers</span>
-      </div>
-      <div class="game-box" onclick="openIframe('https://studyschool.netlify.app/games/soccer-random')">
-        <img src="https://via.placeholder.com/200x200" alt="SR" class="game-image">
-        <span class="game-title">Soccer Random</span>
-      </div>
-      <div class="game-box" onclick="openIframe('https://studyschool.netlify.app/games/boxingrandom')">
-        <img src="https://via.placeholder.com/200x200" alt="BR" class="game-image">
-        <span class="game-title">Boxing Random</span>
-      </div>
-      <div class="game-box" onclick="openIframe('https://studyschool.netlify.app/games/volleyrandom')">
-        <img src="https://via.placeholder.com/200x200" alt="VR" class="game-image">
-        <span class="game-title">Volley Random</span>
-         </div>
-      <div class="game-box" onclick="openIframe('https://studyschool.netlify.app/games/motox3m/motox3m')">
-        <img src="https://via.placeholder.com/200x200" alt="MX" class="game-image">
-        <span class="game-title">MotoX3M</span>
-         </div>
-      <div class="game-box" onclick="openIframe('https://studyschool.netlify.app/games/motox3m/motox3m-winter')">
-        <img src="https://via.placeholder.com/200x200" alt="MXW" class="game-image">
-        <span class="game-title">MotoX3M Winter</span>
-         </div>
-      <div class="game-box" onclick="openIframe('https://studyschool.netlify.app/games/motox3m/motox3m-pool')">
-        <img src="https://via.placeholder.com/200x200" alt="MXP" class="game-image">
-        <span class="game-title">MotoX3M Pool Party</span>
-         </div>
-      <div class="game-box" onclick="openIframe('https://studyschool.netlify.app/games/motox3m/motox3m-spooky')">
-        <img src="https://via.placeholder.com/200x200" alt="MXS" class="game-image">
-        <span class="game-title">MotoX3M Spooky</span>
-         </div>
-      <div class="game-box" onclick="openIframe('https://studyschool.netlify.app/games/motox3m/motox3m2')">
-        <img src="https://via.placeholder.com/200x200" alt="MX2" class="game-image">
-        <span class="game-title">MotoX3M 2</span>
-         </div>
-      <div class="game-box" onclick="openIframe('https://studyschool.netlify.app/games/cookieclicker')">
-        <img src="https://via.placeholder.com/200x200" alt="CC" class="game-image">
-        <span class="game-title">Cookie Clicker</span>
-        </div>
-      <div class="game-box" onclick="openIframe('https://studyschool.netlify.app/games/crossyroad')">
-        <img src="https://via.placeholder.com/200x200" alt="CR" class="game-image">
-        <span class="game-title">Crossy Road</span>
-         </div>
-      <div class="game-box" onclick="openIframe('https://studyschool.netlify.app/games/jetpack-joyride')">
-        <img src="https://via.placeholder.com/200x200" alt="JJ" class="game-image">
-        <span class="game-title">Jetpack Joyride</span>
-           </div>
-      <div class="game-box" onclick="openIframe('https://studyschool.netlify.app/games/vex/vex3')">
-        <img src="https://via.placeholder.com/200x200" alt="V3" class="game-image">
-        <span class="game-title">Vex 3</span>
-           </div>
-      <div class="game-box" onclick="openIframe('https://studyschool.netlify.app/games/vex/vex4')">
-        <img src="https://via.placeholder.com/200x200" alt="V4" class="game-image">
-        <span class="game-title">Vex 4</span>
-           </div>
-      <div class="game-box" onclick="openIframe('https://studyschool.netlify.app/games/vex/vex5')">
-        <img src="https://via.placeholder.com/200x200" alt="V5" class="game-image">
-        <span class="game-title">Vex 5</span>
-           </div>
-      <div class="game-box" onclick="openIframe('https://studyschool.netlify.app/games/vex/vex6')">
-        <img src="https://via.placeholder.com/200x200" alt="V6" class="game-image">
-        <span class="game-title">Vex 6</span>
-           </div>
-      <div class="game-box" onclick="openIframe('https://studyschool.netlify.app/games/vex/vex7')">
-        <img src="https://via.placeholder.com/200x200" alt="V7" class="game-image">
-        <span class="game-title">Vex 7</span>
       </div>
     </div>
   </div>
@@ -244,15 +150,16 @@
     <iframe id="gameIframe" src=""></iframe>
   </div>
 
+  <div class="overlay" id="blackOverlay"></div>
+
   <script>
-    // Space-themed background
     const canvas = document.getElementById('spaceCanvas');
     const ctx = canvas.getContext('2d');
 
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
-    const starCount = 200;
+    const starCount = 150;
     const stars = [];
 
     function Star(x, y, size, opacity, velocity) {
@@ -274,7 +181,7 @@
       }
     }
 
-    function drawStars(mouseX, mouseY) {
+    function drawStars() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       stars.forEach(star => {
         ctx.beginPath();
@@ -282,54 +189,34 @@
         ctx.fillStyle = `rgba(255, 255, 255, ${star.opacity})`;
         ctx.fill();
 
-        const dx = (canvas.width / 2 - mouseX) * star.velocity;
-        const dy = (canvas.height / 2 - mouseY) * star.velocity;
-        star.x += dx * 0.01;
-        star.y += dy * 0.01;
-
-        star.opacity += (Math.random() * 0.05 - 0.025);
-        if (star.opacity < 0) star.opacity = 0;
-        if (star.opacity > 1) star.opacity = 1;
+        star.x += star.velocity;
+        star.y += star.velocity;
 
         if (star.x > canvas.width) star.x = 0;
-        if (star.x < 0) star.x = canvas.width;
         if (star.y > canvas.height) star.y = 0;
-        if (star.y < 0) star.y = canvas.height;
       });
     }
 
-    let mouseX = canvas.width / 2;
-    let mouseY = canvas.height / 2;
-
     function animate() {
-      drawStars(mouseX, mouseY);
+      drawStars();
       requestAnimationFrame(animate);
     }
 
     createStars();
     animate();
 
-    window.addEventListener('resize', () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      stars.length = 0;
-      createStars();
-    });
-
-    window.addEventListener('mousemove', (e) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-    });
-
-    // Functions to handle iframe
     function openIframe(link) {
       document.getElementById('iframeContainer').style.display = 'block';
       document.getElementById('gameIframe').src = link;
+      document.getElementById('blackOverlay').style.display = 'block';
+      document.querySelector('.content-container').classList.add('hidden');
     }
-  
+
     function closeIframe() {
       document.getElementById('iframeContainer').style.display = 'none';
       document.getElementById('gameIframe').src = '';
+      document.getElementById('blackOverlay').style.display = 'none';
+      document.querySelector('.content-container').classList.remove('hidden');
     }
   </script>
 </body>
