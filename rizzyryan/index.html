@@ -151,8 +151,7 @@
   </div>
 
   <div class="overlay" id="blackOverlay"></div>
-
-  <script>
+<script>
     const canvas = document.getElementById('spaceCanvas');
     const ctx = canvas.getContext('2d');
 
@@ -161,63 +160,63 @@
 
     const starCount = 150;
     const stars = [];
+    const mouse = { x: canvas.width / 2, y: canvas.height / 2 };
 
     function Star(x, y, size, opacity, velocity) {
-      this.x = x;
-      this.y = y;
-      this.size = size;
-      this.opacity = opacity;
-      this.velocity = velocity;
+        this.x = x;
+        this.y = y;
+        this.size = size;
+        this.opacity = opacity;
+        this.velocity = velocity;
     }
 
     function createStars() {
-      for (let i = 0; i < starCount; i++) {
-        const x = Math.random() * canvas.width;
-        const y = Math.random() * canvas.height;
-        const size = Math.random() * 2;
-        const opacity = Math.random();
-        const velocity = Math.random() * 0.5 + 0.1;
-        stars.push(new Star(x, y, size, opacity, velocity));
-      }
+        for (let i = 0; i < starCount; i++) {
+            const x = Math.random() * canvas.width;
+            const y = Math.random() * canvas.height;
+            const size = Math.random() * 2;
+            const opacity = Math.random();
+            const velocity = Math.random() * 0.5 + 0.1;
+            stars.push(new Star(x, y, size, opacity, velocity));
+        }
     }
 
     function drawStars() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      stars.forEach(star => {
-        ctx.beginPath();
-        ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255, 255, 255, ${star.opacity})`;
-        ctx.fill();
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        stars.forEach(star => {
+            ctx.beginPath();
+            ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(255, 255, 255, ${star.opacity})`;
+            ctx.fill();
 
-        star.x += star.velocity;
-        star.y += star.velocity;
+            // Move stars relative to mouse position
+            const dx = (star.x - mouse.x) * 0.01;
+            const dy = (star.y - mouse.y) * 0.01;
 
-        if (star.x > canvas.width) star.x = 0;
-        if (star.y > canvas.height) star.y = 0;
-      });
+            star.x += star.velocity - dx;
+            star.y += star.velocity - dy;
+
+            // Reset position if star moves off-screen
+            if (star.x > canvas.width) star.x = 0;
+            if (star.y > canvas.height) star.y = 0;
+            if (star.x < 0) star.x = canvas.width;
+            if (star.y < 0) star.y = canvas.height;
+        });
     }
 
     function animate() {
-      drawStars();
-      requestAnimationFrame(animate);
+        drawStars();
+        requestAnimationFrame(animate);
     }
+
+    // Update mouse position on move
+    canvas.addEventListener('mousemove', e => {
+        mouse.x = e.clientX;
+        mouse.y = e.clientY;
+    });
 
     createStars();
     animate();
-
-    function openIframe(link) {
-      document.getElementById('iframeContainer').style.display = 'block';
-      document.getElementById('gameIframe').src = link;
-      document.getElementById('blackOverlay').style.display = 'block';
-      document.querySelector('.content-container').classList.add('hidden');
-    }
-
-    function closeIframe() {
-      document.getElementById('iframeContainer').style.display = 'none';
-      document.getElementById('gameIframe').src = '';
-      document.getElementById('blackOverlay').style.display = 'none';
-      document.querySelector('.content-container').classList.remove('hidden');
-    }
-  </script>
+</script>
 </body>
 </html>
