@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,22 +16,10 @@
       font-family: Arial, sans-serif;
     }
 
-::-webkit-scrollbar {
-    width: 10px;
-}
-
-::-webkit-scrollbar-track {
-    background: #f0f0f0;
-}
-
-::-webkit-scrollbar-thumb {
-    background-color: #888;
-    border-radius: 8px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background-color: #555;
-}
+    /* Hide scrollbars */
+    ::-webkit-scrollbar {
+      display: none;
+    }
 
     canvas {
       display: block;
@@ -38,11 +27,7 @@
       top: 0;
       left: 0;
     }
-    /* Target specific container */
-.container {
-    overflow-x: hidden;  /* Hide horizontal overflow in specific container */
-    width: 100%;  /* Ensure the container stays within bounds */
-}
+
     .content-container {
       position: relative;
       z-index: 1;
