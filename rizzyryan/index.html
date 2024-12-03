@@ -17,7 +17,6 @@
 
 ::-webkit-scrollbar {
     width: 10px;
-    overflow-x: hidden;
 }
 
 ::-webkit-scrollbar-track {
@@ -39,7 +38,11 @@
       top: 0;
       left: 0;
     }
-
+    /* Target specific container */
+.container {
+    overflow-x: hidden;  /* Hide horizontal overflow in specific container */
+    width: 100%;  /* Ensure the container stays within bounds */
+}
     .content-container {
       position: relative;
       z-index: 1;
