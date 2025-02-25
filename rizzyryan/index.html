@@ -47,32 +47,39 @@
       box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
       display: inline-block;
     }
-
-   .games-list {
+    
+  .games-list {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 20px;
-  max-width: 1100px; /* 5 games x 200px width + gap adjustments */
+  max-width: 1000px;
   margin: 0 auto;
 }
-    .game-box {
-      background: linear-gradient(to bottom, #189BCC, #393939);
-      color: white;
-      padding: 20px;
-      border-radius: 10px;
-      width: 200px;
-      height: 220px;
-      box-shadow: 0 0 10px rgba(24, 155, 204, 0.8);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: space-between;
-      cursor: pointer;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-      text-decoration: none;
-      overflow: hidden;
-    }
+
+.game-box {
+  flex: 1 1 calc(20% - 20px); /* Ensures 5 items per row */
+  max-width: calc(20% - 20px);
+  background: linear-gradient(to bottom, #189BCC, #393939);
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  height: 220px;
+  box-shadow: 0 0 10px rgba(24, 155, 204, 0.8);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  text-decoration: none;
+  overflow: hidden;
+}
+
+.game-box:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(24, 155, 204, 1);
+}
 
     .game-image {
       width: 200px;
