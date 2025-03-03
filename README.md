@@ -23,8 +23,8 @@ Snow Rider 3D | https://main.d29306teyfeohi.amplifyapp.com
 
 Drive Mad | https://main.d39666fep80lrk.amplifyapp.com
 
-Basket Random | https://main.d2gg9ne3udliui.amplifyapp.com/
+Basket Random | https://main.d2gg9ne3udliui.amplifyapp.com
 
 Tiny Fishing | https://main.d2a8kmjba9viwf.amplifyapp.com
 
-Forked game site | https://main.d8c2vxwr9bam4.amplifyapp.com/category/popular.html
+Getaway Shootout | https://main.d1rysh5o5jny3u.amplifyapp.com
