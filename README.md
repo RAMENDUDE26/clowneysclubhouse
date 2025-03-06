@@ -28,3 +28,5 @@ Basket Random | https://main.d2gg9ne3udliui.amplifyapp.com
 Tiny Fishing | https://main.d2a8kmjba9viwf.amplifyapp.com
 
 Getaway Shootout | https://main.d1rysh5o5jny3u.amplifyapp.com
+
+https://dnrweqffuwjtx.cloudfront.net/drift-hunters/
