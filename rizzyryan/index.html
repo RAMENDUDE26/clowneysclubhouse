@@ -19,16 +19,12 @@
       font-family: Arial, sans-serif;
     }
 
-    /* Hide scrollbars */
     ::-webkit-scrollbar {
-      display: none;
+      width: 8px;
     }
-
-    canvas {
-      display: block;
-      position: absolute;
-      top: 0;
-      left: 0;
+    ::-webkit-scrollbar-thumb {
+      background: #888;
+      border-radius: 4px;
     }
 
     .content-container {
@@ -64,9 +60,9 @@
       border-radius: 20px;
       background: rgba(255, 255, 255, 0.1);
       box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
-      display: inline-block;
       color: white;
       outline: none;
+      width: 300px;
     }
 
     .games-list {
@@ -82,12 +78,13 @@
       padding: 20px;
       border-radius: 10px;
       width: 200px;
-      height: 220px;
+      height: 260px;
       box-shadow: 0 0 10px rgba(24, 155, 204, 0.8);
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: space-between;
+      justify-content: space-between; /* Ensures even spacing */
+      text-align: center;
       cursor: pointer;
       transition: transform 0.2s ease, box-shadow 0.2s ease;
       text-decoration: none;
@@ -100,16 +97,22 @@
     }
 
     .game-image {
-      width: 200px;
-      height: 200px;
+      width: 180px;
+      height: 180px;
       border-radius: 5px;
       object-fit: cover;
-      margin-bottom: 10px;
     }
 
+    /* Centers text and adds spacing between the image and bottom */
     .game-title {
       font-size: 1.2em;
       text-align: center;
+      width: 100%;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+      white-space: normal;
+      padding: 10px 0; /* Adds spacing between image and bottom */
+      margin-top: auto; /* Pushes text away from image */
     }
   </style>
 </head>
