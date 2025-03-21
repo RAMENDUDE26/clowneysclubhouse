@@ -9,7 +9,7 @@ Cookie Clicker | https://gh-pages.d2j2bxyw03ndm4.amplifyapp.com
 
 Retro Bowl | https://main.dsrluk2jq7h55.amplifyapp.com
 
-Eaglercraft (not multiplayer) | https://main.d230kctz0jugo8.amplifyapp.com
+Minecraft | https://main.d230kctz0jugo8.amplifyapp.com
 
 Level Devil | https://main.d2b8h6fg9zr97p.amplifyapp.com
 
