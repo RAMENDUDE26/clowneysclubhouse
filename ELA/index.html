@@ -19,6 +19,7 @@
       font-family: Arial, sans-serif;
     }
 
+    /* Hide scrollbars */
     ::-webkit-scrollbar {
       width: 8px;
     }
@@ -27,31 +28,38 @@
       border-radius: 4px;
     }
 
+    canvas {
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
     .content-container {
       position: relative;
       z-index: 1;
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      justify-content: flex-start; /* Align items at the top */
       align-items: center;
       color: white;
       text-align: center;
+      padding-top: 10px; /* Reduced top padding */
     }
 
     h1 {
-  font-size: 3em;
-  font-family: "Barriecito", system-ui;
-  font-weight: 400;
-  font-style: normal;
-  margin: 5px 0; /* Reduced top margin */
-  padding: 10px 20px;
-  border: 2px solid white;
-  border-radius: 15px;
-  background: rgba(255, 255, 255, 0.1);
-  box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
-  display: inline-block;
-}
-
+      font-size: 3em;
+      font-family: "Barriecito", system-ui;
+      font-weight: 400;
+      font-style: normal;
+      margin: 5px 0; /* Minimal top margin */
+      padding: 10px 20px;
+      border: 2px solid white;
+      border-radius: 15px;
+      background: rgba(255, 255, 255, 0.1);
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+      display: inline-block;
+    }
 
     #searchBar {
       font-size: x-large;
@@ -71,7 +79,7 @@
       flex-wrap: wrap;
       justify-content: center;
       gap: 20px;
-      padding-bottom: 50px; /* Adds space at the bottom */
+      padding-bottom: 50px;
     }
 
     .game-box {
@@ -123,7 +131,7 @@
   <div class="content-container">
     <h1>Clowney's Games</h1>
 
-    <h2 style="color:red">If you have any game suggestions please email me at orummelt01@newaygo.com </h2>
+    <h2 style="color:red">If you have any game suggestions please email me at orummelt01@newaygo.com</h2>
     
     <input id="searchBar" type="text" placeholder="Search games..." onkeyup="filterGames()">
     
@@ -309,30 +317,29 @@
   </div>
 
   <script>
-      document.addEventListener("DOMContentLoaded", function () {
-    let gamesList = document.getElementById("gamesList");
-    let games = Array.from(gamesList.children);
+    function filterGames() {
+      let input = document.getElementById('searchBar').value.toLowerCase();
+      let games = document.querySelectorAll('.game-box');
+      
+      games.forEach(game => {
+        let title = game.querySelector('.game-title').textContent.toLowerCase();
+        game.style.display = title.includes(input) ? "flex" : "none";
+      });
+    }
 
-    // Sort game boxes alphabetically by title
-    games.sort((a, b) => {
-      let titleA = a.querySelector(".game-title").textContent.toLowerCase();
-      let titleB = b.querySelector(".game-title").textContent.toLowerCase();
-      return titleA.localeCompare(titleB);
+    // Sort games alphabetically (if needed, though you mentioned it's already sorted)
+    document.addEventListener("DOMContentLoaded", function () {
+      let gamesList = document.getElementById("gamesList");
+      let games = Array.from(gamesList.children);
+
+      games.sort((a, b) => {
+        let titleA = a.querySelector(".game-title").textContent.toLowerCase();
+        let titleB = b.querySelector(".game-title").textContent.toLowerCase();
+        return titleA.localeCompare(titleB);
+      });
+
+      games.forEach(game => gamesList.appendChild(game));
     });
-
-    // Append sorted game boxes back to the games list
-    games.forEach(game => gamesList.appendChild(game));
-  });
-
-  function filterGames() {
-    let input = document.getElementById('searchBar').value.toLowerCase();
-    let games = document.querySelectorAll('.game-box');
-    
-    games.forEach(game => {
-      let title = game.querySelector('.game-title').textContent.toLowerCase();
-      game.style.display = title.includes(input) ? "flex" : "none";
-    });
-  }
   </script>
 </body>
 </html>
