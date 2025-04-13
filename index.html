@@ -284,13 +284,14 @@
 
     function closeTerminal() {
       terminalOverlay.style.display = "none";
+      commandBuffer = ""; // Reset command buffer upon terminal close
     }
 
     document.addEventListener('keydown', function(e) {
       const terminalOpen = (terminalOverlay.style.display === "block");
 
-      // Terminal NOT open: build trigger buffer
       if (!terminalOpen) {
+        // Build trigger command buffer if terminal is not open
         if (e.key.length === 1) {
           commandBuffer += e.key;
         } else if (e.key === "Backspace") {
@@ -304,20 +305,19 @@
           commandBuffer = "";
         }
       } else {
-        // Terminal is open; process input only when Enter is pressed
+        // Terminal is open
         if (e.key === "Escape") {
           closeTerminal();
         } else if (e.key === "Backspace") {
           terminalInput.textContent = terminalInput.textContent.slice(0, -1);
         } else if (e.key === "Enter") {
           const command = terminalInput.textContent.trim();
-          // Process command once Enter is pressed; in this example, we only check for exit
           if (command === "exit" || command === "/exit") {
             closeTerminal();
           }
-          // Clear the terminal input after processing
+          // Clear input upon processing
           terminalInput.textContent = "";
-          e.preventDefault(); // Prevent newlines or other default behavior
+          e.preventDefault();
         } else if (e.key.length === 1) {
           terminalInput.textContent += e.key;
         }
