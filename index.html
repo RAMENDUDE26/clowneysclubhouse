@@ -137,7 +137,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.5);
+      background: rgba(0, 0, 0, 0.5); /* 50% transparency */
       color: lime;
       font-family: monospace;
       z-index: 3;
@@ -186,7 +186,7 @@
   </div>
 
   <script>
-    // Space-themed background code
+    // Space-themed background
     const canvas = document.getElementById('spaceCanvas');
     const ctx = canvas.getContext('2d');
 
@@ -222,7 +222,7 @@
         ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
         ctx.fillStyle = `rgba(255, 255, 255, ${star.opacity})`;
         ctx.fill();
-        
+
         const dx = (canvas.width / 2 - mouseX) * star.velocity;
         const dy = (canvas.height / 2 - mouseY) * star.velocity;
         star.x += dx * 0.01;
@@ -288,7 +288,8 @@
 
     document.addEventListener('keydown', function(e) {
       const terminalOpen = (terminalOverlay.style.display === "block");
-      
+
+      // Terminal NOT open: build trigger buffer
       if (!terminalOpen) {
         if (e.key.length === 1) {
           commandBuffer += e.key;
@@ -303,16 +304,22 @@
           commandBuffer = "";
         }
       } else {
+        // Terminal is open; process input only when Enter is pressed
         if (e.key === "Escape") {
           closeTerminal();
         } else if (e.key === "Backspace") {
           terminalInput.textContent = terminalInput.textContent.slice(0, -1);
+        } else if (e.key === "Enter") {
+          const command = terminalInput.textContent.trim();
+          // Process command once Enter is pressed; in this example, we only check for exit
+          if (command === "exit" || command === "/exit") {
+            closeTerminal();
+          }
+          // Clear the terminal input after processing
+          terminalInput.textContent = "";
+          e.preventDefault(); // Prevent newlines or other default behavior
         } else if (e.key.length === 1) {
           terminalInput.textContent += e.key;
-        }
-        // Close terminal when the typed command equals "exit" (visible as "/exit")
-        if (terminalInput.textContent.trim() === "exit" || terminalInput.textContent.trim() === "/exit") {
-          closeTerminal();
         }
       }
     });
