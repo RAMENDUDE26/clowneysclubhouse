@@ -1,6 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- Firebase SDKs (compat version for browsers) -->
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyDvMmZME5wJTIkQmykF_N3a_XR4WnTX9J4",
+    authDomain: "clowneys-clubhouse.firebaseapp.com",
+    projectId: "clowneys-clubhouse",
+    storageBucket: "clowneys-clubhouse.firebasestorage.app",
+    messagingSenderId: "163035792151",
+    appId: "1:163035792151:web:ac516d08ace878dd4fed52",
+    measurementId: "G-7ZJXQCBFM8"
+  };
+
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
+</script>
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>New Tab</title>
@@ -181,7 +201,6 @@
   </div>
 
   <!-- Terminal Overlay (hidden by default) -->
-  <!-- Notice there is no whitespace between the elements so the text appears right after the slash -->
   <div id="terminalOverlay">
     <div id="terminalPrompt"><span>/</span><span id="terminalInput"></span><span class="blinking-cursor" id="cursor"></span></div>
   </div>
@@ -273,24 +292,40 @@
 
     // Terminal functionality
     let commandBuffer = "";
-    // Updated trigger command is now "/01"
     const triggerCommand = "/01";
     const terminalOverlay = document.getElementById("terminalOverlay");
     const terminalInput = document.getElementById("terminalInput");
+    const terminalMessages = [];
+    const maxMessages = 10;
 
     function openTerminal() {
       terminalOverlay.style.display = "block";
       terminalInput.textContent = "";
     }
+
     function closeTerminal() {
       terminalOverlay.style.display = "none";
       commandBuffer = "";
     }
 
+    function showMessage(msg) {
+      if (terminalMessages.length >= maxMessages) {
+        terminalMessages.shift();
+      }
+      terminalMessages.push(msg);
+      updateTerminalView();
+    }
+
+    function updateTerminalView() {
+      terminalInput.textContent = "";
+      terminalMessages.forEach((message) => {
+        terminalInput.textContent += message + "\n";
+      });
+    }
+
     document.addEventListener('keydown', function(e) {
       const terminalOpen = (terminalOverlay.style.display === "block");
       if (!terminalOpen) {
-        // Build trigger command buffer if terminal is not open
         if (e.key.length === 1) {
           commandBuffer += e.key;
         } else if (e.key === "Backspace") {
@@ -304,7 +339,6 @@
           commandBuffer = "";
         }
       } else {
-        // Terminal is open; process input on Enter, Backspace, or Escape
         if (e.key === "Escape") {
           closeTerminal();
         } else if (e.key === "Backspace") {
@@ -313,6 +347,15 @@
           const command = terminalInput.textContent.trim();
           if (command === "exit" || command === "/exit") {
             closeTerminal();
+          } else if (command.startsWith("/msg")) {
+            const msg = command.slice(5).trim();
+            if (msg) {
+              showMessage(`Message: ${msg}`);
+            } else {
+              showMessage("No message provided.");
+            }
+          } else {
+            showMessage(`Unknown command: ${command}`);
           }
           terminalInput.textContent = "";
           e.preventDefault();
