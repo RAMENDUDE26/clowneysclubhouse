@@ -186,7 +186,7 @@
   </div>
 
   <script>
-    // Space-themed background
+    // Space-themed background code
     const canvas = document.getElementById('spaceCanvas');
     const ctx = canvas.getContext('2d');
 
@@ -290,30 +290,29 @@
       const terminalOpen = (terminalOverlay.style.display === "block");
       
       if (!terminalOpen) {
-        // When terminal is not open, capture keys to trigger the terminal
-        // Only process character keys and backspace (ignore modifier keys)
         if (e.key.length === 1) {
           commandBuffer += e.key;
         } else if (e.key === "Backspace") {
           commandBuffer = commandBuffer.slice(0, -1);
         }
-        // Check if the command has been fully typed
         if (commandBuffer === triggerCommand) {
           openTerminal();
           commandBuffer = "";
         }
-        // Optionally, reset buffer if it gets too long without a match
         if (commandBuffer.length > triggerCommand.length) {
           commandBuffer = "";
         }
       } else {
-        // When terminal is open, process input for the terminal
         if (e.key === "Escape") {
           closeTerminal();
         } else if (e.key === "Backspace") {
           terminalInput.textContent = terminalInput.textContent.slice(0, -1);
         } else if (e.key.length === 1) {
           terminalInput.textContent += e.key;
+        }
+        // Close terminal when the typed command equals "exit" (visible as "/exit")
+        if (terminalInput.textContent.trim() === "exit" || terminalInput.textContent.trim() === "/exit") {
+          closeTerminal();
         }
       }
     });
