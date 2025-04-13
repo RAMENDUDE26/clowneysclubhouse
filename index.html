@@ -153,10 +153,11 @@
     /* Blinking Cursor Style */
     .blinking-cursor {
       display: inline-block;
-      width: 10px;
+      vertical-align: bottom;
+      width: 8px;       /* Slightly narrower */
       height: 1em;
       background-color: lime;
-      margin-left: 2px;
+      margin-left: 1px; /* Closer to the text */
       animation: blink 1s step-start infinite;
     }
     @keyframes blink {
