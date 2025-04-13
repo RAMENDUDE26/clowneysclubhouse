@@ -150,14 +150,13 @@
       left: 10px;
       font-size: 18px;
     }
-    /* Blinking Cursor Style */
+    /* Blinking Cursor Style: no extra margin so it sits right next to the text */
     .blinking-cursor {
       display: inline-block;
       vertical-align: bottom;
-      width: 8px;       /* Slightly narrower */
+      width: 8px;       /* Adjust width as needed */
       height: 1em;
       background-color: lime;
-      margin-left: 1px; /* Closer to the text */
       animation: blink 1s step-start infinite;
     }
     @keyframes blink {
@@ -195,8 +194,7 @@
   <div id="terminalOverlay">
     <div id="terminalPrompt">
       <span>/</span>
-      <span id="terminalInput"></span>
-      <span class="blinking-cursor" id="cursor"></span>
+      <span id="terminalInput"></span><span class="blinking-cursor" id="cursor"></span>
     </div>
   </div>
 
