@@ -150,6 +150,18 @@
       left: 10px;
       font-size: 18px;
     }
+    /* Blinking Cursor Style */
+    .blinking-cursor {
+      display: inline-block;
+      width: 10px;
+      height: 1em;
+      background-color: lime;
+      margin-left: 2px;
+      animation: blink 1s step-start infinite;
+    }
+    @keyframes blink {
+      50% { opacity: 0; }
+    }
   </style>
 </head>
 <body>
@@ -181,7 +193,9 @@
   <!-- Terminal Overlay (hidden by default) -->
   <div id="terminalOverlay">
     <div id="terminalPrompt">
-      <span>/</span><span id="terminalInput"></span>
+      <span>/</span>
+      <span id="terminalInput"></span>
+      <span class="blinking-cursor" id="cursor"></span>
     </div>
   </div>
 
@@ -306,7 +320,7 @@
           commandBuffer = "";
         }
       } else {
-        // Terminal is open
+        // Terminal is open; process input only on Enter, Backspace, or Escape
         if (e.key === "Escape") {
           closeTerminal();
         } else if (e.key === "Backspace") {
