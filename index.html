@@ -20,7 +20,6 @@
   firebase.initializeApp(firebaseConfig);
   const db = firebase.firestore();
 </script>
-
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>New Tab</title>
@@ -149,7 +148,6 @@
       transform: scale(1.1);
       box-shadow: 0 0 15px rgba(24, 155, 204, 1);
     }
-    /* Terminal Overlay Styles */
     #terminalOverlay {
       display: none;
       position: fixed;
@@ -164,9 +162,7 @@
       padding: 20px;
       box-sizing: border-box;
     }
-    /* The following line ensures that there’s no space between the forward slash and the text */
-    #terminalPrompt {font-size: 18px; line-height: 1; margin: 0; padding: 0; white-space: nowrap; }
-    /* Blinking Cursor Style */
+    #terminalPrompt { font-size: 18px; line-height: 1; margin: 0; padding: 0; white-space: nowrap; }
     .blinking-cursor {
       display: inline-block;
       vertical-align: bottom;
@@ -178,156 +174,110 @@
     @keyframes blink {
       50% { opacity: 0; }
     }
-    /* Message view styles */
-    .message-view {
-      background-color: rgba(0, 0, 0, 0.8);
-      color: white;
-      padding: 10px;
+    #messageOverlay {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #222;
+      color: lime;
+      padding: 10px 20px;
       border-radius: 5px;
-      margin-top: 20px;
-      max-width: 80%;
-      max-height: 300px;
-      overflow-y: auto;
+      font-family: monospace;
+      font-size: 16px;
+      box-shadow: 0 0 10px lime;
+      z-index: 4;
+      display: none;
     }
   </style>
 </head>
 <body>
   <canvas id="spaceCanvas"></canvas>
-
   <div class="content-container">
     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVJIaqRpihozuPozDD6Cs8z8fqhWCJ27CBUw&s" alt="Header Image" class="header-image" id="headerImage">
     <h1 id="heading">Clowney's Clubhouse</h1>
-    
     <div class="box-container">
       <div class="button-box" id="gamesBox" onclick="window.open('https://main.d3eirhfx8o6tzs.amplifyapp.com/ELA', '_blank')">Games</div>
       <div class="button-box" id="searchEngineBox" onclick="openIframe()">Clowney's Search Engine</div>
     </div>
-    
     <a href="mailto:clowneysclubhouse@gmail.com" target="_blank" class="footer">Email Clowney!</a>
   </div>
-
   <div id="iframeContainer">
     <button class="close-btn" onclick="closeIframe()">Close</button>
-    <iframe src="">example.com</iframe>
+    <iframe src=""></iframe>
   </div>
-
-  <!-- Terminal Overlay (hidden by default) -->
   <div id="terminalOverlay">
     <div id="terminalPrompt"><span>/</span><span id="terminalInput"></span><span class="blinking-cursor" id="cursor"></span></div>
   </div>
-
-  <!-- Message View -->
-  <div id="messageView" class="message-view"></div>
-
+  <div id="messageOverlay"></div>
   <script>
-    // Space-themed background
     const canvas = document.getElementById('spaceCanvas');
     const ctx = canvas.getContext('2d');
-
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
-
-    const starCount = 200;
     const stars = [];
-
-    function Star(x, y, size, opacity, velocity) {
-      this.x = x;
-      this.y = y;
-      this.size = size;
-      this.opacity = opacity;
-      this.velocity = velocity;
+    for (let i = 0; i < 200; i++) {
+      stars.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        size: Math.random() * 2,
+        opacity: Math.random(),
+        velocity: Math.random() * 0.5 + 0.1
+      });
     }
-
-    function createStars() {
-      for (let i = 0; i < starCount; i++) {
-        const x = Math.random() * canvas.width;
-        const y = Math.random() * canvas.height;
-        const size = Math.random() * 2;
-        const opacity = Math.random();
-        const velocity = Math.random() * 0.5 + 0.1;
-        stars.push(new Star(x, y, size, opacity, velocity));
-      }
-    }
-
-    function drawStars(mouseX, mouseY) {
+    let mouseX = canvas.width / 2;
+    let mouseY = canvas.height / 2;
+    function animate() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      stars.forEach(star => {
+      for (let star of stars) {
         ctx.beginPath();
         ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255, 255, 255, ${star.opacity})`;
+        ctx.fillStyle = `rgba(255,255,255,${star.opacity})`;
         ctx.fill();
-
-        const dx = (canvas.width / 2 - mouseX) * star.velocity;
-        const dy = (canvas.height / 2 - mouseY) * star.velocity;
-        star.x += dx * 0.01;
-        star.y += dy * 0.01;
-
-        star.opacity += (Math.random() * 0.05 - 0.025);
-        if (star.opacity < 0) star.opacity = 0;
-        if (star.opacity > 1) star.opacity = 1;
-
+        star.x += (canvas.width / 2 - mouseX) * star.velocity * 0.01;
+        star.y += (canvas.height / 2 - mouseY) * star.velocity * 0.01;
         if (star.x > canvas.width) star.x = 0;
         if (star.x < 0) star.x = canvas.width;
         if (star.y > canvas.height) star.y = 0;
         if (star.y < 0) star.y = canvas.height;
-      });
-    }
-
-    let mouseX = canvas.width / 2;
-    let mouseY = canvas.height / 2;
-
-    function animate() {
-      drawStars(mouseX, mouseY);
+      }
       requestAnimationFrame(animate);
     }
-
-    createStars();
     animate();
-
     window.addEventListener('resize', () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
-      stars.length = 0;
-      createStars();
     });
-
     window.addEventListener('mousemove', (e) => {
       mouseX = e.clientX;
       mouseY = e.clientY;
     });
-
-    // Functions to handle iframe
     function openIframe() {
       document.getElementById('iframeContainer').style.display = 'block';
     }
     function closeIframe() {
       document.getElementById('iframeContainer').style.display = 'none';
     }
-
-    // Terminal functionality
-    let commandBuffer = "";
-    const triggerCommand = "/01";
     const terminalOverlay = document.getElementById("terminalOverlay");
     const terminalInput = document.getElementById("terminalInput");
-    const messageView = document.getElementById("messageView");
-    const maxMessages = 10;
-
+    let commandBuffer = "";
+    const triggerCommand = "/01";
     function openTerminal() {
       terminalOverlay.style.display = "block";
       terminalInput.textContent = "";
     }
-
     function closeTerminal() {
       terminalOverlay.style.display = "none";
       commandBuffer = "";
     }
-
     function showMessage(msg) {
-      messageView.innerHTML = `<p>${msg}</p>`; // Show message in the message view
+      const msgEl = document.getElementById("messageOverlay");
+      msgEl.textContent = msg;
+      msgEl.style.display = "block";
+      setTimeout(() => msgEl.style.display = "none", 3000);
     }
-
     document.addEventListener('keydown', function(e) {
-      const terminalOpen = (terminalOverlay.style.display === "block");
+      const terminalOpen = terminalOverlay.style.display === "block";
       if (!terminalOpen) {
         if (e.key.length === 1) {
           commandBuffer += e.key;
@@ -350,6 +300,8 @@
           const command = terminalInput.textContent.trim();
           if (command === "exit" || command === "/exit") {
             closeTerminal();
+          } else if (command === "beta") {
+            window.location.href = "https://main.d3eirhfx8o6tzs.amplifyapp.com/beta";
           } else if (command.startsWith("/msg")) {
             const msg = command.slice(5).trim();
             if (msg) {
@@ -357,8 +309,6 @@
             } else {
               showMessage("No message provided.");
             }
-          } else {
-            showMessage(`Unknown command: ${command}`);
           }
           terminalInput.textContent = "";
           e.preventDefault();
