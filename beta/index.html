@@ -81,31 +81,32 @@
 .game-box {
   background: linear-gradient(to bottom, #189BCC, #393939);
   color: white;
-  padding: 15px;
+  padding: 8px 12px; /* minimal padding */
   border-radius: 10px;
-  width: 150px; /* smaller width */
-  height: 120px; /* smaller height */
+  width: auto; /* fits text width */
+  height: auto; /* fits text height */
   box-shadow: 0 0 10px rgba(24, 155, 204, 0.8);
-  display: flex;
+  display: inline-flex; /* shrink to content */
   flex-direction: column;
   align-items: center;
-  justify-content: center; /* center content */
+  justify-content: center;
   text-align: center;
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   text-decoration: none;
-  overflow: hidden;
+}
+
+.game-box:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(24, 155, 204, 1);
 }
 
 .game-title {
-  font-size: 1.5em; /* larger text */
+  font-size: 2em; /* bigger text */
   text-align: center;
-  width: 100%;
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-  white-space: normal;
   margin: 0;
   padding: 0;
+  line-height: 1.2;
 }
 
 /* Optional: remove the image class if no image is ever used */
