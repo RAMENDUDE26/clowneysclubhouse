@@ -1,1 +1,148 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>New Tab</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barriecito&display=swap" rel="stylesheet">
+
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      overflow: auto;
+      height: auto;
+      background: black;
+      font-family: Arial, sans-serif;
+    }
+
+    /* Hide scrollbars */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #888;
+      border-radius: 4px;
+    }
+
+    canvas {
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    .content-container {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start; /* Align items at the top */
+      align-items: center;
+      color: white;
+      text-align: center;
+      padding-top: 10px; /* Reduced top padding */
+    }
+
+    h1 {
+      font-size: 3em;
+      font-family: "Barriecito", system-ui;
+      font-weight: 400;
+      font-style: normal;
+      margin: 5px 0; /* Minimal top margin */
+      padding: 10px 20px;
+      border: 2px solid white;
+      border-radius: 15px;
+      background: rgba(255, 255, 255, 0.1);
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+      display: inline-block;
+    }
+
+    #searchBar {
+      font-size: x-large;
+      margin: 20px 0;
+      padding: 10px 20px;
+      border: 2px solid white;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.1);
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+      color: white;
+      outline: none;
+      width: 300px;
+    }
+
+    .games-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      padding-bottom: 50px;
+    }
+
+    .game-box {
+      background: linear-gradient(to bottom, #189BCC, #393939);
+      color: white;
+      padding: 20px;
+      border-radius: 10px;
+      width: 200px;
+      height: 260px;
+      box-shadow: 0 0 10px rgba(24, 155, 204, 0.8);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      text-align: center;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      text-decoration: none;
+      overflow: hidden;
+    }
+
+    .game-box:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px rgba(24, 155, 204, 1);
+    }
+
+    .game-image {
+      width: 180px;
+      height: 180px;
+      border-radius: 5px;
+      object-fit: cover;
+    }
+
+    .game-title {
+      font-size: 1.2em;
+      text-align: center;
+      width: 100%;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+      white-space: normal;
+      padding: 10px 0;
+      margin-top: auto;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="spaceCanvas"></canvas>
+
+  <div class="content-container">
+
+    <h1>Beta</h1>
+    
+    <div class="games-list" id="gamesList">
+
+      <div class="game-box" onclick="window.open('https://main.dc7pppnwa8r9v.amplifyapp.com/', '_blank')">
+        <span class="game-title">Emulator</span> 
+      </div>
+    </div>
+  </div>
+
+  <script>
+  </script>
+</body>
+</html>
+
