@@ -83,36 +83,40 @@
       padding-bottom: 50px;
     }
 
-    .game-box {
-      background: linear-gradient(to bottom, #189BCC, #393939);
-      color: white;
-      padding: 20px;
-      border-radius: 10px;
-      width: 200px;
-      height: 260px;
-      box-shadow: 0 0 10px rgba(24, 155, 204, 0.8);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: space-between;
-      text-align: center;
-      cursor: pointer;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-      text-decoration: none;
-      overflow: hidden;
-    }
+.game-box {
+  background: linear-gradient(to bottom, #189BCC, #393939);
+  color: white;
+  padding: 15px;
+  border-radius: 10px;
+  width: 150px; /* smaller width */
+  height: 120px; /* smaller height */
+  box-shadow: 0 0 10px rgba(24, 155, 204, 0.8);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; /* center content */
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  text-decoration: none;
+  overflow: hidden;
+}
 
-    .game-box:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 20px rgba(24, 155, 204, 1);
-    }
+.game-title {
+  font-size: 1.5em; /* larger text */
+  text-align: center;
+  width: 100%;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+  margin: 0;
+  padding: 0;
+}
 
-    .game-image {
-      width: 180px;
-      height: 180px;
-      border-radius: 5px;
-      object-fit: cover;
-    }
+/* Optional: remove the image class if no image is ever used */
+.game-image {
+  display: none;
+}
 
     .game-title {
       font-size: 1.2em;
