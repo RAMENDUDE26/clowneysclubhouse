@@ -61,6 +61,13 @@
       display: inline-block;
     }
 
+    .category h2 {
+  color: white;
+  text-align: center;
+  margin: 40px 0 20px;
+  font-size: 2em;
+}
+
     #searchBar {
       font-size: x-large;
       margin: 20px 0;
@@ -136,11 +143,44 @@
     <input id="searchBar" type="text" placeholder="Search games..." onkeyup="filterGames()">
     
     <div class="games-list" id="gamesList">
-      <!-- Game entries remain unchanged -->
+ 
+      <div class="category">
+        <h2>Popular Games</h2>
+        <div class="games-list" id="gamesList">
+
       <div class="game-box" onclick="window.open('https://main.d3li82qzlr13g8.amplifyapp.com/', '_blank')">
         <img src="https://images.sftcdn.net/images/t_app-icon-m/p/31203ab6-9c1d-4435-ab18-a3463bf5c453/163275407/block-blast-block-puzzle-games-logo" alt="BB" class="game-image">
         <span class="game-title">Block Blast</span> 
       </div>
+    <div class="game-box" onclick="window.open('https://main.d3613tpkkl52ww.amplifyapp.com/', '_blank')">
+      <img src="https://play-lh.googleusercontent.com/V-lvUzA5kK0Xw3wdg8Ct3vfIMXUX5vXYcNLPmudaZ-eyQjedYz-luqIuLmJO6KodE0Y" alt="PM" class="game-image">
+      <span class="game-title">Pac-Man</span> 
+    </div>
+  <div class="game-box" onclick="window.open('https://main.d230kctz0jugo8.amplifyapp.com/1.5.2/main1.5.2.html', '_blank')">
+    <img src="https://play-lh.googleusercontent.com/VSwHQjcAttxsLE47RuS4PqpC4LT7lCoSjE7Hx5AW_yCxtDvcnsHHvm5CTuL5BPN-uRTP=w600-h300-pc0xffffff-pd" alt="MC" class="game-image">
+    <span class="game-title">Minecraft</span>
+  </div>
+  <div class="game-box" onclick="window.open('https://main.d1t1qmxr2i6ua8.amplifyapp.com/', '_blank')">
+    <img src="https://media-hosting.imagekit.io//9f02e7c2e93d4d33/download.jpg?Expires=1837202300&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=leUhe88wpnxXqK4CgE5t9GkAa3DH64IY0WVpm6gp0XVpehyoJ4JVxINkDEBN7Q1hCYI~gO1qvnUUczaw8F0LHq6cNKQJITL2yM89FHJOQK42ArA~ozv1IKwLfFt-SyEhqkd21osIIsouKo0X7eld~6YBph58tEO87gZW7RKNMAp6KxgOW2AJHREdVu05PdWKjBUeOUK8cbMGaLJHjaaeKRCfnOWoRrK~BSRRKGhNubW5xxtIevn8sAyJhW8LJCWBcaLUeCS1~ZDUSSS~7mzxfMH7mu1t7KLhm-WdvgBbDf~sIx3U55wqE3HX2Ynuda4CAcdA7sP7LYkelHq-h8x00w__" alt="DH" class="game-image">
+    <span class="game-title">Drift Hunters</span>
+  </div>
+  <div class="game-box" onclick="window.open('https://main.d1hbitpjra3eeu.amplifyapp.com/', '_blank')">
+    <img src="https://media-hosting.imagekit.io//32d7047623ea43bb/download.jpg?Expires=1837202630&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=nPuVzkvIsCzLSTs6QqvcL3sKpiMGkQoLo5JuHkqGzmtEbAPLOWcujfNpkJFasdoQRh51g8vhsLQD9HI7OFcvvSBlZW4roNg0meEVr8UqtHnMv8V47XVM2dDxCSif3P0zj1EAS6wJQyqNbuvuDrERnCkktuQT0DATBRT08TNq0JPf2S65uHjuFqoVOa1ywUDRqE9ev-1zfb4FYz-1YmJ3DLLtmhenkplJtglPMIu3L1UzxcnYT8UyKmRYUFi~dhHQpBOCG9g06vy7phGn-ckFi5liCffp7cb~QGbUEprJG2psbCEJg5oaeD80c3bWb1xpQLbH97ph9gZjMM7zqtr6NQ__" alt="1v1" class="game-image">
+    <span class="game-title">1v1.lol</span>
+  </div>
+  <div class="game-box" onclick="window.open('https://main.dc7pppnwa8r9v.amplifyapp.com/', '_blank')">
+    <img src="https://media-hosting.imagekit.io/2bc9cbea440c4e97/images.jpg?Expires=1839711972&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=obZFHiC4EWwTC4Yy6OiIVKodIPG7UJUQVQtGnKUlKzvWEAggKS~ZqpMoVi2K3w6e8EOclNrswh~juI70iA4Gr7Ym2YzIVyWaGRuhVO~hVOV8i81EqDy65lj1oWBts7QhTy-JRhPAWtY5lppXZS-UMtHLsLtV2sZm1eTZ2U8eeL9Y2KroNQ5YwcsjLeWMFa03EVMBOR-ncJwHxpo5VgeJc0gLhzFC-nRdK2iCTvDX8dLsYt8~JDQNHVWVvwmfZ9F6wW5aJWRDawVEmL~pazC14CoPfmhG3q5iXVU3SHG~iJlUbH8cb8qDR-SSLIMrOMLxTlRL--8AYoypv0rTHrczqg__" alt="GE" class="game-image">
+    <span class="game-title">Clowney's Emulator</span>
+  </div>
+  <div class="game-box" onclick="window.open('https://main.d13jlnjrb2rylb.amplifyapp.com/', '_blank')">
+    <img src="https://media-hosting.imagekit.io/872cacb1940a4adc/download.jpg?Expires=1837971962&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=GVAlf5A17exf~G3jZUWR3~hHdNS4vigwMoM49ObHzT8eUiXobhMPXyQwC0mu0rx80tCt29Hjp2PovUsiMXloB9FvA62E6x3JbZPgTs1zOGswn~QKzn~vi-RIe~~SPnjwHGVT2AUSmz1ghkfprrzM2--6eu0NPQn7VhpI0~WO1V8Jps~Ux3dFNsL4oEKQYJO1wFcco7zECDqUjZjBFYqqOv8Clm312XactUC92aVgznK-YEr9FdMo~Zdmcp7XxI2NE8GRkm~5DK40~pdW72jLmtUBWKKFfffbPRuqtqmCN8VqyrtmBSMe9DUfLJFzHg2EZZMt6a8Qy-VR7VSweEByRg__" alt="NZP" class="game-image">
+    <span class="game-title">COD Zombies</span>
+  </div>
+
+      <div class="category">
+        <h2>Other Games</h2>
+        <div class="games-list" id="gamesList">
+
       <div class="game-box" onclick="window.open('https://main.dsrluk2jq7h55.amplifyapp.com/', '_blank')">
         <img src="https://upload.wikimedia.org/wikipedia/en/b/bf/Retro_Bowl_cover.png" alt="RB" class="game-image">
         <span class="game-title">Retro Bowl</span>  
@@ -153,14 +193,6 @@
         <img src="https://media-hosting.imagekit.io//65cd8e2b3d424872/15549_7_sq.webp?Expires=1837197126&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=mMZWGDccoazQC1Scm7ct02gKtn3foYj8JJrsfPxqWvRCEC4g2HmNw4ESPEOKVgyhRPYl8M9UjJk19E2sSmCcVutLU8SyZ~UDOlGcIgmIoB033w5aqPyHciie23mt3zjX517GfLKaLGmsarw9Hql2QG~tw5LLmIeO42LZCHPmjk5Uo6p~ZYn2qQe8afR7Yz8xhiCm-d9I1yUo2EeBMlkUrXPs6c-TZ6NO3x7DOmkJwPBSvwzBy27af~05gNFdRe307nEPV9gjyPE7LT95FzBVqoHWfyqG6rNQpOxVyn5EqFAvY3l3hX83oKqigdThOwcu0~gXcUmvC13GPIhalTME-A__" alt="GPM" class="game-image">
         <span class="game-title">Google Pac-Man</span> 
       </div>
-      <div class="game-box" onclick="window.open('https://main.d3613tpkkl52ww.amplifyapp.com/', '_blank')">
-        <img src="https://play-lh.googleusercontent.com/V-lvUzA5kK0Xw3wdg8Ct3vfIMXUX5vXYcNLPmudaZ-eyQjedYz-luqIuLmJO6KodE0Y" alt="PM" class="game-image">
-        <span class="game-title">Pac-Man</span> 
-      </div>
-      <div class="game-box" onclick="window.open('https://main.d230kctz0jugo8.amplifyapp.com/1.5.2/main1.5.2.html', '_blank')">
-        <img src="https://play-lh.googleusercontent.com/VSwHQjcAttxsLE47RuS4PqpC4LT7lCoSjE7Hx5AW_yCxtDvcnsHHvm5CTuL5BPN-uRTP=w600-h300-pc0xffffff-pd" alt="MC" class="game-image">
-        <span class="game-title">Minecraft</span>
-      </div>
       <div class="game-box" onclick="window.open('https://main.d2b8h6fg9zr97p.amplifyapp.com/', '_blank')">
         <img src="https://play-lh.googleusercontent.com/0tltjgN_qJpwJ41uOnguLl_8Uz9QsjyzYcdlvXNCgeJ1ntnvVChv60hwngID2tl4ST8=w240-h480-rw" alt="LD" class="game-image">
         <span class="game-title">Level Devil</span>
@@ -172,10 +204,6 @@
       <div class="game-box" onclick="window.open('https://main.d34pmxwvkvetwg.amplifyapp.com/', '_blank')">
         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyZSwAtYnXGXCGFf9oKB5RIt-2NFCcNFc1uw&s" alt="RA" class="game-image">
         <span class="game-title">Drift Boss</span>
-      </div>
-      <div class="game-box" onclick="window.open('https://main.d2no7et2tvglxt.amplifyapp.com/', '_blank')">
-        <img src="https://m.media-amazon.com/images/I/61WDvKg7g9L._AC_UF1000,1000_QL80_.jpg" alt="SM" class="game-image">
-        <span class="game-title">Super Mario 64</span>
       </div>
       <div class="game-box" onclick="window.open('https://main.dp2zzwutae1pt.amplifyapp.com/', '_blank')">
         <img src="https://i.ytimg.com/vi/L69g3cNG1uQ/sddefault.jpg?sqp=-oaymwEmCIAFEOAD8quKqQMa8AEB-AHOBoAC4AOKAgwIABABGE4gWShlMA8=&rs=AOn4CLDbgl0L_RURdB6K9K-bnbNXvcTvnQ" alt="CR" class="game-image">
@@ -257,10 +285,6 @@
         <img src="https://media-hosting.imagekit.io//94ca7f3672144530/Zombocalypse-2.webp?Expires=1837196841&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=DO034RYZmeXCw8iy6hLBOjslenfOQTtUgajnyk3AnHnN4eg-fhpepTit4cWkp9ERyqYlV~6TCbUTIQKt-P~a8mhJ0mYZdpf58EuvcbcVxBCwAIimgYpgZVemRsz5GN4efvb8S4RUVcHR6wW5XKyHjitXKUUCezL49IF3KBX7ud6yCbGfnZnXoAKh627bTs3QRFIEEk12Soypu2J46RxHOU35bpziFiZNBptHWcqrPm4SF7Ou0Bgn3ISDWg9KZDDk5tU1WEUZAkvF~GehFmJk4yXrZlxrtUIwJUr0S3cyNvDT0j72L9Ak34oSmM9Zxxj5ISb8xjQTJwcA~bEoqRCFng__" alt="ZP" class="game-image">
         <span class="game-title">Zombocalypse</span>
       </div>
-      <div class="game-box" onclick="window.open('https://main.d1t1qmxr2i6ua8.amplifyapp.com/', '_blank')">
-        <img src="https://media-hosting.imagekit.io//9f02e7c2e93d4d33/download.jpg?Expires=1837202300&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=leUhe88wpnxXqK4CgE5t9GkAa3DH64IY0WVpm6gp0XVpehyoJ4JVxINkDEBN7Q1hCYI~gO1qvnUUczaw8F0LHq6cNKQJITL2yM89FHJOQK42ArA~ozv1IKwLfFt-SyEhqkd21osIIsouKo0X7eld~6YBph58tEO87gZW7RKNMAp6KxgOW2AJHREdVu05PdWKjBUeOUK8cbMGaLJHjaaeKRCfnOWoRrK~BSRRKGhNubW5xxtIevn8sAyJhW8LJCWBcaLUeCS1~ZDUSSS~7mzxfMH7mu1t7KLhm-WdvgBbDf~sIx3U55wqE3HX2Ynuda4CAcdA7sP7LYkelHq-h8x00w__" alt="DH" class="game-image">
-        <span class="game-title">Drift Hunters</span>
-      </div>
       <div class="game-box" onclick="window.open('https://main.d3eom33p6q1gtv.amplifyapp.com/', '_blank')">
         <img src="https://media-hosting.imagekit.io//11f79142f1d14841/download.jpg?Expires=1837202434&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=rXzlrXEpwySVzvLPXhiDm3Bpq-lDpXuk4ugUpWgXzOVomAJD2KigX~iEs0HXlmU1ODGePRDYKn88tiYUyENGqcrP6G2XZZ3qNuPciGarT4QR8EqYCYPLDkfhcd-qv3nyvmYFmfjIHT5YYNxGPXwBEbbQEseFO5dbTL0BB09jf-i~YR6Yzq2weYjLTFmdvA7DxqMZjlGd4XLUE4oUqdqmh6jESXZq9WmBG6UK0QcZRjXNNRK7Xaam7FiboJ-QFzscpAuxBaETk0J7GKjgsJH717Iqi4UR6IpvuyTTZUeVPXfU1TDOPLl9FCAEkc8yE4BXR6Gv72SOX2jOmUTWp3tLHA__" alt="PI" class="game-image">
         <span class="game-title">Paper.io</span>
@@ -313,21 +337,9 @@
         <img src="https://media-hosting.imagekit.io/6ce01ae84b0342c3/Stack.png?Expires=1837629922&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=pHorlT0CZdU~mbr9RsSVGPsW4A8oDWufZAgaa320YjO5vFjjhogTiD6WdV6jjbFe44ENJKnPs8wUBX6Gvlb-MvBc6d7yMNkHKVSd1971k9ZsgLlErz9U7ghUijZ05wS~vlUWb~FYtiSVng7r3Y~k5DnnTNkQsWMaMBXQbOIroN97hb3gIDPto4CUrYj2vgodSvK~8Irp6~n-Ov6IbBAsac3MrugVmfMb88pvWYaHMeS0iar1I7pQJgtzrEuPqbtakJ9HQO-HEKFm7FCZDR~0BqOkN2cw12UCYZB8JjLc6cev5oCwgs~lIXVGnyv4u9kNTS2hYeiSkqsO8~2wg7ydug__" alt="SG" class="game-image">
         <span class="game-title">Stack</span>
       </div>
-      <div class="game-box" onclick="window.open('https://main.d13jlnjrb2rylb.amplifyapp.com/', '_blank')">
-        <img src="https://media-hosting.imagekit.io/872cacb1940a4adc/download.jpg?Expires=1837971962&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=GVAlf5A17exf~G3jZUWR3~hHdNS4vigwMoM49ObHzT8eUiXobhMPXyQwC0mu0rx80tCt29Hjp2PovUsiMXloB9FvA62E6x3JbZPgTs1zOGswn~QKzn~vi-RIe~~SPnjwHGVT2AUSmz1ghkfprrzM2--6eu0NPQn7VhpI0~WO1V8Jps~Ux3dFNsL4oEKQYJO1wFcco7zECDqUjZjBFYqqOv8Clm312XactUC92aVgznK-YEr9FdMo~Zdmcp7XxI2NE8GRkm~5DK40~pdW72jLmtUBWKKFfffbPRuqtqmCN8VqyrtmBSMe9DUfLJFzHg2EZZMt6a8Qy-VR7VSweEByRg__" alt="NZP" class="game-image">
-        <span class="game-title">COD Zombies</span>
-      </div>
-      <div class="game-box" onclick="window.open('https://main.d1hbitpjra3eeu.amplifyapp.com/', '_blank')">
-        <img src="https://media-hosting.imagekit.io//32d7047623ea43bb/download.jpg?Expires=1837202630&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=nPuVzkvIsCzLSTs6QqvcL3sKpiMGkQoLo5JuHkqGzmtEbAPLOWcujfNpkJFasdoQRh51g8vhsLQD9HI7OFcvvSBlZW4roNg0meEVr8UqtHnMv8V47XVM2dDxCSif3P0zj1EAS6wJQyqNbuvuDrERnCkktuQT0DATBRT08TNq0JPf2S65uHjuFqoVOa1ywUDRqE9ev-1zfb4FYz-1YmJ3DLLtmhenkplJtglPMIu3L1UzxcnYT8UyKmRYUFi~dhHQpBOCG9g06vy7phGn-ckFi5liCffp7cb~QGbUEprJG2psbCEJg5oaeD80c3bWb1xpQLbH97ph9gZjMM7zqtr6NQ__" alt="1v1" class="game-image">
-        <span class="game-title">1v1.lol</span>
-      </div>
       <div class="game-box" onclick="window.open('https://main.d2kms3o8v0ex7r.amplifyapp.com/', '_blank')">
         <img src="https://media-hosting.imagekit.io/134b2ef6682849bf/download.jpg?Expires=1838223103&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=ZdyBCAbS6Pci8G1kC0vrQRx9jOTnGNP8bTESi1I3dDlLQKWFzbWZEC3izB-ZbNBMsVPWG3MKgJsjfn-~RP4J6a2~Q9pU005X59HFwjZ--Uw0EsWsPkBxtUay7RbrlmAXOntDR68IOTJky3RCGx0QdrgpxZ-PCI53JgYkD-Qdp8CNalH33bWq3WWF3clrGL3UWe08XSMt0uyIH~dN167Vq0qEBR-OseWoVyMUt2akyuwzCEi5zGlb9-z1mkA79JupoMbE2LGkNNtyj-3yB5nN8Huuy3fJXRXWtiSjFeAuhiqTvVJ-4hHru0cm43U5U66rKNsI0ExvSuE0iP9ZzXxUrw__" alt="BTR2" class="game-image">
         <span class="game-title">Bob The Robber 2</span>
-      </div>
-      <div class="game-box" onclick="window.open('https://main.dc7pppnwa8r9v.amplifyapp.com/', '_blank')">
-        <img src="https://media-hosting.imagekit.io/2bc9cbea440c4e97/images.jpg?Expires=1839711972&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=obZFHiC4EWwTC4Yy6OiIVKodIPG7UJUQVQtGnKUlKzvWEAggKS~ZqpMoVi2K3w6e8EOclNrswh~juI70iA4Gr7Ym2YzIVyWaGRuhVO~hVOV8i81EqDy65lj1oWBts7QhTy-JRhPAWtY5lppXZS-UMtHLsLtV2sZm1eTZ2U8eeL9Y2KroNQ5YwcsjLeWMFa03EVMBOR-ncJwHxpo5VgeJc0gLhzFC-nRdK2iCTvDX8dLsYt8~JDQNHVWVvwmfZ9F6wW5aJWRDawVEmL~pazC14CoPfmhG3q5iXVU3SHG~iJlUbH8cb8qDR-SSLIMrOMLxTlRL--8AYoypv0rTHrczqg__" alt="GE" class="game-image">
-        <span class="game-title">Clowney's Emulator</span>
       </div>
       <div class="game-box" onclick="window.open('https://gh-pages.d3i2mdq3hucrhq.amplifyapp.com/', '_blank')">
         <img src="https://media-hosting.imagekit.io/4edf37a501444f87/download.jpg?Expires=1839712991&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=vm1PF-ruLJMUGsO3aCn9~rFMnRFKH8VrWyXjtQJ6rm-emwB6SPaV5qRRLhstDY-uU6IUctX9lhbPwKVSvbU6Ops-EXuTai-6Y9IcE6S4seEe1s7Q~M-403V3OPcfhVqu1y4QrFnYo5vPoLBqkhiK2XjFcqVB148wYbQW1-DiSCSkDGf1-dQgVC2GzjgSRC9ZkbOgKTC~FIqABazlFUOHCrmLmLKwcEMRv2GMg2IZ~9-gS1S1jLtDdATvPmGO53JN9TKOBuvzmDcchoWnOXx870SqWVkZhWYk2vApKwxqF7DBf3D37zaF0iGO51mNtllE~ctbpAjSi1t4SfAmUpTdzg__" alt="B4" class="game-image">
