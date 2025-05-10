@@ -383,95 +383,94 @@
     </div>
   </div>
 
-  <script>
-    const searchBar = document.getElementById('searchBar');
-    const searchResults = document.getElementById('searchResults');
-    const categories = document.querySelectorAll('.category');
-  
-    // Helper: clone game-box content cleanly
-    function cloneGameBox(original) {
-      const box = document.createElement('div');
-      box.className = 'game-box';
-      box.onclick = () => {
-        const match = original.getAttribute('onclick').match(/'(.*?)'/);
-        if (match && match[1]) window.open(match[1], '_blank');
-      };
-  
-      const img = document.createElement('img');
-      img.src = original.querySelector('img').src;
-      img.alt = original.querySelector('img').alt;
-      img.className = 'game-image';
-  
-      const span = document.createElement('span');
-      span.className = 'game-title';
-      span.textContent = original.querySelector('.game-title').textContent;
-  
-      box.appendChild(img);
-      box.appendChild(span);
-      return box;
-    }
-  
-    function filterGames() {
-      const input = searchBar.value.toLowerCase();
-      searchResults.innerHTML = '';
-  
-      if (input) {
-        searchResults.style.display = 'flex';
-  
-        categories.forEach(category => {
-          const heading = category.querySelector('h2');
-          const gamesList = category.querySelector('.games-list');
-          const games = category.querySelectorAll('.game-box');
-  
-          heading.style.display = 'none';
-          gamesList.style.display = 'none';
-          category.style.display = 'block';
-  
-          games.forEach(game => {
-            const title = game.querySelector('.game-title').textContent.toLowerCase();
-            if (title.includes(input)) {
-              const cleanCopy = cloneGameBox(game);
-              searchResults.appendChild(cleanCopy);
-            }
-          });
+<script>
+  const searchBar = document.getElementById('searchBar');
+  const searchResults = document.getElementById('searchResults');
+  const categories = document.querySelectorAll('.category');
+
+  // Clone game-box cleanly
+  function cloneGameBox(original) {
+    const box = document.createElement('div');
+    box.className = 'game-box';
+    box.onclick = () => {
+      const match = original.getAttribute('onclick').match(/'(.*?)'/);
+      if (match && match[1]) window.open(match[1], '_blank');
+    };
+
+    const img = document.createElement('img');
+    img.src = original.querySelector('img').src;
+    img.alt = original.querySelector('img').alt;
+    img.className = 'game-image';
+
+    const span = document.createElement('span');
+    span.className = 'game-title';
+    span.textContent = original.querySelector('.game-title').textContent;
+
+    box.appendChild(img);
+    box.appendChild(span);
+    return box;
+  }
+
+  // Main search logic
+  function filterGames() {
+    const input = searchBar.value.toLowerCase();
+    searchResults.innerHTML = '';
+
+    if (input) {
+      searchResults.style.display = 'flex';
+
+      categories.forEach(category => {
+        const heading = category.querySelector('h2');
+        const gamesList = category.querySelector('.games-list');
+        const games = category.querySelectorAll('.game-box');
+
+        heading.style.display = 'none';
+        gamesList.style.display = 'none';
+        category.style.display = 'none';
+
+        games.forEach(game => {
+          const title = game.querySelector('.game-title').textContent.toLowerCase();
+          if (title.includes(input)) {
+            const cleanCopy = cloneGameBox(game);
+            searchResults.appendChild(cleanCopy);
+          }
         });
-      } 
-      
-      else {
-  searchResults.style.display = 'none';
-  categories.forEach(category => {
-    const heading = category.querySelector('h2');
-    const gamesList = category.querySelector('.games-list');
-    const games = category.querySelectorAll('.game-box');
+      });
+    } else {
+      searchResults.style.display = 'none';
+      categories.forEach(category => {
+        const heading = category.querySelector('h2');
+        const gamesList = category.querySelector('.games-list');
+        const games = category.querySelectorAll('.game-box');
 
-    heading.style.display = 'block';
-    gamesList.style.display = 'flex';
-    category.style.display = 'block';
+        heading.style.display = 'block';
+        gamesList.style.display = 'flex';
+        category.style.display = 'block';
 
-    // Make sure all games are visible again
-    games.forEach(game => {
-      game.style.display = 'flex';
+        games.forEach(game => {
+          game.style.display = 'flex';
+        });
+      });
+    }
+  }
+
+  // ✅ These must be outside the filterGames function!
+  searchBar.addEventListener('input', filterGames);
+
+  document.addEventListener("DOMContentLoaded", () => {
+    categories.forEach(category => {
+      const list = category.querySelector('.games-list');
+      const games = Array.from(list.querySelectorAll('.game-box'));
+
+      games.sort((a, b) => {
+        const titleA = a.querySelector('.game-title').textContent.toLowerCase();
+        const titleB = b.querySelector('.game-title').textContent.toLowerCase();
+        return titleA.localeCompare(titleB);
+      });
+
+      games.forEach(game => list.appendChild(game));
     });
   });
-}     
-    searchBar.addEventListener('input', filterGames);
-  
-    // Sort each category A–Z
-    document.addEventListener("DOMContentLoaded", () => {
-      categories.forEach(category => {
-        const list = category.querySelector('.games-list');
-        const games = Array.from(list.querySelectorAll('.game-box'));
-  
-        games.sort((a, b) => {
-          const titleA = a.querySelector('.game-title').textContent.toLowerCase();
-          const titleB = b.querySelector('.game-title').textContent.toLowerCase();
-          return titleA.localeCompare(titleB);
-        });
-  
-        games.forEach(game => list.appendChild(game));
-      });
-    });
-  }
-    </script>
+</script>
 </body>
 </html>
