@@ -413,46 +413,52 @@
     return box;
   }
 
-  // Main search logic
-  function filterGames() {
-    const input = searchBar.value.toLowerCase();
-    searchResults.innerHTML = '';
+ function filterGames() {
+  const input = searchBar.value.toLowerCase();
+  searchResults.innerHTML = '';
 
-    if (input) {
-      searchResults.style.display = 'flex';
+  if (input) {
+    searchResults.style.display = 'flex';
+    const seenUrls = new Set(); // 🛡️ track URLs to prevent duplicates
 
-      categories.forEach(category => {
-        const heading = category.querySelector('h2');
-        const gamesList = category.querySelector('.games-list');
-        const games = category.querySelectorAll('.game-box');
+    categories.forEach(category => {
+      const heading = category.querySelector('h2');
+      const gamesList = category.querySelector('.games-list');
+      const games = category.querySelectorAll('.game-box');
 
-        heading.style.display = 'none';
-        gamesList.style.display = 'none';
-        category.style.display = 'none';
+      heading.style.display = 'none';
+      gamesList.style.display = 'none';
+      category.style.display = 'none';
 
-        games.forEach(game => {
-          const title = game.querySelector('.game-title').textContent.toLowerCase();
-          if (title.includes(input)) {
-            const cleanCopy = cloneGameBox(game);
-            searchResults.appendChild(cleanCopy);
-          }
-        });
+      games.forEach(game => {
+        const title = game.querySelector('.game-title').textContent.toLowerCase();
+        const onclick = game.getAttribute('onclick');
+        const match = onclick.match(/'(.*?)'/);
+        const url = match ? match[1] : '';
+
+        if (title.includes(input) && !seenUrls.has(url)) {
+          const cleanCopy = cloneGameBox(game);
+          searchResults.appendChild(cleanCopy);
+          seenUrls.add(url); // ✅ mark this URL as seen
+        }
       });
-    } else {
-      searchResults.style.display = 'none';
-      categories.forEach(category => {
-        const heading = category.querySelector('h2');
-        const gamesList = category.querySelector('.games-list');
-        const games = category.querySelectorAll('.game-box');
+    });
+  } else {
+    searchResults.style.display = 'none';
 
-        heading.style.display = 'block';
-        gamesList.style.display = 'flex';
-        category.style.display = 'block';
+    categories.forEach(category => {
+      const heading = category.querySelector('h2');
+      const gamesList = category.querySelector('.games-list');
+      const games = category.querySelectorAll('.game-box');
 
-        games.forEach(game => {
-          game.style.display = 'flex';
-        });
+      heading.style.display = 'block';
+      gamesList.style.display = 'flex';
+      category.style.display = 'block';
+
+      games.forEach(game => {
+        game.style.display = 'flex';
       });
+    });
     }
   }
 
