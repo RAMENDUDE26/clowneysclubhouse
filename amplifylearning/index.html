@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>New Tab</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barriecito&display=swap" rel="stylesheet">
+
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      overflow: auto;
+      height: auto;
+      background: black;
+      font-family: Arial, sans-serif;
+    }
+
+    /* Hide scrollbars */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #888;
+      border-radius: 4px;
+    }
+
+    canvas {
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    .content-container {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start; /* Align items at the top */
+      align-items: center;
+      color: white;
+      text-align: center;
+      padding-top: 10px; /* Reduced top padding */
+    }
+
+    h1 {
+      font-size: 3em;
+      font-family: "Barriecito", system-ui;
+      font-weight: 400;
+      font-style: normal;
+      margin: 5px 0; /* Minimal top margin */
+      padding: 10px 20px;
+      border: 2px solid white;
+      border-radius: 15px;
+      background: rgba(255, 255, 255, 0.1);
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+      display: inline-block;
+    }
+
+    .category h2 {
+  color: white;
+  text-align: center;
+  margin: 40px 0 20px;
+  font-size: 2em;
+}
+
+    #searchBar {
+      font-size: x-large;
+      margin: 20px 0;
+      padding: 10px 20px;
+      border: 2px solid white;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.1);
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+      color: white;
+      outline: none;
+      width: 300px;
+    }
+
+    .games-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      padding-bottom: 50px;
+    }
+
+    .game-box {
+      background: linear-gradient(to bottom, #189BCC, #393939);
+      color: white;
+      padding: 20px;
+      border-radius: 10px;
+      width: 200px;
+      height: 260px;
+      box-shadow: 0 0 10px rgba(24, 155, 204, 0.8);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      text-align: center;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      text-decoration: none;
+      overflow: hidden;
+    }
+
+    .game-box:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px rgba(24, 155, 204, 1);
+    }
+
+    .game-image {
+      width: 180px;
+      height: 180px;
+      border-radius: 5px;
+      object-fit: cover;
+    }
+
+    .game-title {
+      font-size: 1.2em;
+      text-align: center;
+      width: 100%;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+      white-space: normal;
+      padding: 10px 0;
+      margin-top: auto;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="spaceCanvas"></canvas>
+
+  <div class="content-container">
+    <h1>Clowney's Games</h1>
+
+    <h2 style="color:rgb(255, 0, 0)">Attention!!!</h2>
+    <h2 style="color:rgb(255, 255, 255)">If you have a game request, click the link on the homepage. I am trying it out but if we cant respect the page then we will go back to emailing.</h2>
+    
+    <input id="searchBar" type="text" placeholder="Search games...">
+    <div id="searchResults" class="games-list" style="display:none;"></div>
+
+        <div class="category">
+        <h2>Just Added</h2>
+        <div class="games-list">
+
+      <div class="game-box" onclick="window.open('https://main.d3ceri4h21tvx6.amplifyapp.com/', '_blank')">
+        <img src="https://ik.imagekit.io/6ilngyaqa/1747594375430-download_AQJxyxMh1.jpg" alt="SB" class="game-image">
+        <span class="game-title">Sandboxels</span> 
+
+      </div>
+   </div>   
+          
+      <div class="category">
+        <h2>Popular Games</h2>
+        <div class="games-list">
+
+
+      <div class="game-box" onclick="window.open('https://main.d4jd6m1fz8uak.amplifyapp.com/', '_blank')">
+        <img src="https://media-hosting.imagekit.io/54b44b5890ea4244/download.jpg?Expires=1841453809&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=r1btm54RIYwGvferUb6wHgZC2GClslnCPhYBS7rH9kKqF5f7yktEFShso8ZTRNZBalC0v2KRzSUagRjjvu7grC0MeyymvGRN1kbuDpzkBJBGGcGChbyCeH5K-lo0vxTIrnxRtXE-AUnpJjQsZv9A18XZhjhf6ipNb6HfQt1RKnB81QoCcFuKKLsuDcmHW37MyObj-1NaXSq3wNMRBmVPn5O7X5zTAEXelso~HqnyyQusEbdTz-HYO-hugmeJwglYbRlU91xXxC9jajaJcEgnxv6ubk3ECABJu-7vyc-xS3MyLlF7wKNJahkX0Ri6c22dlrRr3jEufHdKEHve0I~yLA__" alt="BL" class="game-image">
+        <span class="game-title">Bitlife</span> 
+        </div>
+        <div class="game-box" onclick="window.open('https://main.d2e9wepglg1aae.amplifyapp.com/', '_blank')">
+        <img src="https://media-hosting.imagekit.io/b3834447fa1c4c7e/download.jpg?Expires=1841261334&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=rmJKfX1qeIn8gdt7OSLpNA9L8tQghOC-oLv5KKP3Klg3n1gvHzxbqRyq8mcLX4rB-0j-AIUG4sZo97BoHNbwIXDC3Ad-vNf~nunwOnT10WaAFTnW6L8wCsFF82jHdiNxiRL~KngFSv9rb9-mIvN0j2l-k3IPcVj2t-j8UDhd15hHWx8RtHqxfPirBUri00kF3AJ3hCG-tULHQqg8YdxRIipGJyhpvYMo1JLEnNfxhdgn8XjgqiH2xbtP-wKz~E2uRpKhUw~rUu98E-aV3ffhLjufaOWAjrXlbUdnexMfW7D4cD4ibZ1tImiCE6U9d9s8bZT7v8DED7OjUzScIBGAPA__" alt="PT" class="game-image">
+        <span class="game-title">Polytrack</span> 
+      </div>
+        <div class="game-box" onclick="window.open('https://main.d3qfm4dhxkpo8m.amplifyapp.com/', '_blank')">
+        <img src="https://media-hosting.imagekit.io/537c7869643f4308/download.jpg?Expires=1841344151&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=d0Flfql3t9pb7YC-mnCgAxHZ9SxPbYpFxpJeoi2tmXIuWb6kp6WATVBwTY4YvoeUPstuqNE5TV48mx-iWkjrEBe0CExk10OBy3Wt3u-yh2UFvahr3HRuOsEigNQryhgbDqLbAcsbeCy2whUY0KmzWfV3SV3UZOAPl~ma9H8rEl0V0~u4GHd6y0Bip5QwwyN2uNQAjXGCM2s8m2YCz5oy~PsZyojLaMSouH6IvKw~-y3ydJK3SQoGMo9aRIVDAzFNy1q~Y-bSRyVWy8-ud2PVCU-lqiE1M~RsQfTYHEfw-G4z7bkvowJPGmsXqWLV4mXgNN9biTY8kOHpJr4BW-oSfw__" alt="CC3D" class="game-image">
+        <span class="game-title">Crazy Cattle 3D</span> 
+      </div>
+      <div class="game-box" onclick="window.open('https://main.d1zgjojwt09ac6.amplifyapp.com/', '_blank')">
+        <img src="https://media-hosting.imagekit.io//7c5b211d127c4c2f/download.jpg?Expires=1837357223&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=ZVS8GfHwuYOXM2IQZQi-skPhKrtdBjhH1AONV28Lf4MZVtTj92FnvVsLP~FF1KKYqfKHBfnWnvskz67bc1o2wMDYgrZZjb9-jZiM4-qrK1wE7eCHZnUb0eUIKix6JnyvEnAfT0oCI1jV-Hqt9f4B~cmjaP8m08VyNOwBxJsTfYSEGCiZS0XNaztXKmfOuXhmQrDZr5VVNQDUSyO9EyDnHNl2xlmbTXlFvrIiBLu~FWd8QVgA2UloswVqxrKdMjMPJi2s72gD7kFL08iNFnmvG2-g25~YH3w3nKJeM5kTr7lmwPdGBnmkVlPirj-cflFpJseH-hTB~5ReelzyUTbhTw__" alt="GH" class="game-image">
+        <span class="game-title">Gladihoppers</span>
+      </div>
+    <div class="game-box" onclick="window.open('https://main.d3613tpkkl52ww.amplifyapp.com/', '_blank')">
+      <img src="https://play-lh.googleusercontent.com/V-lvUzA5kK0Xw3wdg8Ct3vfIMXUX5vXYcNLPmudaZ-eyQjedYz-luqIuLmJO6KodE0Y" alt="PM" class="game-image">
+      <span class="game-title">Pac-Man</span> 
+    </div>
+  <div class="game-box" onclick="window.open('https://main.d10b2upjly84nz.amplifyapp.com/1.5.2/main1.5.2.html', '_blank')">
+    <img src="https://play-lh.googleusercontent.com/VSwHQjcAttxsLE47RuS4PqpC4LT7lCoSjE7Hx5AW_yCxtDvcnsHHvm5CTuL5BPN-uRTP=w600-h300-pc0xffffff-pd" alt="MC" class="game-image">
+    <span class="game-title">Minecraft</span>
+  </div>
+  <div class="game-box" onclick="window.open('https://main.d1t1qmxr2i6ua8.amplifyapp.com/', '_blank')">
+    <img src="https://media-hosting.imagekit.io//9f02e7c2e93d4d33/download.jpg?Expires=1837202300&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=leUhe88wpnxXqK4CgE5t9GkAa3DH64IY0WVpm6gp0XVpehyoJ4JVxINkDEBN7Q1hCYI~gO1qvnUUczaw8F0LHq6cNKQJITL2yM89FHJOQK42ArA~ozv1IKwLfFt-SyEhqkd21osIIsouKo0X7eld~6YBph58tEO87gZW7RKNMAp6KxgOW2AJHREdVu05PdWKjBUeOUK8cbMGaLJHjaaeKRCfnOWoRrK~BSRRKGhNubW5xxtIevn8sAyJhW8LJCWBcaLUeCS1~ZDUSSS~7mzxfMH7mu1t7KLhm-WdvgBbDf~sIx3U55wqE3HX2Ynuda4CAcdA7sP7LYkelHq-h8x00w__" alt="DH" class="game-image">
+    <span class="game-title">Drift Hunters</span>
+  </div>
+  <div class="game-box" onclick="window.open('https://main.d1hbitpjra3eeu.amplifyapp.com/', '_blank')">
+    <img src="https://media-hosting.imagekit.io//32d7047623ea43bb/download.jpg?Expires=1837202630&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=nPuVzkvIsCzLSTs6QqvcL3sKpiMGkQoLo5JuHkqGzmtEbAPLOWcujfNpkJFasdoQRh51g8vhsLQD9HI7OFcvvSBlZW4roNg0meEVr8UqtHnMv8V47XVM2dDxCSif3P0zj1EAS6wJQyqNbuvuDrERnCkktuQT0DATBRT08TNq0JPf2S65uHjuFqoVOa1ywUDRqE9ev-1zfb4FYz-1YmJ3DLLtmhenkplJtglPMIu3L1UzxcnYT8UyKmRYUFi~dhHQpBOCG9g06vy7phGn-ckFi5liCffp7cb~QGbUEprJG2psbCEJg5oaeD80c3bWb1xpQLbH97ph9gZjMM7zqtr6NQ__" alt="1v1" class="game-image">
+    <span class="game-title">1v1.lol</span>
+  </div>
+  <div class="game-box" onclick="window.open('https://emulator.d38rbcwaybnmhf.amplifyapp.com/', '_blank')">
+    <img src="https://media-hosting.imagekit.io/494ccc66b45b41b4/emu.PNG?Expires=1841780500&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=Aa38cXlzSMzsdGigzvuladPlHolQN8qgoUOkh-HPNWoPxsVMoNDy6SBLPrPWwzbUEneXZ1YqoxNnO4laE5PCsupq2nmYYJSaMamoil4GCLFkY93ivx0~WQSg-fD9Rl8zaCGZR4c1WKWGfPaFL8IOoJHzRQIljJQu7EOizVb2ycZa1CtDNSa-FCkW3jDgV65FFv6lKIfZg5PwbP9mfcOIFbkIMJLyk4VoE2FEU2piLjBEArE1oTFzp-sX5u3172dTeTHHwVTyyyEdGSOg8klMMDLwH2-PmDioFuc1zvCkV-JjvQGL5b1cGuRpUbKHE-F8umN-bTMILXI3j7wK6mVG~g__" alt="GE" class="game-image">
+    <span class="game-title">Clowney's Emulator</span>
+  </div>
+  <div class="game-box" onclick="window.open('https://main.d13jlnjrb2rylb.amplifyapp.com/', '_blank')">
+    <img src="https://media-hosting.imagekit.io/872cacb1940a4adc/download.jpg?Expires=1837971962&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=GVAlf5A17exf~G3jZUWR3~hHdNS4vigwMoM49ObHzT8eUiXobhMPXyQwC0mu0rx80tCt29Hjp2PovUsiMXloB9FvA62E6x3JbZPgTs1zOGswn~QKzn~vi-RIe~~SPnjwHGVT2AUSmz1ghkfprrzM2--6eu0NPQn7VhpI0~WO1V8Jps~Ux3dFNsL4oEKQYJO1wFcco7zECDqUjZjBFYqqOv8Clm312XactUC92aVgznK-YEr9FdMo~Zdmcp7XxI2NE8GRkm~5DK40~pdW72jLmtUBWKKFfffbPRuqtqmCN8VqyrtmBSMe9DUfLJFzHg2EZZMt6a8Qy-VR7VSweEByRg__" alt="NZP" class="game-image">
+    <span class="game-title">COD Zombies</span>
+  </div>
+</div>
+
+      <div class="category">
+        <h2>Sports Games</h2>
+        <div class="games-list">
+
+      <div class="game-box" onclick="window.open('https://main.d3oj0re0fh47tz.amplifyapp.com/', '_blank')">
+        <img src="https://media-hosting.imagekit.io/2b60c9a4410f4b10/download.jpg?Expires=1841453543&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=mvzmuw38lAMLzHZsM5HUrqkPqO3RvXAa5b~aJoh~BDE88iQjL8Do2mX~yjjmaKYqu9touXHWNLsxaOM4Fc103p99h7Mk79mrvlWb6NLiBf2d93oYCltgwuBzlq~yGar8NngcgVUhHcKtRx6tAgaNdDQeffT9BTOku37vNFYw4Qg3CLArYQqXVvxDC-YfcaI1YIxgB6qUCUgNHmt0YhAtyjtjDQgq-vNZk3khCkZmf0uj9bgTlRJauNyFMgzR-HC9CLeRQQM1ot-CQp24b-rbNc5yB7-PpaX-~63ubPPfyxlDR~K94gT-GFldD4GNnxZcjxzEsfI-XuBmDtEb7XTsfw__" alt="ASWC" class="game-image">
+        <span class="game-title">A Small World Cup</span> 
+      </div>
+        <div class="game-box" onclick="window.open('https://gh-pages.d2o5xmz42rzq9s.amplifyapp.com/', '_blank')">
+        <img src="https://media-hosting.imagekit.io/ea3ed7311d6e4653/download.jpg?Expires=1841262195&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=UgpaYLo3Bp-6xd-5r8tyiYHF9PNRncEVqlJGdLbn8cFx-YN2JnokuV7K-sCegxJccryQqL8EiqEOdCD85Oca4trQL3HNdmBAfF-1h7o5FBL29fpzjwwQTiftVNaeInqqk6rSkhR8N1neZQ0impCx6GztceggCaFCfin-6sAsPm~9I~sOEL8xeyF40T-mGGeYXuJZzx-uvAzWBlrVdH3-zeqL3MMI9o8zJbcJxMUHEtLV0gL4wWvrrFKvP0kKBL4~z~byoXboyWoWf3PyapGAJv2cjN9l~dvyMyydrg4MKf4~orKK4BFgrbZLO4dUcAziCWt24zikwA-3eLki8C0D~A__" alt="VR" class="game-image">
+        <span class="game-title">Volley Random</span> 
+      </div>
+      <div class="game-box" onclick="window.open('https://main.dsrluk2jq7h55.amplifyapp.com/', '_blank')">
+        <img src="https://upload.wikimedia.org/wikipedia/en/b/bf/Retro_Bowl_cover.png" alt="RB" class="game-image">
+        <span class="game-title">Retro Bowl</span>  
+      </div>
+      <div class="game-box" onclick="window.open('https://main.d134effv14d4pm.amplifyapp.com/', '_blank')">
+        <img src="https://play-lh.googleusercontent.com/XMiWEMPbuq13oVcwYQ6ySLtZnBf7WpJ3rb7v-TM4MdFOvWfo1Z2hzSEAApRXzEcshjY" alt="RA" class="game-image">
+        <span class="game-title">Ragdoll Archers</span>
+      </div>
+      <div class="game-box" onclick="window.open('https://main.d2a8kmjba9viwf.amplifyapp.com/', '_blank')">
+        <img src="https://play-lh.googleusercontent.com/BC3ai-Gm7WDOHoRyDTFMYgRtxopZbA9s9DDo3kc4wQJteH7Zzh_sWPDlrfEjsX6vbQ=w600-h300-pc0xffffff-pd" alt="TF" class="game-image">
+        <span class="game-title">Tiny Fishing</span>
+      </div>
+      <div class="game-box" onclick="window.open('https://main.d2gg9ne3udliui.amplifyapp.com/', '_blank')">
+        <img src="https://play-lh.googleusercontent.com/gP8T5Z1O-ngxIloiwcBZzrzyLPYDp0R_1BDNKUDZboIRPVImeyWI8-7aExvB9gAGNKc" alt="BR" class="game-image">
+        <span class="game-title">Basket Random</span>
+      </div>
+      <div class="game-box" onclick="window.open('https://main.d3a2qlg8instk7.amplifyapp.com/', '_blank')">
+        <img src="https://media-hosting.imagekit.io//56dcaf38996448dd/download.jpg?Expires=1837115053&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=oNUkEWbc-kYZjix1FCjLZILz6MARsWh5Ch5RdPBAasoJ9YUjfZWat2U~5rQZk1JYpLM8PfpHRIht25cd~NZAY~Q62r6my9v5IuY~xQUiaDP-6LomDghVoswgOyTJ2EYsBlSsOPvBDXjbhSmDfxxAjXYGrFNPymvRIeK16UvfhQk2SJJPtk7kDmvZ~iTeBW3WzG8oqmd5wOjVOSCvxpmprCtLGiAPFnwpbBQAeNuLgSnEOMTz3yeAr63IJBJi-M~gzPnMHVsK1oueXNjZwEqmuyLg3Ee~Aqd-USHp-P2e0H1nxSzdwdbfCI9D7YyRlsauFup64SRoj0~wZs8ByxiIkg__" alt="BS" class="game-image">
+        <span class="game-title">Basketball Stars</span>
+      </div>
+    </div>
+
+        <div class="category">
+        <h2>Shooter Games</h2>
+        <div class="games-list">
+
+        <div class="game-box" onclick="window.open('https://main.d1rysh5o5jny3u.amplifyapp.com/', '_blank')">
+        <img src="https://lh3.googleusercontent.com/25G46XCnGyH83OeHR_xmUOMeOFPmiGlntxpABI5RGHr4K0o8oAZFgiyprVb7OfSfVyLTFcEjpeTEBswaM1zEe32t=s1280-w1280-h800" alt="GS" class="game-image">
+        <span class="game-title">Getaway Shootout</span>
+      </div>
+        <div class="game-box" onclick="window.open('https://main.d21j4bi9tmbwqg.amplifyapp.com/', '_blank')">
+        <img src="https://media-hosting.imagekit.io//06ba16579340449f/download.jpg?Expires=1837118040&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=P4GsFeE0-4CkhmZc8PZgoj86cEaA2SluNWkQ8kmGJvrWUn8USzEgi6ATw7BMFPGKAy~~kEZ6iwdnn9f-yj99eIPvuSCZBwepF6xDqOar5YQ78tX3nTGCgsrPpU54wwQ~58sCux-SQYaAJKlTjqnAko7EwooI7MHU~B3qwxin~W1BKHueAz9tgjGsY3mKrlPL3WWbz~0V8pqqQD8GmFGCdIWgsIf-nt1urnU-YUQylj~1C4HDv7SY5ofy4zQxEEhFeKdC6AktHnIqlJgkqkYTvLGxOGtELlnSrDwRmbiqMrMVfFER7YU9~2NRr5kJZtS-o5uo~Zg0IsztzpVYY5ngqQ__" alt="TS1" class="game-image">
+        <span class="game-title">Time Shooter 1</span>
+      </div>
+      <div class="game-box" onclick="window.open('https://main.d15hmsfumsrrg2.amplifyapp.com/', '_blank')">
+        <img src="https://media-hosting.imagekit.io//1d6878676b684653/download.jpg?Expires=1837118315&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=0Y7dENTOaeOZLQNk0-iuBRDxIO6TMjN5M36eNfntT20Hz02TAc5FgvUQ~xvjT8WZr6q~cSr1wlXftTzodpEgeI9v0GrgMfJ13o21YLWAAz~gHtU0HQbOPvnk8mzJ-p7GBFRfgK3i0C-rgIRCjsfNqlFH66lrNIv-oZym4eFJYhn1kGmDodGkgSrH79JA~erMFq3JuYH-9MSu2M-C-UIaUEAMZHcdwSJouq2BVy-Un2F0OPma6Widpo9mz5Rtf8w4lQOIUE8tJgCHW4WaSeTJoTHD0WYYgOqF~EN04gimMA5~AyVshJrLUmuqBoQTy5J9sMYaXW6p5b9X1WVWTN-RtQ__" alt="TS2" class="game-image">
+        <span class="game-title">Time Shooter 2</span>
+      </div>
+      <div class="game-box" onclick="window.open('https://main.d2dxt6qj35x8jk.amplifyapp.com/', '_blank')">
+        <img src="https://media-hosting.imagekit.io//8af12b22b5ec43f8/download.jpg?Expires=1837118351&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=0XeXvQsYuARR0~jwJASkwTxksGYD1q8Xs-PIa1sEJ3fV2MwUn0TIW6qz2uiODDY6VrxZn8Nhxhn~FdGH6Jmcsokr~oV9E85sfwf68xCrrIpc733Ho2HqSEz1MY9oW~HSI760IcHq2SL0FJmF6VJ7bTuPTejjKP4MX0fUtp9MtBh3pCs~OX2xdcCyni2jZHdZ~7ZNJ7~jCxIDK4eOhIEfs2mBg0WjZWTpSWM3uDAFeTk5ONAxkC-Fm8TnSx2Eg~aP4WzbuNNjI0uy6G3o7JC~CPNKxM5o-ibAbWbb0ujTyQl-MkV9ejapHG~hljRq3Rs8cRj1CEzxj7MF14RAfxJfOg__" alt="TS3" class="game-image">
+        <span class="game-title">Time Shooter 3</span>
+      </div>
+        <div class="game-box" onclick="window.open('https://main.d1vxj4pj4yb4p6.amplifyapp.com/', '_blank')">
+        <img src="https://media-hosting.imagekit.io//94ca7f3672144530/Zombocalypse-2.webp?Expires=1837196841&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=DO034RYZmeXCw8iy6hLBOjslenfOQTtUgajnyk3AnHnN4eg-fhpepTit4cWkp9ERyqYlV~6TCbUTIQKt-P~a8mhJ0mYZdpf58EuvcbcVxBCwAIimgYpgZVemRsz5GN4efvb8S4RUVcHR6wW5XKyHjitXKUUCezL49IF3KBX7ud6yCbGfnZnXoAKh627bTs3QRFIEEk12Soypu2J46RxHOU35bpziFiZNBptHWcqrPm4SF7Ou0Bgn3ISDWg9KZDDk5tU1WEUZAkvF~GehFmJk4yXrZlxrtUIwJUr0S3cyNvDT0j72L9Ak34oSmM9Zxxj5ISb8xjQTJwcA~bEoqRCFng__" alt="ZP" class="game-image">
+        <span class="game-title">Zombocalypse</span>
+      </div>
+        <div class="game-box" onclick="window.open('https://main.dws7j912kyunx.amplifyapp.com/', '_blank')">
+        <img src="https://media-hosting.imagekit.io//0b3ce6ab40734ccc/download.jpg?Expires=1837202953&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=TBmG71J8LGiT-GwH0XbBLy9joQVa5taMTfGvsnqfZoXy0i7Tv5gRojoOHzOt5JlCXhKZ4xxFF~hcvi~wpP1euWxOHVRpL7niaYStXKoAPtb2~3HqNu5PxuciAowMsbbJdI1tCjQW3LzKOKJJsz9tZT8GJfSDdhoQFOHHOUYNnVmOxpRSMnaYZpToPogbEbaUFPLME-5mpnnnK4aFBbcruWz90EDse1D5xHjL9RolS1XS2sPECjPuSSTHmvGWr60dGCe-tfWg~JfDZ5T~R8NUD4NohKETjRYLQ6Y7nkwo7t0ATFdKEt9t-4FFlByYkD8d7AbXVsS9fnL1RNh~jKpQ5Q__" alt="FS" class="game-image">
+        <span class="game-title">Funny Shooter 1</span>
+      </div>
+        <div class="game-box" onclick="window.open('https://main.d36y0gzgejmx4l.amplifyapp.com/', '_blank')">
+        <img src="https://media-hosting.imagekit.io//709817df349c49af/download.jpg?Expires=1837203051&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=w9RM3Zte6P3fZg1rxfaTFyNLXMqHaoOFY2I2RBPYyb6rxW5QsrAglcvJK-onMScLRSddV5LFSbHQLl4YDGvCadCSOROPWkqwAMcJ10vbMKnvbHgt3WEB-Z87l6rhDZMwUmI70bG7NT4-sxcZJdF4-lVmO5c6mENm-L2OBCD7zU84N8yAMyqVXgiuyX4E7woFH8m6iu7obryZCaakbVaQ7g7AV1CojmvK0rCUoQIdOS2Et1q9HfvTZT7hvFWuWAACypbPBW3Zrx3hu-YbAwwWqaXLJKzPECKrLtubEmo2UIsUcl9pheizGc9aG7mSrE6ScCk94bPw52n5mLeUN5E7Tw__" alt="ASRP" class="game-image">
+        <span class="game-title">Amazing Strange Rope Police</span>
+      </div>
+        <div class="game-box" onclick="window.open('https://main.d35hpber18o2jf.amplifyapp.com/', '_blank')">
+        <img src="https://media-hosting.imagekit.io//ac024f7a0afc4b24/download.jpg?Expires=1837355410&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=BW9xWg-16pdfF7Gh2L9pNWOpFmw4LbR2PUgnFbitNr-2b6VQGmJ~v-NFEVe4XyBHnsQdH3FTpclXw0C4IvE~Y6t~XuA7VfrT7LbX6M03JYdygNwXKPNFICiRYrtNungg6nXue1BlXyj6rwx~7VIsl1OWGuLVOX4Yc18kOjFqxru5QmXKwPuy9UuJMI1N9nfp8OWiyc-JGWIXZouoncqhFxQJVOIPLyqMAetSY6hQbd5j7qj58Xke0nIVxskNb4klpjwwjcWteBv6Xhc2T3dAViY~82MMGWWOZELTzFz6l1qIEmDjRuqhV-pBWUKnf02PabcuraudcwSRuyobJUfjng__" alt="FS2" class="game-image">
+        <span class="game-title">Funny Shooter 2</span>
+        </div>
+        <div class="game-box" onclick="window.open('https://main.dprxl075pciu7.amplifyapp.com/', '_blank')">
+        <img src="https://media-hosting.imagekit.io//45dd613ddf7748d0/download.jpg?Expires=1837356774&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=RWV0WQTSof2ACyRWDwdX2OTSbJPpUPwB6ffAFmJbBFeUlvj8X3s0iSw81tuPT-kF7nMdjB5gdpQVHrgyNhMJZUPgJoDsm-OTapPodtI1FYmisbqGTKNUISLZ1lLhFwgLC5u-wx~Nrit5x8eAyT-uE8~g6zw93SkjzTNY-R-48M19rza4c22Dlzo2SVaFFeIU1zBcipJTUdb5BpwUkusVtHp7jl~xG9a8ESqD4lbibmgpIJGU67C6Az13UHnRI3aRpXnChSqHbEs9yHI~tPW5Z7O7Rac~tN8q9jqPMD9DgRfdG-Qqt0IUZKQ7tSLqYNPEDvSrhrgy0yl2pQjtl195xw__" alt="SH" class="game-image">
+        <span class="game-title">Super Hot</span>
+      </div>
+     </div>
+          
+        <div class="category">
+        <h2>Vehicle Games</h2>
+        <div class="games-list">
+
+        <div class="game-box" onclick="window.open('https://main.d34pmxwvkvetwg.amplifyapp.com/', '_blank')">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyZSwAtYnXGXCGFf9oKB5RIt-2NFCcNFc1uw&s" alt="RA" class="game-image">
+        <span class="game-title">Drift Boss</span>
+      </div>
+        <div class="game-box" onclick="window.open('https://main.d39666fep80lrk.amplifyapp.com/', '_blank')">
+        <img src="https://play-lh.googleusercontent.com/V_egAxch0phxs10H_Z1QpWRrsH4phd8egT_5ZjYlFbXzXvwpUGpmJMn2h6HgbGkSlZSM" alt="DM" class="game-image">
+        <span class="game-title">Drive Mad</span>
+      </div>
+        <div class="game-box" onclick="window.open('https://main.d2qpt5t2172nk5.amplifyapp.com/', '_blank')">
+        <img src="https://play-lh.googleusercontent.com/AbQMuT4ncBfWDqNF-4ubmfaRag59nrW3fJARDsHK51_PENScmWCnMFeQX81wfPlfGBo=w600-h300-pc0xffffff-pd" alt="MX" class="game-image">
+        <span class="game-title">Moto X3M</span>
+      </div>
+        <div class="game-box" onclick="window.open('https://main.dpaxfmcc6k5au.amplifyapp.com/', '_blank')">
+        <img src="https://m.media-amazon.com/images/I/91QTgVSkocL.png" alt="AT" class="game-image">
+        <span class="game-title">Awesome Tanks 2</span>
+      </div>
+        <div class="game-box" onclick="window.open('https://main.d10muoft6i6mp7.amplifyapp.com/', '_blank')">
+        <img src="https://i.ytimg.com/vi/XEp8G2HtDJM/hqdefault.jpg" alt="TR" class="game-image">
+        <span class="game-title">Tron</span>
+        </div>
+        <div class="game-box" onclick="window.open('https://main.dp2zzwutae1pt.amplifyapp.com/', '_blank')">
+        <img src="https://i.ytimg.com/vi/L69g3cNG1uQ/sddefault.jpg?sqp=-oaymwEmCIAFEOAD8quKqQMa8AEB-AHOBoAC4AOKAgwIABABGE4gWShlMA8=&rs=AOn4CLDbgl0L_RURdB6K9K-bnbNXvcTvnQ" alt="CR" class="game-image">
+        <span class="game-title">Cluster Rush</span>
+      </div>
+        <div class="game-box" onclick="window.open('https://main.d29306teyfeohi.amplifyapp.com/', '_blank')">
+        <img src="https://lh3.googleusercontent.com/a47EgOF1hiSph7Suk9VAjhjuuIbSGmfGu2TylaVLOmb_KrZuKRMVAbJtTxkDCiC4QOHcv5wuScGqobaBtxakp_qp1cw=s1280-w1280-h800" alt="SR" class="game-image">
+        <span class="game-title">Snow Rider 3D</span>
+      </div>
+      </div>
+          
+        <div class="category">
+        <h2>Idle Games</h2>
+        <div class="games-list">
+
+       <div class="game-box" onclick="window.open('https://main.dikqgwook09oq.amplifyapp.com/', '_blank')">
+        <img src="https://media-hosting.imagekit.io/bba8d82740de41f8/download.png?Expires=1841262233&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=uXaoSjVYDrHrj5Ypw9-qnc2RMsg1bBvmcLvg34hBjOeITrnXi7KA31yDtJ8Q9EnEcuB7KFoUcfB~e4exAZwQw9O~ffPMC7-1tNbFoglAOFYtTzpexeKZR4FADVjWF3DxHalrxSMUlQ3SWEQ0PFfcL3U5idQYIOHdmN3BPDOVaEwvxaNehdL8L4HGlwtNNR3y54w-NQlY69AWCpULw-Wb4JJtViRuUB8jhr9bwDDztqhHRnHREQ0JjPkDbUNwSfwpMma7e-6JHwl6P8hboOWeQvZlt3pHH7XgPgyM9R-MLqQpELGiMtoUmSExCu9cjlSFkalegZ0IWT-mJ1h-4mRGtA__" alt="IB" class="game-image">
+        <span class="game-title">Idle Breakout</span> 
+      </div>
+        <div class="game-box" onclick="window.open('https://gh-pages.d3i2mdq3hucrhq.amplifyapp.com/', '_blank')">
+        <img src="https://media-hosting.imagekit.io/4edf37a501444f87/download.jpg?Expires=1839712991&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=vm1PF-ruLJMUGsO3aCn9~rFMnRFKH8VrWyXjtQJ6rm-emwB6SPaV5qRRLhstDY-uU6IUctX9lhbPwKVSvbU6Ops-EXuTai-6Y9IcE6S4seEe1s7Q~M-403V3OPcfhVqu1y4QrFnYo5vPoLBqkhiK2XjFcqVB148wYbQW1-DiSCSkDGf1-dQgVC2GzjgSRC9ZkbOgKTC~FIqABazlFUOHCrmLmLKwcEMRv2GMg2IZ~9-gS1S1jLtDdATvPmGO53JN9TKOBuvzmDcchoWnOXx870SqWVkZhWYk2vApKwxqF7DBf3D37zaF0iGO51mNtllE~ctbpAjSi1t4SfAmUpTdzg__" alt="B4" class="game-image">
+        <span class="game-title">Bloons TD 4</span>
+      </div>
+        <div class="game-box" onclick="window.open('https://gh-pages.d2j2bxyw03ndm4.amplifyapp.com/', '_blank')">
+        <img src="https://play-lh.googleusercontent.com/7QdF1mILpUj-xtZGzNwECuVHaVKJHobvYh45z9q7hGvCbmjH1oD_ZfRxbEqbB_yb6Dk" alt="CC" class="game-image">
+        <span class="game-title">Cookie Clicker</span>
+      </div>
+       <div class="game-box" onclick="window.open('https://main.d16ozqn6ixlfcw.amplifyapp.com/', '_blank')">
+        <img src="https://media-hosting.imagekit.io/9cb8121f8bbe4feb/download.jpg?Expires=1839713042&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=CBqkBvhPto7pzWkQClb~bPAJaTSQGdJ8atLaNPW3iwn5uVD~aM6W1klQHFNyUSWJVIjymkdCwXqc~wF~onUbgN0XmhXKv8xrogl8pmAayfO~Pn025fSr6OvTgVzEEJfFATW00Ht-ssU-AViBpV1DLE21G9ejzLAEFbV1Jrf9S5l1Pbtkm16MexfBMVT7Ip00XUkO1HZyFbbisVcsKYX4jxix~7MSE8MRJFWZQ5fVHp8xSrmi6w~WxJXLtQ9D-Lfkw2d-WdbSrU3CV9vOo3rrMBCl0993zU5q5UJxOZecW~QJw7KVl6EA0LKue3q4KAVVmZQqnT2RD30M8lrv8JtCvQ__" alt="M2" class="game-image">
+        <span class="game-title">Minecraft TD 2</span>
+      </div>
+        <div class="game-box" onclick="window.open('https://main.ddh32at74r20w.amplifyapp.com/', '_blank')">
+        <img src="https://play-lh.googleusercontent.com/rWReIdyvDaYJPeOxn7hbC0b-96ixGpQKM_EndiQa3SUME8TtI_rNUcI4qsw5teK9mqk" alt="MM" class="game-image">
+        <span class="game-title">Monkey Mart</span>
+      </div>
+    </div>
+
+       <div class="category">
+        <h2>Puzzle Games</h2>
+        <div class="games-list">
+
+         <div class="game-box" onclick="window.open('https://main.d3v54i9ix3fvz5.amplifyapp.com/', '_blank')">
+        <img src="https://media-hosting.imagekit.io/3e45c34b547748ab/download.jpg?Expires=1841262075&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=ztOeta0ZXge8NC~4T9O9XSqscPXUVO8ttl-ox88LymF5FDB20gSODH7iYSmSjfZ50aTboD2wYv2OgMmCOKxAcJSdRWB8~HbHK9xayOqVUSItesEXy7qOwDA83K3ksVliMFIwePTXZG9d54v4DKrizB5ydHhX0hac85kD7sHL56YnTFMu0NIEAcvRErC0Mb7LZdYuXWhRCCSiZrqf~i1pE8dLEhaJGTTl46YGxdV~tLs9ty2QAB5XEVgi~0hyU45cCjC5adDf9h0QJ4ZQzO5uwEwjqDLSw0YlyI5RLCLTL01Ofw9QjSsbH~J7YG7xwBS5pRPuiQ94I5W64OpuIaSp2w__" alt="IQ" class="game-image">
+        <span class="game-title">The Imposssible Quiz</span> 
+      </div>
+         <div class="game-box" onclick="window.open('https://main.d1ipvs1k4w842s.amplifyapp.com/', '_blank')">
+        <img src="https://media-hosting.imagekit.io/8ff8edd9caf64316/download.jpg?Expires=1841262147&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=KKBdwrS6KsK7iFZx0Ui2--Psls3ABeucwmrK3iF09gw3HkMAOI0PBNArPHKAQ4k~kDkoLTlhK2TyMQbVzB753dF2f6NuNpjhkVH5jHACOmrcu~pOSmXpHB6SjWP9UQi01IbmboeEYWuyw0Y4gveZAyykuB1N97XhDV5zpoltWqWSy2oTtmihOOOMaSeMY0p3l7G-LLs7sh43KeDMPMgzRFx3LOswdoh6NuaE42rHKZ8rjjPFiqCouE2TnzyaVvXG1Qq0UVjQ-dRhazAcJb4XVViEpJuCbnHMyQZl47ut8QV1lVLA6cKX-21CU5oBY-B576doDo3RCY5x~kAUqHv8UQ__" alt="IQ2" class="game-image">
+        <span class="game-title">The Impossible Quiz 2</span> 
+      </div>
+        <div class="game-box" onclick="window.open('https://main.d3li82qzlr13g8.amplifyapp.com/', '_blank')">
+        <img src="https://images.sftcdn.net/images/t_app-icon-m/p/31203ab6-9c1d-4435-ab18-a3463bf5c453/163275407/block-blast-block-puzzle-games-logo" alt="BB" class="game-image">
+        <span class="game-title">Block Blast</span> 
+      </div>
+       <div class="game-box" onclick="window.open('https://master.d1n5v20eok5d2h.amplifyapp.com/', '_blank')">
+        <img src="https://media-hosting.imagekit.io//9a5f8350262140bc/download.png?Expires=1836336441&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=J2s3Sg0fjuO-FPmzYvKpiYXQYZMKxzl8vAGjdarHlcZArfx4gyC1RdDHj2oQbRNRmPJ-A6g~oaFcEJRm2dQMQGBEzu4l7nSaoMVeNVwsPBj4aBqjpR2Evk-LaLJp-aPVyiJDrpjoFitoG5fGGcYKJPyj5Iz2L0bN9IcxbHgSrxPcffVxB6wlxgo68tMmQ8gB72L~Twa49HM5CUjF2J2aUWJeTu0~bsTQX5EA9AYo3hIUpP025rPBhg-JRZkqwHkNAuS-wjan2TwcISz2bS8ygOSkLz88arR2JsZ0XGuwO6BeLmJysNhdeto4eqeBHRTNewXyGILJ7V4VyiBAVnyjJw__" alt="AP" class="game-image">
+        <span class="game-title">Anti Pac-Man</span>     
+      </div>
+      <div class="game-box" onclick="window.open('https://master.d33z9i5wf77ix7.amplifyapp.com/', '_blank')">
+        <img src="https://media-hosting.imagekit.io//65cd8e2b3d424872/15549_7_sq.webp?Expires=1837197126&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=mMZWGDccoazQC1Scm7ct02gKtn3foYj8JJrsfPxqWvRCEC4g2HmNw4ESPEOKVgyhRPYl8M9UjJk19E2sSmCcVutLU8SyZ~UDOlGcIgmIoB033w5aqPyHciie23mt3zjX517GfLKaLGmsarw9Hql2QG~tw5LLmIeO42LZCHPmjk5Uo6p~ZYn2qQe8afR7Yz8xhiCm-d9I1yUo2EeBMlkUrXPs6c-TZ6NO3x7DOmkJwPBSvwzBy27af~05gNFdRe307nEPV9gjyPE7LT95FzBVqoHWfyqG6rNQpOxVyn5EqFAvY3l3hX83oKqigdThOwcu0~gXcUmvC13GPIhalTME-A__" alt="GPM" class="game-image">
+        <span class="game-title">Google Pac-Man</span> 
+      </div>
+      <div class="game-box" onclick="window.open('https://main.d2b8h6fg9zr97p.amplifyapp.com/', '_blank')">
+        <img src="https://play-lh.googleusercontent.com/0tltjgN_qJpwJ41uOnguLl_8Uz9QsjyzYcdlvXNCgeJ1ntnvVChv60hwngID2tl4ST8=w240-h480-rw" alt="LD" class="game-image">
+        <span class="game-title">Level Devil</span>
+      </div>
+       <div class="game-box" onclick="window.open('https://main.d2q36da2t2dudc.amplifyapp.com/', '_blank')">
+        <img src="https://play-lh.googleusercontent.com/UsshQ3HeLzgMLEW9PnpCuMM7gwL0Gdkw-iZdUlekzlHjFaYufWnkaZbmQbSrnqJuew" alt="WS" class="game-image">
+        <span class="game-title">Wall Smash</span>
+      </div>
+      <div class="game-box" onclick="window.open('https://main.d1x0yzo8u9z6wf.amplifyapp.com/', '_blank')">
+        <img src="https://play-lh.googleusercontent.com/oY8TZ2jmU_ECyDYFrrT3q6LZySrylyEBHDLOpsZEETDLpWAUus4ucnmCDetDjovoHA" alt="WG" class="game-image">
+        <span class="game-title">Watermelon Game</span>
+      </div>
+        <div class="game-box" onclick="window.open('https://main.d2kms3o8v0ex7r.amplifyapp.com/', '_blank')">
+        <img src="https://media-hosting.imagekit.io/134b2ef6682849bf/download.jpg?Expires=1838223103&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=ZdyBCAbS6Pci8G1kC0vrQRx9jOTnGNP8bTESi1I3dDlLQKWFzbWZEC3izB-ZbNBMsVPWG3MKgJsjfn-~RP4J6a2~Q9pU005X59HFwjZ--Uw0EsWsPkBxtUay7RbrlmAXOntDR68IOTJky3RCGx0QdrgpxZ-PCI53JgYkD-Qdp8CNalH33bWq3WWF3clrGL3UWe08XSMt0uyIH~dN167Vq0qEBR-OseWoVyMUt2akyuwzCEi5zGlb9-z1mkA79JupoMbE2LGkNNtyj-3yB5nN8Huuy3fJXRXWtiSjFeAuhiqTvVJ-4hHru0cm43U5U66rKNsI0ExvSuE0iP9ZzXxUrw__" alt="BTR2" class="game-image">
+        <span class="game-title">Bob The Robber 2</span>
+      </div>
+      <div class="game-box" onclick="window.open('https://master.d3i4826fgw29e9.amplifyapp.com/', '_blank')">
+        <img src="https://media-hosting.imagekit.io/f955e1e15cd64a81/download.png?Expires=1839713074&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=Xs1lC3p2ZH3-MDgZ8eI6fGZcLj5n8wMOOf85vzCqb6n25YTHn7lGyAzn01pdrVp6x9pYDTLAwL88iHzeuFG9CXBw26G7QJBPEZrAALBJ~SKBpoBHBQmlcJkXiiklnLMgc4aK4gJjkzcLNECnB4yYfoKabHPS3vwpUn6BYk0iw6LEvGu7bEn9KgkpAIkplolgadwGNZpdubzwBiOxv~ZvS6eUeJUaCJcJ-TG00ze3ka2ZKLNBcZFNj60SxMqrj2QzssdGTTKf8cQ7lNTme14PX7olq0tKGQgjQzv5W~Vnx-bczNaoQAdvzafXgvtNP7eKkPkxSnsiho0g6hN1SwzlhA__" alt="WU" class="game-image">
+        <span class="game-title">Wordle Unlimited</span>
+      </div>
+      <div class="game-box" onclick="window.open('https://main.d301crgdivjaqg.amplifyapp.com/', '_blank')">
+        <img src="https://media-hosting.imagekit.io/6ce01ae84b0342c3/Stack.png?Expires=1837629922&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=pHorlT0CZdU~mbr9RsSVGPsW4A8oDWufZAgaa320YjO5vFjjhogTiD6WdV6jjbFe44ENJKnPs8wUBX6Gvlb-MvBc6d7yMNkHKVSd1971k9ZsgLlErz9U7ghUijZ05wS~vlUWb~FYtiSVng7r3Y~k5DnnTNkQsWMaMBXQbOIroN97hb3gIDPto4CUrYj2vgodSvK~8Irp6~n-Ov6IbBAsac3MrugVmfMb88pvWYaHMeS0iar1I7pQJgtzrEuPqbtakJ9HQO-HEKFm7FCZDR~0BqOkN2cw12UCYZB8JjLc6cev5oCwgs~lIXVGnyv4u9kNTS2hYeiSkqsO8~2wg7ydug__" alt="SG" class="game-image">
+        <span class="game-title">Stack</span>
+    </div>
+   </div>
+         
+        <div class="category">
+        <h2>Other Games</h2>
+        <div class="games-list">
+
+      <div class="game-box" onclick="window.open('https://main.d1rdn3sbri2gly.amplifyapp.com/', '_blank')">
+        <img src="https://media-hosting.imagekit.io/439c449307e9473a/unnamed.png?Expires=1841450126&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=XXvJ33NWepZ7FyOH-33gHpPCYPoYsYsfeKCO1dSKBPu-SlleJIRPKfwZSBIYRZ7qnAEAod9tjmN42~Ux0NjxjA5sch~nNVQ-fk9ic8WScXuQ9yPJ151vzXKo-hUP5GiP12ONM3GiR651XlZK67LPzVzVbusl7Zwn1qVu1SaxwNGA-42REJZsJuYAOBWjfOSKP448UdVvGU4zf2sYLMGBkc6rwrhVFIUOiZX80vozAGnm51mwwpaiSxamMS8~HHPO8tHDfcTJ-WQmq0UD7i-iB7JZwzTpJyoP8wOioyn4kCPIfGdhNcTIpRRT0MHJlRJ1zBRRgIVcuQ7u~wSoDG5Vtw__" alt="ST" class="game-image">
+        <span class="game-title">Sandtris</span> 
+      </div>
+        <div class="game-box" onclick="window.open('https://master.d1ejmjllxbp5m.amplifyapp.com/', '_blank')">
+        <img src="https://media-hosting.imagekit.io/412a5466a5cf4ebc/sand-painting-game-art-1.jpg?Expires=1841450357&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=rq4Fjw~~0gA-rGmsjKgzn-31v5BITfVqPvcWMZotEmmuCTb4f~he-HqciD-htErOPZ5yygH~8QtFAF2UbiRms6BU9hUaOjg4C2aUyUVqNHEUpraWWBnzWw3VEtgvtgBHPipR09O0-gL9s9G~DzmwdC6J6qp0s9WUWxAoQUtb34Vf8rk6ig02kRAb5izrmlzHOaZJSzu3-BAQ~L9g9y6rgsVdY3ZeeYiNnqpkYA4VUZj01Z1MYoGvKuPvn-l-MUbnmgXi1QrxbYzgYkLzi8kfxc8oRZgx8Uab2KRQw-hYPWAdZBbRKRvmgFd6Aql3jlosbXh1JMTH5D9kxp8rk5HmKA__" alt="SG" class="game-image">
+        <span class="game-title">Sand Game</span> 
+      <div class="game-box" onclick="window.open('https://main.d153n4lmii1y93.amplifyapp.com/', '_blank')">
+        <img src="https://play-lh.googleusercontent.com/pHHCQat6QfO9dJMrRLRAlP-v9y98iI9lDx2oJ_Y8jho9AJQafQezJJYgWxzfuY9QRaw" alt="PF" class="game-image">
+        <span class="game-title">Papa's Freezeria</span>
+      </div>
+      <div class="game-box" onclick="window.open('https://main.d2qnbq710qppk8.amplifyapp.com/', '_blank')">
+        <img src="https://play-lh.googleusercontent.com/mEp5D-8pPQsugTpQxtzTTQHVScVviCst65uRNrT1BdrajfkeIDHHAPlgTu8KSePI5lc" alt="PF" class="game-image">
+        <span class="game-title">Papa's Pizzaria</span>
+      </div>
+      <div class="game-box" onclick="window.open('https://main.d3eom33p6q1gtv.amplifyapp.com/', '_blank')">
+        <img src="https://media-hosting.imagekit.io//11f79142f1d14841/download.jpg?Expires=1837202434&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=rXzlrXEpwySVzvLPXhiDm3Bpq-lDpXuk4ugUpWgXzOVomAJD2KigX~iEs0HXlmU1ODGePRDYKn88tiYUyENGqcrP6G2XZZ3qNuPciGarT4QR8EqYCYPLDkfhcd-qv3nyvmYFmfjIHT5YYNxGPXwBEbbQEseFO5dbTL0BB09jf-i~YR6Yzq2weYjLTFmdvA7DxqMZjlGd4XLUE4oUqdqmh6jESXZq9WmBG6UK0QcZRjXNNRK7Xaam7FiboJ-QFzscpAuxBaETk0J7GKjgsJH717Iqi4UR6IpvuyTTZUeVPXfU1TDOPLl9FCAEkc8yE4BXR6Gv72SOX2jOmUTWp3tLHA__" alt="PI" class="game-image">
+        <span class="game-title">Paper.io</span>
+      </div>
+      <div class="game-box" onclick="window.open('https://main.d1umwuf5p8ffv9.amplifyapp.com/', '_blank')">
+        <img src="https://play-lh.googleusercontent.com/hcdEgtx4SM_0CjrLkpfFuiN5opTyCS2DR3FuSynZX83UOrqy0qUVk9WturEWFXYRkHM" alt="OSU" class="game-image">
+        <span class="game-title">Osu!</span>
+      </div>
+      <div class="game-box" onclick="window.open('https://main.dgf1fs256m4ce.amplifyapp.com/', '_blank')">
+        <img src="https://media-hosting.imagekit.io//a0eef92e83094ee1/76fc1b000203faf71b77a75b10022142.avif?Expires=1837202808&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=kJvqpXWDIMybe-5aXDxKmR35dAoARePC-HsNaTs8q5wEjz~VFsdHH3BlSNaTQyWWVX7ebd7b4XctaCorSMU~H4vx6Hm5LB-JELHcdGkSO~3BYRCmmNlPe-wRanZcgFPB8XRiTnKKyGLEZRY3TNgIMGmIxnLM97WK-pEtKxsOMIj2gbKnA1RiIXU-Su6lPUV-wFT5oj9JILXXsdGcFnKERNW3dsfpjUoGcA-aOEOAuFmVB78tdD0zCg1bS8J7fRHaXO~E3jpAU9CrlybG2wEp-Axzv7798r9GiXTX1RMgn0umjW6b0STmTyCDA2~DozpjW9BjN9pNdHlNFozVwcvAaQ__" alt="CR" class="game-image">
+        <span class="game-title">Crossy Road</span>
+      </div>
+      <div class="game-box" onclick="window.open('https://main.d2gccp0167oqk1.amplifyapp.com/', '_blank')">
+        <img src="https://media-hosting.imagekit.io//f7ee62a1460b4662/download.jpg?Expires=1837203166&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=uM41kwiqV1tdfPdnT3IkTmkhg4DO1SSZBqTP1dr9KZbYkiYBCP6r0z7NhpCpXw1mxAEh5NrWPqZayVWEIagVGd75ygP5o~f9oSpqW-wnnerxpMPcwsKguDGwKGj7UZaKsk1SK9r3ApduymZGHjzo8bBP~5XxU5fqnCJw7dtSAtxOSNLie6bgNgB4WJ9NdhXUy3NplwWRSzxlo~Al5zSrNuI7T7n4dAo3FYDEFJT1zr5Z~baCbOb9EgoI6PsomlCIGgIk3f6slYL3k3~rlJJ1q~ZqMHQheWowx4Xw7xJlDYq8QWw8FOkRzzp-qY5dtz~eZhzjBBn55U0g79J5RoU~9g__" alt="TS" class="game-image">
+        <span class="game-title">Tanuki Sunset</span>
+      </div>
+      <div class="game-box" onclick="window.open('https://main.dua4icv6iy7ln.amplifyapp.com/', '_blank')">
+        <img src="https://media-hosting.imagekit.io//ae2e86b6fa224a94/download.jpg?Expires=1837203319&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=vdCyx9WOCpHVywGoTROiQuSVlw1Z3uFh45fYXWyz6m0mgRD9swVjRg9Z70qlMKvVN311TFtghnVyQgzaQ3fvxERRNy449nGwV6BA4L6qGcXyej0ma~qu2az0S2HLZ8CwlnIj-1D~7RiTIDQAC-fjHvrnuxs4NFubGKvjaqYIZ8uFHdY5SDl6bzKoz7y4zBlD9ndcbp86XDZC5L~L~0YIwjF7gWyXaWyt2BYY1mosCawYPQKt0BAvaxmAOFJToNf8uqJygnnj8qc5RgpdrpuhAI9w7UtAnvJlhSJIR0dRiaIp~tuPLGT4c3m00da-QYgJsUC00NTU3rBORcbK4-R3xg__" alt="SS" class="game-image">
+        <span class="game-title">Subway Surfers</span>
+      </div>
+      <div class="game-box" onclick="window.open('https://main.do8f40wgboplg.amplifyapp.com/', '_blank')">
+        <img src="https://play-lh.googleusercontent.com/L8rCly8hMWuP95PbihDZlSV2u0oGrs0hl2lEXboO7XHX2XalJZ1rjgOsFYXnEDWbpQ" alt="ADO" class="game-image">
+        <span class="game-title">Adofai</span>
+      </div>
+      <div class="game-box" onclick="window.open('https://main.d2ldrtbpe9g9bw.amplifyapp.com/', '_blank')">
+        <img src="https://media-hosting.imagekit.io//eef3e10c50034f55/rocketpult.jpg?Expires=1837460086&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=AfMXLjlTAZrYrrCIcnbzPZzi-vO9Zx-LODdK0G4LjFd1TEZH8vep3OEZr-0FP-F4jceMFr3LkJE5dtFdGnv-fUvwoVP2Lm0Yb8VMfDa8q~bjOs177QZocljREwN0qo4qQCDvoljVhOmMFGmxNAy9OWucHsj7hv6zfqDvuP7bf0F4ed10d3u4YgCgpFh9yo5xjPKvB37bjGJRd5VAsLDF6Syk8HA~kiAhy4IpoBQhZCut9RV2FIsjT8mZQRf0tvzxX9~duvp9rOQdCRdgnYmQd2gkvPjO7qyBtBKssd0tEVWC2cHxzf4jftOLf9wYNCkzGe1O2r-PrLKbgYYcVbjdjQ__" alt="RP" class="game-image">
+        <span class="game-title">Rocket Pult</span>
+      </div>
+    </div>
+</div>
+
+
+<script>
+  const searchBar = document.getElementById('searchBar');
+  const searchResults = document.getElementById('searchResults');
+  const categories = document.querySelectorAll('.category');
+
+  function cloneGameBox(original) {
+    const box = document.createElement('div');
+    box.className = 'game-box';
+    box.onclick = () => {
+      const match = original.getAttribute('onclick').match(/'(.*?)'/);
+      if (match && match[1]) window.open(match[1], '_blank');
+    };
+
+    const img = document.createElement('img');
+    img.src = original.querySelector('img').src;
+    img.alt = original.querySelector('img').alt;
+    img.className = 'game-image';
+
+    const span = document.createElement('span');
+    span.className = 'game-title';
+    span.textContent = original.querySelector('.game-title').textContent;
+
+    box.appendChild(img);
+    box.appendChild(span);
+    return box;
+  }
+
+  function filterGames() {
+    const input = searchBar.value.toLowerCase();
+    searchResults.innerHTML = '';
+
+    if (input) {
+      searchResults.style.display = 'flex';
+      const seenUrls = new Set(); // Prevent duplicate URLs
+
+      categories.forEach(category => {
+        const heading = category.querySelector('h2');
+        const gamesList = category.querySelector('.games-list');
+        const games = category.querySelectorAll('.game-box');
+
+        heading.style.display = 'none';
+        gamesList.style.display = 'none';
+        category.style.display = 'none';
+
+        games.forEach(game => {
+          const title = game.querySelector('.game-title').textContent.toLowerCase();
+          const onclick = game.getAttribute('onclick');
+          const match = onclick.match(/'(.*?)'/);
+          const url = match ? match[1] : '';
+
+          if (title.includes(input) && !seenUrls.has(url)) {
+            const cleanCopy = cloneGameBox(game);
+            searchResults.appendChild(cleanCopy);
+            seenUrls.add(url);
+          }
+        });
+      });
+    } else {
+      searchResults.style.display = 'none';
+
+      categories.forEach(category => {
+        const heading = category.querySelector('h2');
+        const gamesList = category.querySelector('.games-list');
+        const games = category.querySelectorAll('.game-box');
+
+        heading.style.display = 'block';
+        gamesList.style.display = 'flex';
+        category.style.display = 'block';
+
+        games.forEach(game => {
+          game.style.display = 'flex';
+        });
+      });
+    }
+  }
+
+  searchBar.addEventListener('input', filterGames);
+
+  document.addEventListener("DOMContentLoaded", () => {
+    categories.forEach(category => {
+      const list = category.querySelector('.games-list');
+      const games = Array.from(list.querySelectorAll('.game-box'));
+
+      games.sort((a, b) => {
+        const titleA = a.querySelector('.game-title').textContent.toLowerCase();
+        const titleB = b.querySelector('.game-title').textContent.toLowerCase();
+        return titleA.localeCompare(titleB);
+      });
+
+      games.forEach(game => list.appendChild(game));
+    });
+  });
+</script>
+
+</body>
+</html>

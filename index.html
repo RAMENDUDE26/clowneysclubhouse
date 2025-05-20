@@ -1,9 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- Firebase SDKs (compat version for browsers) -->
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+
+    <link rel="icon" type="image/jpg" href="/images/fav1.jpg">
+  
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyDvMmZME5wJTIkQmykF_N3a_XR4WnTX9J4",
+    authDomain: "clowneys-clubhouse.firebaseapp.com",
+    projectId: "clowneys-clubhouse",
+    storageBucket: "clowneys-clubhouse.firebasestorage.app",
+    messagingSenderId: "163035792151",
+    appId: "1:163035792151:web:ac516d08ace878dd4fed52",
+    measurementId: "G-7ZJXQCBFM8"
+  };
+
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
+</script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>New Tab</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barriecito&display=swap" rel="stylesheet">
+
+  <link rel="icon" type="image/jpg" href="images/fav1.jpg">
   <style>
     body, html {
       margin: 0;
@@ -32,6 +59,9 @@
     }
     h1 {
       font-size: 3em;
+      font-family: "Barriecito", system-ui;
+      font-weight: 400;
+      font-style: normal;
       margin: 20px 0;
       padding: 10px 20px;
       border: 2px solid white;
@@ -120,119 +150,177 @@
       transform: scale(1.1);
       box-shadow: 0 0 15px rgba(24, 155, 204, 1);
     }
+    #terminalOverlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      color: lime;
+      font-family: monospace;
+      z-index: 3;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+    #terminalPrompt { font-size: 18px; line-height: 1; margin: 0; padding: 0; white-space: nowrap; }
+    .blinking-cursor {
+      display: inline-block;
+      vertical-align: bottom;
+      width: 8px;
+      height: 1em;
+      background-color: lime;
+      animation: blink 1s step-start infinite;
+    }
+    @keyframes blink {
+      50% { opacity: 0; }
+    }
+    #messageOverlay {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #222;
+      color: lime;
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-family: monospace;
+      font-size: 16px;
+      box-shadow: 0 0 10px lime;
+      z-index: 4;
+      display: none;
+    }
   </style>
 </head>
 <body>
   <canvas id="spaceCanvas"></canvas>
-
   <div class="content-container">
     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVJIaqRpihozuPozDD6Cs8z8fqhWCJ27CBUw&s" alt="Header Image" class="header-image" id="headerImage">
     <h1 id="heading">Clowney's Clubhouse</h1>
-    
     <div class="box-container">
-      <div class="button-box" id="gamesBox" onclick="window.open('https://main.d3eirhfx8o6tzs.amplifyapp.com/rizzyryan', '_blank')">
-        Games
-      </div>
-      <div class="button-box" id="searchEngineBox" onclick="openIframe()">
-        Clowney's Search Engine
-      </div>
-    </div>
-    
-    <a href="mailto:clowneysclubhouse@gmail.com" target="_blank" class="footer">
-      Made by Clowney!
-    </a>
-  </div>
+      <div class="button-box" id="gamesBox" onclick="window.location.href='https://main.d1u2bh5s4gefo6.amplifyapp.com/amplifylearning', '_blank'">Games</div>
 
+      <div class="button-box" id="gamesBox" onclick="window.open('https://docs.google.com/document/d/1ejoPLGbdz-cBhFkNrvJM_FxLvH5tRkg_ki3tGkUAN68/edit?usp=sharing')">Game Requests</div>
+
+    </div>
+    <a href="mailto:orummelt01@newaygo.net" target="_blank" class="footer">Email Clowney!</a>
+  </div>
   <div id="iframeContainer">
     <button class="close-btn" onclick="closeIframe()">Close</button>
-    <iframe src="https://325weddk.proll.pro/"></iframe>
+    <iframe src=""></iframe>
   </div>
-
+  <div id="terminalOverlay">
+    <div id="terminalPrompt"><span>/</span><span id="terminalInput"></span><span class="blinking-cursor" id="cursor"></span></div>
+  </div>
+  <div id="messageOverlay"></div>
   <script>
-    // Space-themed background
     const canvas = document.getElementById('spaceCanvas');
     const ctx = canvas.getContext('2d');
-
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
-
-    const starCount = 200;
     const stars = [];
-
-    function Star(x, y, size, opacity, velocity) {
-      this.x = x;
-      this.y = y;
-      this.size = size;
-      this.opacity = opacity;
-      this.velocity = velocity;
+    for (let i = 0; i < 200; i++) {
+      stars.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        size: Math.random() * 2,
+        opacity: Math.random(),
+        velocity: Math.random() * 0.5 + 0.1
+      });
     }
-
-    function createStars() {
-      for (let i = 0; i < starCount; i++) {
-        const x = Math.random() * canvas.width;
-        const y = Math.random() * canvas.height;
-        const size = Math.random() * 2;
-        const opacity = Math.random();
-        const velocity = Math.random() * 0.5 + 0.1;
-        stars.push(new Star(x, y, size, opacity, velocity));
-      }
-    }
-
-    function drawStars(mouseX, mouseY) {
+    let mouseX = canvas.width / 2;
+    let mouseY = canvas.height / 2;
+    function animate() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      stars.forEach(star => {
+      for (let star of stars) {
         ctx.beginPath();
         ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255, 255, 255, ${star.opacity})`;
+        ctx.fillStyle = `rgba(255,255,255,${star.opacity})`;
         ctx.fill();
-        
-        const dx = (canvas.width / 2 - mouseX) * star.velocity;
-        const dy = (canvas.height / 2 - mouseY) * star.velocity;
-        star.x += dx * 0.01;
-        star.y += dy * 0.01;
-
-        star.opacity += (Math.random() * 0.05 - 0.025);
-        if (star.opacity < 0) star.opacity = 0;
-        if (star.opacity > 1) star.opacity = 1;
-
+        star.x += (canvas.width / 2 - mouseX) * star.velocity * 0.01;
+        star.y += (canvas.height / 2 - mouseY) * star.velocity * 0.01;
         if (star.x > canvas.width) star.x = 0;
         if (star.x < 0) star.x = canvas.width;
         if (star.y > canvas.height) star.y = 0;
         if (star.y < 0) star.y = canvas.height;
-      });
-    }
-
-    let mouseX = canvas.width / 2;
-    let mouseY = canvas.height / 2;
-
-    function animate() {
-      drawStars(mouseX, mouseY);
+      }
       requestAnimationFrame(animate);
     }
-
-    createStars();
     animate();
-
     window.addEventListener('resize', () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
-      stars.length = 0;
-      createStars();
     });
-
     window.addEventListener('mousemove', (e) => {
       mouseX = e.clientX;
       mouseY = e.clientY;
     });
-
-    // Functions to handle iframe
     function openIframe() {
       document.getElementById('iframeContainer').style.display = 'block';
     }
-
     function closeIframe() {
       document.getElementById('iframeContainer').style.display = 'none';
     }
+    const terminalOverlay = document.getElementById("terminalOverlay");
+    const terminalInput = document.getElementById("terminalInput");
+    let commandBuffer = "";
+    const triggerCommand = "/01";
+    function openTerminal() {
+      terminalOverlay.style.display = "block";
+      terminalInput.textContent = "";
+    }
+    function closeTerminal() {
+      terminalOverlay.style.display = "none";
+      commandBuffer = "";
+    }
+    function showMessage(msg) {
+      const msgEl = document.getElementById("messageOverlay");
+      msgEl.textContent = msg;
+      msgEl.style.display = "block";
+      setTimeout(() => msgEl.style.display = "none", 3000);
+    }
+    document.addEventListener('keydown', function(e) {
+      const terminalOpen = terminalOverlay.style.display === "block";
+      if (!terminalOpen) {
+        if (e.key.length === 1) {
+          commandBuffer += e.key;
+        } else if (e.key === "Backspace") {
+          commandBuffer = commandBuffer.slice(0, -1);
+        }
+        if (commandBuffer === triggerCommand) {
+          openTerminal();
+          commandBuffer = "";
+        }
+        if (commandBuffer.length > triggerCommand.length) {
+          commandBuffer = "";
+        }
+      } else {
+        if (e.key === "Escape") {
+          closeTerminal();
+        } else if (e.key === "Backspace") {
+          terminalInput.textContent = terminalInput.textContent.slice(0, -1);
+        } else if (e.key === "Enter") {
+          const command = terminalInput.textContent.trim();
+          if (command === "exit" || command === "/exit") {
+            closeTerminal();
+          } else if (command === "beta") {
+            window.location.href = "https://main.d3eirhfx8o6tzs.amplifyapp.com/beta";
+          } else if (command.startsWith("/msg")) {
+            const msg = command.slice(5).trim();
+            if (msg) {
+              showMessage(`Message: ${msg}`);
+            } else {
+              showMessage("No message provided.");
+            }
+          }
+          terminalInput.textContent = "";
+          e.preventDefault();
+        } else if (e.key.length === 1) {
+          terminalInput.textContent += e.key;
+        }
+      }
+    });
   </script>
 </body>
 </html>
